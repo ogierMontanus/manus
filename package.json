@@ -1,0 +1,8 @@
+{
+  "name" : "andersen",
+  "version" : "1.0.0",
+  "description" : "Hans Christian Andersen",
+  "dependencies" : {
+    "@teipublisher/pb-components" : "1.14.0"
+  }
+}
