@@ -278,13 +278,13 @@ declare variable $config:context-path :=
 (:~
  : The root of the collection hierarchy containing data.
  :)
-declare variable $config:data-root :=$config:app-root || "/data";
+declare variable $config:data-root :='/db/apps/andersen-data/data/works';
 
 (:~
  : The root of the collection hierarchy whose files should be displayed
  : on the entry page. Can be different from $config:data-root.
  :)
-declare variable $config:data-default := $config:data-root;
+declare variable $config:data-default := $config:data-root ;
 
 (:~
  : A sequence of root elements which should be excluded from the list of
@@ -297,14 +297,14 @@ declare variable $config:data-exclude :=
 (:~
  : The main ODD to be used by default
  :)
-declare variable $config:default-odd :="andersen.odd";
+declare variable $config:default-odd :="teipublisher.odd";
 
 (:~
  : Complete list of ODD files used by the app. If you add another ODD to this list,
  : make sure to run modules/generate-pm-config.xql to update the main configuration
  : module for transformations (modules/pm-config.xql).
  :)
-declare variable $config:odd-available :=("andersen.odd");
+declare variable $config:odd-available :=("teipublisher.odd", "andersen.odd");
 
 (:~
  : List of ODD files which are used internally only, i.e. not for displaying information
