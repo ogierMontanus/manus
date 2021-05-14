@@ -278,13 +278,13 @@ declare variable $config:context-path :=
 (:~
  : The root of the collection hierarchy containing data.
  :)
-declare variable $config:data-root :='/db/apps/andersen-data/data/works';
+declare variable $config:data-root :='/db/apps/andersen-data/data';
 
 (:~
  : The root of the collection hierarchy whose files should be displayed
  : on the entry page. Can be different from $config:data-root.
  :)
-declare variable $config:data-default := $config:data-root ;
+declare variable $config:data-default := $config:data-root || '/works';
 
 (:~
  : A sequence of root elements which should be excluded from the list of
@@ -293,6 +293,8 @@ declare variable $config:data-default := $config:data-root ;
 declare variable $config:data-exclude :=
     doc($config:data-root || "/taxonomy.xml")/tei:TEI
 ;
+
+declare variable $config:data-articles :=$config:data-root || '/articles';
 
 (:~
  : The main ODD to be used by default
