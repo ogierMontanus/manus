@@ -15,6 +15,46 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 declare
     %templates:wrap
-function app:foo($node as node(), $model as map(*)) {
-    <p>Dummy templating function.</p>
+function app:info($node as node(), $model as map(*), $collection as xs:string) {
+    let $path := $config:data-articles || '/' || $collection || '/index.xml'
+    let $index := doc($path)
+    return
+    <p>
+        <pb-i18n key="browse.{$collection}.description">
+           {data($index//tei:abstract[@xml:lang='da'])}
+        </pb-i18n>
+    </p>
+};
+
+declare
+    %templates:wrap
+function app:visu($node as node(), $model as map(*), $collection as xs:string) {
+    <p>
+        <img src="../andersen-data/data/articles/{$collection}/chessboard.svg" />
+    </p>
+};
+
+declare
+    %templates:wrap
+    %templates:default("section", "dossier")
+
+function app:list($node as node(), $model as map(*), $section as xs:string, $collection as xs:string) {
+    let $path := $config:data-articles || '/' || $collection || '/index.xml'
+    let $index := doc($path)
+    let $items := $index//tei:list[tei:head[@n=$section]]/tei:item
+    return
+    <paper-card class="doclist" data-i18n="[heading]browse.{$section}" heading="{$section}">
+        <div>
+            <h2>{$collection}</h2>    
+            <ul>
+            {
+                for $d in $items 
+                    let $path := 'works/' || $collection || '/' || normalize-space($d)
+                    let $title := normalize-space(doc($config:data-root || '/' || $path)//tei:titleStmt/tei:title)
+                return 
+                    <li><a href="{$path}">{$title}</a></li>
+            }
+            </ul>
+        </div>
+    </paper-card>
 };

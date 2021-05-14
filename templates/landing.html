@@ -95,8 +95,12 @@
                 ;
             }
             
-            .panels .doclist .card-content {
+            .panels .doclist {
                 padding: 0;
+            }
+
+            .panels .doclist div {
+                padding: 10px;
             }
             
             .panels .doclist .browse {
@@ -106,36 +110,18 @@
                 padding: 0;
             }
             
-            #document-list {
-                flex: 2;
-                margin-right: 20px;
-            }
-            
-            .upload-panel {
+            .dossier {
                 flex: 1;
-                display: flex;
-                flex-direction: column;
-                min-width: 360px;
             }
-            
-            aside .upload {
-                --paper-card-header: {
-                    background-color: #607D8B;
-                }
-                ;
-                --paper-card-header-text: {
-                    font-family: "Oswald", Verdana, "Helvetica", sans-serif;
-                    font-size: 16px;
-                    font-weight: 400;
-                    color: white;
-                }
-                ;
+
+            .dossier paper-card {
+                padding: 10px;
             }
-            
-            aside .upload {
-                width: 100%;
+
+            aside {
+                flex: 1;
             }
-            
+
             .parent-link iron-icon {
                 padding-right: 4px;
             }
@@ -206,44 +192,6 @@
                 margin: 0;
             }
             
-            #facets {
-                flex: 0;
-                min-width: 220px;
-                margin-right: 20px;
-                background-color: #F0F0F0;
-                padding: 0 10px;
-            }
-            
-            #facets h3 {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-            }
-            
-            #facets h3 paper-checkbox {
-                margin-left: 16px;
-                font-size: 11px;
-            }
-            
-            #facets table {
-                font-size: 14px;
-            }
-            
-            #facets table table {
-                padding-left: 16px;
-                width: 100%;
-            }
-            
-            #facets table td {
-                padding: 4px 0;
-            }
-            
-            #facets table td:nth-child(2) {
-                color: #808080;
-                text-align: right;
-                padding-left: 1em;
-                vertical-align: middle;
-            }
         </style>
     </custom-style>
 </head>
@@ -265,15 +213,6 @@
                         <a href="${app}/index.html" class="logo" data-template="pages:parse-params"/>
                         <pb-media-query query="(min-width: 1024px)">
                             <a href="${app}/index.html" data-template="pages:parse-params">Start</a>
-                            
-                            <a href="${app}/articles/guide.xml" data-template="pages:parse-params">
-                                <pb-i18n key="browse.guide">Vejl</pb-i18n>
-                            </a>
-                            <a href="${app}/articles/about.xml" data-template="pages:parse-params">
-                                <pb-i18n key="browse.about">Om pilotprojektet og udgaven</pb-i18n>
-                            </a>
-                            <a href="mailto:nh@sdu.dk"><pb-i18n key="browse.contact">Kontakt</pb-i18n></a>
-                       
                             <pb-restricted login="login" group="tei">
                                 <paper-menu-button>
                                     <a href="#" slot="dropdown-trigger">
@@ -314,50 +253,21 @@
 
                 <main>
                     <section>
-                        <h1 class="tp-title">Hans Christian Andersens <i>Eventyr og Historier</i></h1>
-                        <h2>Den digitale manuskriptudgave</h2>
+                        <h1 class="tp-title">Hans Christian Andersens <i>Eventyr og Historier</i> — Den digitale manuskriptudgave</h1>
                     </section>
-                    <section class="panels">
-                        
-                        <div class="collection">
-    <p>
-        H.C. Andersen Centret ved Syddansk Universitet planlægger at udgive de håndskrevne forarbejder 
-        til H.C. Andersens samling af Eventyr og Historier. Der er bevaret manuskripter til hovedparten af 
-        de 156 klassiske værker, som Andersen udgav i sin levetid. Arbejdet på den digitale manuskriptudgave 
-        påbegyndes i november 2020.
-    </p>
-    <p>
-        Udgaven bygger videre på et pilotprojekt, der udgav forarbejderne til H.C. Andersens fortælling “Iisjomfruen” 
-        fra 1861.
-    </p>
-    <ul class="documents">
-        <li class="document">
-            <div class="thumbnail"><img src="resources/images/havfrue.png" width="128"/></div>
-            <div class="document-info">
-                <h3><a href="landing.html?collection=den-lille-havfrue"><pb-i18n key="browse.havfrue.title">Den lille havfrue</pb-i18n></a></h3>
-                <p><pb-i18n key="browse.havfrue.description">Den lille havfrue</pb-i18n></p>
-            </div>
-        </li><li class="document">
-            <div class="thumbnail"><img src="resources/images/iisjomfruen.png" width="128"/></div>
-            <div class="document-info">
-                <h3><a href="landing.html?collection=iisjomfruen"><pb-i18n key="browse.iisjomfruen.title">Iisjomfruen / Ice Maiden</pb-i18n></a></h3>
-                <p><pb-i18n key="browse.iisjomfruen.description">“Iisjomfruen” fra 1861 er et schweizisk trekantsdrama med jægeren Rudy, møllerens datter Babette og gletscherens isjomfru i hovedrollerne. Dette er ikke alene den længste og mest komplekse del i H.C. Andersens samling af Eventyr og Historier. De bevarede manuskripter er også de mest komplicerede i Andersens forfatterarkiv med talrige tilføjelser, ind- og overklæbninger. Diagrammet nedenfor sammenfatter værkets tilblivelse. Den er uddybet i artiklen om tilblivelseshistorien . Førstetrykket og de seks forudgående lag kan nærstuderes ved at klikke dem frem i oversigten til venstre. Hvert af de bevarede manuskripter gennemgås i manuskriptbeskrivelsen .</pb-i18n></p>
-            </div>
-        </li>
-        <li class="document">
-            <div class="thumbnail"><img src="resources/images/hyrdinden.jpeg" width="128"/></div>
-            <div class="document-info">
-                <h3><a href="landing.html?collection=hyrdinden-og-skorsteensfeieren"><pb-i18n key="browse.hyrdinden.title">Hyrdinden og Skorsteensfeieren</pb-i18n></a></h3>
-                <p><pb-i18n key="browse.hyrdinden.description">Hyrdinden og Skorsteensfeieren</pb-i18n></p>
-            </div>
-        </li>
-    </ul>
-</div>
+                    <section class="panels">               
+                        <div class="dossier">
+                            <div class="browse" data-template="app:list" data-section="dossier"/>
+                        </div>
+                        <aside>
+                            <div data-template="app:info"/>
+                            <div data-template="app:visu"/>
+                        </aside>          
                     </section>
                 </main>
                 <footer class="version">
-                   
-                    App: v<span data-template="pages:version"/> 
+                    App: v<span data-template="pages:version"/> /
+                    web components: v<pb-version/>
                 </footer>
             </app-header-layout>
         </app-drawer-layout>
