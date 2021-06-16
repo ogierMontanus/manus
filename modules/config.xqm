@@ -26,7 +26,7 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
  : If a version is given, the components will be loaded from a public CDN.
  : This is recommended unless you develop your own components.
  :)
-declare variable $config:webcomponents :="1.14.0";
+declare variable $config:webcomponents :="1.20.0";
 
 (:~
  : CDN URL to use for loading webcomponents. Could be changed if you created your
@@ -299,7 +299,7 @@ declare variable $config:data-articles :=$config:data-root || '/articles';
 (:~
  : The main ODD to be used by default
  :)
-declare variable $config:default-odd :="teipublisher.odd";
+declare variable $config:default-odd :="andersen.odd";
 
 (:~
  : Complete list of ODD files used by the app. If you add another ODD to this list,
