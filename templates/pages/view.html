@@ -16,41 +16,9 @@
         <link rel="stylesheet" type="text/css" href="resources/fonts/font.css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald&amp;display=swap"/>
         <link rel="stylesheet" href="resources/css/theme.css"/>
+        <link rel="stylesheet" href="resources/css/andersen.css"/>
+
         <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
-        <style>
-            @media (min-width: 769px) {
-                .toolbar pb-navigation {
-                    display: none;
-                }
-            }
-
-            .content-body {
-                position: relative;
-                display: flex;
-                justify-content: center;
-            }
-
-            .content-body pb-navigation {
-                position: fixed;
-                bottom: 45%;
-                --paper-fab-background: #35424b;
-                color: white;
-            }
-
-            .content-body pb-navigation[direction=backward] {
-                left: 20px;
-            }
-
-            .content-body pb-navigation[direction=forward] {
-                right: 20px;
-            }
-
-            @media (max-width: 769px) {
-                .content-body pb-navigation {
-                    display: none;
-                }
-            }
-        </style>
     </head>
 
     <body>
@@ -80,17 +48,62 @@
                         </pb-view>
                     </section>
                     <main class="content-body">
-                        <pb-navigation direction="backward" unit="page" emit="transcription" subscribe="transcription">
-                            <paper-fab icon="icons:chevron-left"/>
-                        </pb-navigation>
                         <pb-view id="view1" src="document1" column-separator=".tei-cb" append-footnotes="append-footnotes" subscribe="transcription" emit="transcription"/>
-                        <pb-navigation direction="forward" unit="page" emit="transcription" subscribe="transcription">
-                            <paper-fab icon="icons:chevron-right"/>
-                        </pb-navigation>
                     </main>
                 </app-header-layout>
             </app-drawer-layout>
         </pb-page>
         <div class="splash"/>
+        <script>
+         
+        
+        
+         function extractTemplates(chunk, root, col) {
+             const floats = chunk.querySelectorAll(`.layer-link`);
+             floats.forEach((marker) => {
+                 const block = root.querySelector(marker.hash);
+                 const newBlock = document.createElement('div');
+                 const rect = marker.getBoundingClientRect();
+                 newBlock.className = 'container';
+                 newBlock.style.position = 'absolute';
+                 newBlock.style.top = `${rect.top}px`;
+                 newBlock.innerHTML = block.innerHTML;
+                 const column = root.querySelector(`.col${col}`);
+                 column.appendChild(newBlock);
+                 extractTemplates(newBlock, root, col + 1);
+             });
+         }
+ 
+          function addButtons(floats) {
+            console.log('float count, %d', floats.length);
+            
+            floats.forEach(float => {
+                   float.addEventListener('mouseenter', () => {
+                          console.log('enter %o', float);                       
+                            float.style.zIndex = 1;
+                            float.style.backgroundColor = 'white';
+                            float.style.borderColor = '#bbfbfc'; 
+                            float.style.borderWidth = '2px';
+                     });
+                     float.addEventListener('mouseleave', () => {
+                          console.log('leave %o', float);                   
+                            float.style.zIndex = 0;
+                            float.style.backgroundColor = '';
+                            float.style.borderColor = '#000000';
+                            float.style.borderWidth = '2px';
+                     });
+            });      
+          };
+    
+        window.addEventListener('load', () => {
+            pbEvents.subscribe('pb-update', ['transcription'], (ev) => {
+                    console.log(ev.detail); // should include foo: 'baz'
+                    const root = ev.detail.root.querySelector('#body');
+                    extractTemplates(root, ev.detail.root, 1);
+                    addButtons(ev.detail.root.querySelectorAll(`.container`));
+            }, false);         
+        });
+     </script>
+ 
     </body>
 </html>
