@@ -184,13 +184,12 @@ declare function pages:process-content($xml as node()*, $root as node()*, $confi
     return
 
         <div class="{$config:css-content-class} {$class}">
-            <div>
+            <div id="body">
             {
                 $body,
                 if ($footnotes) then
                     nav:output-footnotes($footnotes)
-                else if ($layers) then 
-                    nav:output-layers($layers)
+                
 
                 else
                     ()
@@ -198,6 +197,12 @@ declare function pages:process-content($xml as node()*, $root as node()*, $confi
                 $html//paper-tooltip
             }
             </div>
+            {
+                if ($layers) then 
+                    nav:output-layers($layers)
+                else
+                    ()
+            }
             <!-- slots for 2nd and 3rd layer content-->
             <div class="col1"></div>
             <div class="col2"></div>
