@@ -168,6 +168,12 @@ declare function pages:process-content($xml as node()*, $root as node()*, $confi
 	let $html := $pm-config:web-transform($xml, $params, $config?odd)
     let $class := if ($html//*[@class = ('margin-note')]) then "margin-right" else ()
     let $body := pages:clean-footnotes($html)
+    let $layers := for $fn in $html//*[@class = "layer"]
+        return
+            element { node-name($fn) } {
+                $fn/@*,
+                pages:clean-footnotes($fn/node())
+            }
     let $footnotes := 
         for $fn in $html//*[@class = "footnote"]
         return
@@ -181,6 +187,9 @@ declare function pages:process-content($xml as node()*, $root as node()*, $confi
             $body,
             if ($footnotes) then
                 nav:output-footnotes($footnotes)
+            else if ($layers) then 
+                nav:output-layers($layers)
+
             else
                 ()
             ,
@@ -197,6 +206,8 @@ declare function pages:clean-footnotes($nodes as node()*) {
 		        ()
             case element() return
                 if ($node/@class = "footnote") then
+                    ()
+                else if ($node/@class = "layer") then
                     ()
                 else
                     element { node-name($node) } {
