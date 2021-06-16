@@ -81,7 +81,7 @@ declare variable $config:search-default :="tei:div";
  : $pagination-depth to 3 to not show the sub-subsections as separate pages.
  : Setting $pagination-depth to 1 would show entire top-level divs on one page.
  :)
-declare variable $config:pagination-depth := 10;
+declare variable $config:pagination-depth := 1;
 
 (:
  : If a div starts with less than $pagination-fill elements before the
@@ -89,7 +89,7 @@ declare variable $config:pagination-depth := 10;
  : up the page by pulling following divs in. When set to 0, it will never
  : attempt to fill up the page.
  :)
-declare variable $config:pagination-fill := 5;
+declare variable $config:pagination-fill := 0;
 
 (:
  : Display configuration for facets to be shown in the sidebar. The facets themselves
