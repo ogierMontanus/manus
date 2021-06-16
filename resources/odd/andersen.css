@@ -1,6 +1,7 @@
 .content {
     display: grid;
-    grid-template-columns: 33% 33% 1fr;
+    grid-template-columns: 1fr 33% 20%;
+    grid-column-gap: 10px;
 }
 
 .col1,
