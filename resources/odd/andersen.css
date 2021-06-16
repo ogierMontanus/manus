@@ -1,0 +1,33 @@
+.content {
+    display: grid;
+    grid-template-columns: 33% 33% 1fr;
+}
+
+.col1,
+.col2 {
+    position: relative
+}
+.layers {
+    display: none;
+}
+
+.container2 {
+color: rgba(0, 0, 0, 0.5);
+}
+
+.layer {
+    display: inline-block;
+    background-color: #bbfbfc;
+    
+}
+.container {
+    border: 1px solid #808080;
+    padding-left: 30px;
+}
+
+.container-button {
+   display: inline-block;
+   margin-top: 0px;
+   margin-left: -30px;
+   background-color: #bbfbfc;
+}

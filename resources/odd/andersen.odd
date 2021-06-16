@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="teipublisher_odds.xsd"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:pb="http://teipublisher.com/1.0" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
@@ -28,13 +27,61 @@
                 <p>born digital</p>
             </sourceDesc>
         </fileDesc>
+        <encodingDesc>
+            <tagsDecl>
+                <rendition source="andersen.css"/>
+            </tagsDecl>
+        </encodingDesc>
         <revisionDesc>
             <change when="2021-05-11+02:00">Initial version</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
-            <schemaSpec start="TEI teiCorpus" source="teipublisher.odd" ident="andersen"> </schemaSpec>
+            <schemaSpec start="TEI teiCorpus" ident="andersen" source="teipublisher.odd"> <elementSpec ident="pb" mode="change">
+                    <modelSequence>
+            <model behaviour="inline">
+                <param name="content" value="(if (@ed='A') then () else @ed/string() || ' ', @n)"/>
+                <outputRendition xml:space="preserve" scope="before">
+                content: '| [';
+                </outputRendition>
+                <outputRendition xml:space="preserve" scope="after">
+                content: ']';
+                </outputRendition>
+            </model>
+            <model predicate="@facs" behaviour="webcomponent">
+                <param name="name" value="'pb-facs-link'"/>
+                <param name="facs" value="@facs"/>
+            </model>
+        </modelSequence>
+                    <model behaviour="break" useSourceRendition="true">
+            <param name="type" value="'page'"/>
+            <param name="label" value="(concat(if(@n) then concat(@n,' ') else '',if(@facs) then                   concat('@',@facs) else ''))"/>
+            <outputRendition xml:space="preserve">
+            display: block; margin-left: 4pt; color: grey; float: right;
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="before">
+            content: '[Page ';
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content: ']';
+            </outputRendition>
+        </model>
+                </elementSpec>
+                <elementSpec ident="floatingText" mode="change">
+                    <modelSequence>
+            <model behaviour="link" cssClass="layer-link">
+                <param name="content" value="'l' || translate(util:node-id(.), '.', '_')"/>
+                <param name="uri" value="'#l' || translate(util:node-id(.), '.', '_')"/>
+            </model>
+            <model behaviour="block">
+                <param name="body" value="body"/>
+                <param name="id" value="'l' || translate(util:node-id(.), '.', '_')"/>
+                <pb:template xmlns="" xml:space="preserve"><div class="layer" id="[[id]]">[[id]] [[body]]</div></pb:template>
+            </model>
+        </modelSequence>
+                </elementSpec>
+            </schemaSpec>
         </body>
     </text>
 </TEI>
