@@ -40,6 +40,30 @@
         <body>
             <schemaSpec start="TEI teiCorpus" ident="andersen" source="teipublisher.odd"> <elementSpec ident="pb" mode="change">
                     <modelSequence>
+            <model predicate="$parameters?mode='facsimile'" behaviour="inline">
+                <param name="facs" value="@facs"/>
+                <param name="label" value="@n"/>
+                <pb:template xmlns="" xml:space="preserve"><pb-popover persistent="persistent">
+  <paper-icon-button icon="icons:perm-media"/>
+  <span slot="alternate">
+    <b><pb-facs-link facs="[[facs]]" emit="transcription">[[label]]</pb-facs-link></b>
+
+     Filename: <span id="status">[[facs]]</span>
+  </span>
+</pb-popover></pb:template>
+            </model>
+            <model predicate="not($parameters?mode='facsimile')" behaviour="inline">
+                <param name="label" value="@n"/>
+                <param name="facs" value="@facs"/>
+                <pb:template xmlns="" xml:space="preserve"><pb-popover>
+  <paper-icon-button icon="icons:perm-media"/>
+  <span slot="alternate">
+    <b>[[label]]</b>
+    <br/>
+     Filename: [[facs]]
+  </span>
+</pb-popover></pb:template>
+            </model>
             <model behaviour="inline">
                 <param name="content" value="(if (@ed='A') then () else @ed/string() || ' ', @n)"/>
                 <outputRendition xml:space="preserve" scope="before">
@@ -71,15 +95,42 @@
                 <elementSpec ident="floatingText" mode="change">
                     <modelSequence>
             <model behaviour="link" cssClass="layer-link">
-                <param name="content" value="'l' || translate(util:node-id(.), '.', '_')"/>
+                <param name="alternate" value="'l' || translate(util:node-id(.), '.', '_')"/>
                 <param name="uri" value="'#l' || translate(util:node-id(.), '.', '_')"/>
+                <pb:template xmlns="" xml:space="preserve"><pb-popover><paper-icon-button icon="icons:chrome-reader-mode"/><span slot="alternate">[[alternate]]</span></pb-popover></pb:template>
             </model>
-            <model behaviour="block">
+            <model behaviour="inline">
                 <param name="body" value="body"/>
                 <param name="id" value="'l' || translate(util:node-id(.), '.', '_')"/>
                 <pb:template xmlns="" xml:space="preserve"><div class="layer" id="[[id]]">[[id]] [[body]]</div></pb:template>
             </model>
         </modelSequence>
+                </elementSpec>
+            <elementSpec ident="milestone" mode="change">
+                    <model predicate="$parameters?mode='facsimile' and @unit = &#34;layer&#34;" behaviour="inline">
+            <param name="label" value="@n"/>
+            <param name="facs" value="@facs"/>
+            <pb:template xmlns="" xml:space="preserve"><pb-popover persistent="persistent">
+  <paper-icon-button icon="icons:perm-media"/>
+  <span slot="alternate">
+    <b><pb-facs-link facs="[[facs]]" emit="transcription">[[label]]</pb-facs-link></b>
+    <br/>
+     Filename: [[facs]]
+  </span>
+</pb-popover></pb:template>
+        </model>
+                    <model behaviour="inline">
+            <param name="label" value="@n"/>
+            <param name="facs" value="@facs"/>
+            <pb:template xmlns="" xml:space="preserve"><pb-popover>
+  <paper-icon-button icon="icons:perm-media"/>
+  <span slot="alternate">
+    <b>[[label]]</b>
+    <br/>
+     Filename: [[facs]]
+  </span>
+</pb-popover></pb:template>
+        </model>
                 </elementSpec>
             </schemaSpec>
         </body>
