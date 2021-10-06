@@ -25,6 +25,25 @@
         }
     },
     "paths": {
+        "/collection/index": {
+            "get": {
+                "summary": "Get list of works for this service",
+                "operationId": "app:index",
+                "tags": [ "collection" ],
+                "responses": {
+                    "200":{
+                        "description": "List of works",
+                        "content": {
+                            "application/json":{
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     },
     "security": [
         {

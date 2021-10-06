@@ -375,30 +375,14 @@
     </p>
 </div>
 
-<zing-grid caption="Eventyr" search="search" pager="pager" page-size="10" lang="custom" layout-controls="layout-controls" >
-    <zg-data data='[
-    {"name": "Den lille Havfrue", 
-        "author": "Andersen", 
-        "en": "The Little Mermaid", "year": "1877", 
-        "image": "resources/images/havfrue.png", 
-        "link": "landing.html?collection=hyrdinden-og-skorsteensfeieren"}, 
-    {"name": "Iisjomfruen", 
-        "author": "Andersen", 
-        "en": "Ice Maiden", "year": "1877", 
-        "image": "resources/images/iisjomfruen.png", 
-        "desc": "“Iisjomfruen” fra 1861 er et schweizisk trekantsdrama med jægeren Rudy, møllerens datter Babette og gletscherens isjomfru i hovedrollerne. Dette er ikke alene den længste og mest komplekse del i H.C. Andersens samling af Eventyr og Historier. De bevarede manuskripter er også de mest komplicerede i Andersens forfatterarkiv med talrige tilføjelser, ind- og overklæbninger. Diagrammet nedenfor sammenfatter værkets tilblivelse. Den er uddybet i artiklen om tilblivelseshistorien . Førstetrykket og de seks forudgående lag kan nærstuderes ved at klikke dem frem i oversigten til venstre. Hvert af de bevarede manuskripter gennemgås i manuskriptbeskrivelsen.",
-        "link": "landing.html?collection=iisjomfruen"
-    }, 
-    {"name": "Hyrdinden og Skorsteensfeieren", 
-        "author": "Andersen", 
-        "en": "The shepherdess and the sweep", "year": "1877", 
-        "image": "resources/images/hyrdinden.jpeg", 
-        "link": "landing.html?collection=hyrdinden-og-skorsteensfeieren"} 
-    ]'></zg-data>
+<zing-grid caption="Eventyr" search="search" pager="pager" page-size="10" lang="custom" layout-controls="layout-controls" src="http://localhost:8080/exist/apps/andersen/collection/index">
+   
     <zg-colgroup>
       <zg-column index="name"></zg-column>
+      <zg-column index="date"></zg-column>
       <zg-column index="desc"></zg-column>
-      <zg-column type="image" index="image" search="disabled" width="300px"></zg-column>
+<!--
+      <zg-column type="image" index="image" search="disabled" width="300px"></zg-column>-->
     </zg-colgroup>
   </zing-grid>
 </div>
@@ -487,8 +471,6 @@ window.addEventListener('load', () => {
   searchGrid.addEventListener('change', _searchGrid);
   searchGrid.addEventListener('search', _searchGrid);
   
-    ZingGrid.setLanguage(myLang, 'dk');
-
 });
 
 

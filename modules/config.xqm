@@ -295,6 +295,7 @@ declare variable $config:data-exclude :=
 ;
 
 declare variable $config:data-articles :=$config:data-root || '/articles';
+declare variable $config:index := $config:data-root || '/index.xml';
 
 (:~
  : The main ODD to be used by default

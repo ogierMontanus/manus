@@ -58,3 +58,17 @@ function app:list($node as node(), $model as map(*), $section as xs:string, $col
         </div>
     </paper-card>
 };
+
+declare
+function app:index($request as map(*)) {
+    let $index := doc($config:index)
+    
+    
+        for $i in $index//tei:item return
+        map {
+            "name": $i/tei:title/string(), 
+            "date": $i/tei:date/string(),
+            "desc": $i/tei:desc/string()
+            }
+    
+};
