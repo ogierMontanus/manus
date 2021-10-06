@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title data-template="config:app-title"/>
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes"/>
+    <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+    <link rel="shortcut icon" type="image/png" href="resources/images/favicon-16.png" sizes="16x16"/>
+    <link rel="shortcut icon" type="image/png" href="resources/images/favicon-24.png" sizes="24x24"/>
+    <link rel="shortcut icon" type="image/png" href="resources/images/favicon-32.png" sizes="32x32"/>
+    <link rel="shortcut icon" type="image/png" href="resources/images/favicon-64.png" sizes="64x64"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald"/>
+    <link rel="stylesheet" href="resources/css/theme.css"/>
+    <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
+    <custom-style>
+        <style>
+            main {
+                margin: 0 20px 0 20px;
+            }
+            
+            @media (max-width: 1023px) {
+                main {
+                    margin: 0 8px 0 8px;
+                }
+                .doclist {
+                    margin-bottom: 20px;
+                }
+                .documents {
+                    padding-left: 10px;
+                }
+                .documents .label {
+                    display: none;
+                }
+                .toolbar pb-search {
+                    padding-left: 0;
+                }
+                #facets {
+                    display: none;
+                }
+            }
+            
+            .tp-title {
+                font-family: "Oswald", Verdana, "Helvetica", sans-serif;
+                font-size: 36px;
+                font-weight: 400;
+            }
+            
+            .tp-title span {
+                color: #9e9e9e;
+                font-size: 26px;
+                margin-top: 12px;
+            }
+            
+            pb-results {
+                overflow: scroll;
+                margin: 0 20px;
+                height: calc(100vh - 128px);
+            }
+            
+            @media (min-width: 1024px) {
+                .toolbar {
+                    display: none;
+                }
+                .panels {
+                    display: flex;
+                    flex-direction: row;
+                }
+                .panels .doclist {
+                    flex: 2 auto;
+                    margin-right: 20px;
+                }
+            }
+            
+            .panels {
+                margin-bottom: 40px;
+            }
+            
+            .panels .doclist {
+                --paper-tabs-selection-bar-color: #607D8B;
+                --paper-tab-content: {
+                    font-family: "Oswald", Verdana, "Helvetica", sans-serif;
+                    font-weight: 400;
+                }
+                ;
+                --paper-card-header: {
+                    background-color: #d1dae0;
+                }
+                ;
+                --paper-card-header-text: {
+                    font-family: "Oswald", Verdana, "Helvetica", sans-serif;
+                    font-size: 16px;
+                    font-weight: 400;
+                }
+                ;
+            }
+            
+            .panels .doclist .card-content {
+                padding: 0;
+            }
+            
+            .panels .doclist .browse {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 0;
+            }
+            
+            #document-list {
+                flex: 2;
+                margin-right: 20px;
+            }
+            
+            .upload-panel {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                min-width: 360px;
+            }
+            
+            aside .upload {
+                --paper-card-header: {
+                    background-color: #607D8B;
+                }
+                ;
+                --paper-card-header-text: {
+                    font-family: "Oswald", Verdana, "Helvetica", sans-serif;
+                    font-size: 16px;
+                    font-weight: 400;
+                    color: white;
+                }
+                ;
+            }
+            
+            aside .upload {
+                width: 100%;
+            }
+            
+            .parent-link iron-icon {
+                padding-right: 4px;
+            }
+
+            .parent-link {
+                display: block;
+                margin-bottom: 10px;
+                margin-top: 16px;
+                padding: 6px 0;
+                border-bottom: thin solid var(--paper-grey-300);
+            }
+
+            .documents ul {
+                list-style: none;
+            }
+            
+            .documents app-toolbar {
+                @apply --layout-start-justified;
+                font-size: 14px;
+                margin-top: 10px;
+                padding-left: 0;
+            }
+            
+            .documents div {
+                margin: 0;
+            }
+            
+            .documents .error {
+                color: #c02020;
+            }
+            
+            .documents a,
+            .documents a:visited {
+                color: #303F9F;
+                text-decoration: none;
+            }
+            
+            .documents li {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 10px;
+                padding: 6px 0;
+                border-bottom: thin solid var(--paper-grey-300);
+            }
+            
+            .documents li:last-child {
+                border: none;
+            }
+            
+            .documents .document-select {
+                flex: 0 0;
+                margin-right: 20px;
+            }
+            
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                font-family: "Oswald", Verdana, "Helvetica", sans-serif;
+                font-weight: 400 !important;
+                line-height: 1.2;
+            }
+            
+            h5 {
+                font-size: 16px;
+                margin: 0;
+            }
+            
+            #facets {
+                flex: 0;
+                min-width: 220px;
+                margin-right: 20px;
+                background-color: #F0F0F0;
+                padding: 0 10px;
+            }
+            
+            #facets h3 {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            #facets h3 paper-checkbox {
+                margin-left: 16px;
+                font-size: 11px;
+            }
+            
+            #facets table {
+                font-size: 14px;
+            }
+            
+            #facets table table {
+                padding-left: 16px;
+                width: 100%;
+            }
+            
+            #facets table td {
+                padding: 4px 0;
+            }
+            
+            #facets table td:nth-child(2) {
+                color: #808080;
+                text-align: right;
+                padding-left: 1em;
+                vertical-align: middle;
+            }
+        </style>
+    </custom-style>
+    <script nonce="undefined">
+    var myLang = {
+      lang: 'custom',
+      pagination: {
+        page: 'Side',
+        pageOf: 'af',
+        rows: 'Rækker',
+      },
+      tools: {
+        search: 'Search',
+        selected: 'custom-%v Item%p Selected',
+      },
+      tooltip: {
+        layoutCard: 'Kort Layout',
+        layoutRow: 'Række Layout',
+        recordCreate: 'Insert Record',
+        reload: 'Genindlæse',
+        editrecord: 'Edit Record',
+        firstpage: 'Gå til første side',
+        fixedmenu: 'Open Menu',
+        lastpage: 'Gå til sidste side',
+        menu: 'Open Column Menu',
+        nextpage: 'Gå til næste side', 
+        prevpage: 'Gå til forrige side',
+        removerecord: 'Remove Record',
+        search: 'Åbn søgning',
+      },
+      watermark: {
+        poweredBy: '<strong>ZingGrid</strong>',
+      },
+    };
+  </script>
+ 
+  <script nonce="undefined" src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
+  <script nonce="undefined">
+    ZingGrid.registerLanguage(myLang, 'custom');
+  </script>
+  <style>
+    zing-grid[loading] {
+      height: 703px;
+    }
+  </style>
+
+</head>
+
+<body>
+    <pb-page data-template="pages:pb-page" unresolved="unresolved">
+        <app-drawer-layout force-narrow="force-narrow">
+            <app-drawer slot="drawer" align="right">
+                <div class="drawer-content">
+                    <pb-media-query query="(max-width: 1023px)">
+                            <!-- language selector -->
+                            <pb-lang name="lang" data-template="pages:languages"/>
+                        </pb-media-query>
+                    </div>
+                </app-drawer>
+                <app-header-layout>
+                <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall">
+                    <app-toolbar class="menubar">
+                        <a href="${app}/index.html" class="logo" data-template="pages:parse-params"/>
+                        <pb-media-query query="(min-width: 1024px)">
+                            <a href="${app}/index.html" data-template="pages:parse-params">Start</a>
+                            
+                            <a href="${app}/articles/guide.xml" data-template="pages:parse-params">
+                                <pb-i18n key="browse.guide">Vejl</pb-i18n>
+                            </a>
+                            <a href="${app}/articles/about.xml" data-template="pages:parse-params">
+                                <pb-i18n key="browse.about">Om pilotprojektet og udgaven</pb-i18n>
+                            </a>
+                            <a href="mailto:nh@sdu.dk"><pb-i18n key="browse.contact">Kontakt</pb-i18n></a>
+                       
+                            <pb-restricted login="login" group="tei">
+                                <paper-menu-button>
+                                    <a href="#" slot="dropdown-trigger">
+                                        <pb-i18n key="menu.admin.title">Admin</pb-i18n>
+                                    </a>
+                                    <paper-listbox slot="dropdown-content">
+                                        <paper-item>
+                                            <pb-download url="api/apps/download">
+                                                <pb-i18n key="appgen.xar-download">Download App as .xar</pb-i18n>
+                                            </pb-download>
+                                        </paper-item>
+                                        <paper-item data-template="pages:edit-odd-list"/>
+                                        <paper-item>
+                                            <a href="${app}/api.html" data-template="pages:parse-params" target="_blank">API Documentation</a>
+                                        </paper-item>
+                                    </paper-listbox>
+                                </paper-menu-button>
+                            </pb-restricted>
+                            <!-- Search input -->
+                            <pb-search action="${app}/search.html" data-template="pages:parse-params" value="${query}" redirect="redirect"/>
+
+                            <!-- language selector -->
+                            <pb-lang name="lang" data-template="pages:languages"/>
+                        </pb-media-query>
+                        <pb-login id="login" group="tei">
+                            <iron-icon slot="icon" icon="account-circle"/>
+                        </pb-login>
+                        <pb-progress indeterminate="indeterminate" bottom-item="bottom-item" subscribe="docs"/>
+                    </app-toolbar>
+                    <pb-media-query query="(max-width: 1023px)">
+                        <app-toolbar class="toolbar" sticky="sticky">
+                            <!-- Search input -->
+                            <pb-search action="${app}/search.html" data-template="pages:parse-params" value="${query}" redirect="redirect"/>
+                            <paper-icon-button icon="icons:menu" drawer-toggle="drawer-toggle"/>
+                        </app-toolbar>
+                    </pb-media-query>
+                </app-header>
+
+                <main>
+                    <section>
+                        <h1 class="tp-title">Hans Christian Andersens <i>Eventyr og Historier</i></h1>
+                        <h2>Den digitale manuskriptudgave</h2>
+                    </section>
+                    <section class="panels">
+                        <div>
+                        <div class="collection">
+    <p>
+        H.C. Andersen Centret ved Syddansk Universitet planlægger at udgive de håndskrevne forarbejder 
+        til H.C. Andersens samling af Eventyr og Historier. Der er bevaret manuskripter til hovedparten af 
+        de 156 klassiske værker, som Andersen udgav i sin levetid. Arbejdet på den digitale manuskriptudgave 
+        påbegyndes i november 2020.
+    </p>
+    <p>
+        Udgaven bygger videre på et pilotprojekt, der udgav forarbejderne til H.C. Andersens fortælling “Iisjomfruen” 
+        fra 1861.
+    </p>
+</div>
+
+<zing-grid caption="Eventyr" search="search" pager="pager" page-size="10" lang="custom" layout-controls="layout-controls" >
+    <zg-data data='[
+    {"name": "Den lille Havfrue", 
+        "author": "Andersen", 
+        "en": "The Little Mermaid", "year": "1877", 
+        "image": "resources/images/havfrue.png", 
+        "link": "landing.html?collection=hyrdinden-og-skorsteensfeieren"}, 
+    {"name": "Iisjomfruen", 
+        "author": "Andersen", 
+        "en": "Ice Maiden", "year": "1877", 
+        "image": "resources/images/iisjomfruen.png", 
+        "desc": "“Iisjomfruen” fra 1861 er et schweizisk trekantsdrama med jægeren Rudy, møllerens datter Babette og gletscherens isjomfru i hovedrollerne. Dette er ikke alene den længste og mest komplekse del i H.C. Andersens samling af Eventyr og Historier. De bevarede manuskripter er også de mest komplicerede i Andersens forfatterarkiv med talrige tilføjelser, ind- og overklæbninger. Diagrammet nedenfor sammenfatter værkets tilblivelse. Den er uddybet i artiklen om tilblivelseshistorien . Førstetrykket og de seks forudgående lag kan nærstuderes ved at klikke dem frem i oversigten til venstre. Hvert af de bevarede manuskripter gennemgås i manuskriptbeskrivelsen.",
+        "link": "landing.html?collection=iisjomfruen"
+    }, 
+    {"name": "Hyrdinden og Skorsteensfeieren", 
+        "author": "Andersen", 
+        "en": "The shepherdess and the sweep", "year": "1877", 
+        "image": "resources/images/hyrdinden.jpeg", 
+        "link": "landing.html?collection=hyrdinden-og-skorsteensfeieren"} 
+    ]'></zg-data>
+    <zg-colgroup>
+      <zg-column index="name"></zg-column>
+      <zg-column index="desc"></zg-column>
+      <zg-column type="image" index="image" search="disabled" width="300px"></zg-column>
+    </zg-colgroup>
+  </zing-grid>
+</div>
+                    </section>
+                </main>
+                <footer class="version">
+                   
+                    App: v<span data-template="pages:version"/> 
+                </footer>
+            </app-header-layout>
+        </app-drawer-layout>
+        <paper-dialog id="downloadDialog">
+            <h2>
+                <pb-i18n key="dialogs.generatingFile">Generating File...</pb-i18n>
+            </h2>
+            <paper-dialog-scrollable>
+                <pb-i18n key="dialogs.downloadMessage"/>
+            </paper-dialog-scrollable>
+            <div class="buttons">
+                <paper-button dialog-confirm="dialog-confirm" autofocus="autofocus">
+                    <pb-i18n key="dialogs.close">Close</pb-i18n>
+                </paper-button>
+            </div>
+        </paper-dialog>
+        <paper-dialog id="errorDialog">
+            <h2>
+                    <pb-i18n key="dialogs.error">Error</pb-i18n>
+                </h2>
+            <paper-dialog-scrollable/>
+            <div class="buttons">
+                <paper-button dialog-confirm="dialog-confirm" autofocus="autofocus">
+                    <pb-i18n key="dialogs.close">Close</pb-i18n>
+                </paper-button>
+            </div>
+        </paper-dialog>
+    </pb-page>
+    <div class="splash"/>
+    <script>
+        const facets = document.getElementById('facets');
+        if (facets) {
+            facets.addEventListener('pb-custom-form-loaded', function(ev) {
+                const elems = ev.detail.querySelectorAll('.facet');
+                elems.forEach(facet =&gt; {
+                    facet.addEventListener('change', () =&gt; {
+                        const table = facet.closest('table');
+                        if (table) {
+                            const nested = table.querySelectorAll('.nested .facet').forEach(nested =&gt; {
+                                if (nested != facet) {
+                                    nested.checked = false;
+                                }
+                            });
+                        }
+                        facets.submit();
+                    });
+                });
+            });
+        }
+    </script>
+    <script>
+   
+  
+// window:load event for Javascript to run after HTML
+// because this Javascript is injected into the document head
+window.addEventListener('load', () => {
+  // Javascript code to execute after DOM content
+  // element references
+  const searchGrid = document.getElementById('searchGrid');
+  const zgRef = document.querySelector('zing-grid');
+ 
+  // debounce search
+  let searchTimeoutId = null;
+ 
+  // function declarations
+  function _searchGrid(e) {
+    // debounce search
+    clearTimeout(searchTimeoutId);
+    let targetValue = e.target.value;
+    // delay 100 milliseconds to debounce user input
+    searchTimeoutId = setTimeout((userInput) => {
+      requestAnimationFrame(() => zgRef.searchGrid(userInput));
+    }, 100, targetValue);
+  }
+ 
+  // add event listeners
+  searchGrid.addEventListener('keyup', _searchGrid);
+  searchGrid.addEventListener('change', _searchGrid);
+  searchGrid.addEventListener('search', _searchGrid);
+  
+    ZingGrid.setLanguage(myLang, 'dk');
+
+});
+
+
+</script>
+ 
+</body>
+
+</html>
