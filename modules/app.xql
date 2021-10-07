@@ -64,11 +64,21 @@ function app:index($request as map(*)) {
     let $index := doc($config:index)
     
     
-        for $i in $index//tei:item return
-        map {
-            "name": $i/tei:title/string(), 
-            "date": $i/tei:date/string(),
-            "desc": $i/tei:desc/string()
-            }
+        for $i in $index//tei:item 
+        (: order by $i/tei:idno[@type="collection"] :)
+        return
+            let $link := 
+                if ($i/tei:idno[@type="collection"]) then 
+                    <a href="landing.html?collection={$i/tei:idno[@type='collection']}" target="_blank">{$i/tei:title/string()}</a>
+                else
+                    $i/tei:title/string()
+            
+            return
+                map {
+                    "name": $link, 
+                    "date": $i/tei:date/string(),
+                    "desc": if ($i/tei:desc/string()) then <div>{$i/tei:desc/node()}</div> else '',
+                    "image": if ($i/tei:idno[@type="image"]/string()) then 'resources/images/' || $i/tei:idno[@type="image"]/string() else ''
+                    }
     
 };
