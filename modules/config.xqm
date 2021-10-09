@@ -26,7 +26,7 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
  : If a version is given, the components will be loaded from a public CDN.
  : This is recommended unless you develop your own components.
  :)
-declare variable $config:webcomponents :="1.14.0";
+declare variable $config:webcomponents :="1.20.0";
 
 (:~
  : CDN URL to use for loading webcomponents. Could be changed if you created your
@@ -65,7 +65,7 @@ declare variable $config:default-view :="div";
  : The default HTML template used for viewing document content. This can be
  : overwritten by the teipublisher processing instruction inside a TEI document.
  :)
-declare variable $config:default-template :="view.html";
+declare variable $config:default-template :="synoptic.html";
 
 (:
  : The element to search by default, either 'tei:div' or 'tei:text'.
@@ -81,7 +81,7 @@ declare variable $config:search-default :="tei:div";
  : $pagination-depth to 3 to not show the sub-subsections as separate pages.
  : Setting $pagination-depth to 1 would show entire top-level divs on one page.
  :)
-declare variable $config:pagination-depth := 10;
+declare variable $config:pagination-depth := 1;
 
 (:
  : If a div starts with less than $pagination-fill elements before the
@@ -89,7 +89,7 @@ declare variable $config:pagination-depth := 10;
  : up the page by pulling following divs in. When set to 0, it will never
  : attempt to fill up the page.
  :)
-declare variable $config:pagination-fill := 5;
+declare variable $config:pagination-fill := 0;
 
 (:
  : Display configuration for facets to be shown in the sidebar. The facets themselves
@@ -295,11 +295,12 @@ declare variable $config:data-exclude :=
 ;
 
 declare variable $config:data-articles :=$config:data-root || '/articles';
+declare variable $config:index := $config:data-root || '/index.xml';
 
 (:~
  : The main ODD to be used by default
  :)
-declare variable $config:default-odd :="teipublisher.odd";
+declare variable $config:default-odd :="andersen.odd";
 
 (:~
  : Complete list of ODD files used by the app. If you add another ODD to this list,

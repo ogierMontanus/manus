@@ -113,3 +113,11 @@ declare function nav:output-footnotes($footnotes as element()*) {
     }
     </div>
 };
+
+declare function nav:output-layers($layers as element()*) {
+    <div class="layers">
+    {
+        $layers
+    }
+    </div>
+};

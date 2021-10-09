@@ -168,6 +168,12 @@ declare function pages:process-content($xml as node()*, $root as node()*, $confi
 	let $html := $pm-config:web-transform($xml, $params, $config?odd)
     let $class := if ($html//*[@class = ('margin-note')]) then "margin-right" else ()
     let $body := pages:clean-footnotes($html)
+    let $layers := for $fn in $html//*[@class = "layer"]
+        return
+            element { node-name($fn) } {
+                $fn/@*,
+                pages:clean-footnotes($fn/node())
+            }
     let $footnotes := 
         for $fn in $html//*[@class = "footnote"]
         return
@@ -176,16 +182,30 @@ declare function pages:process-content($xml as node()*, $root as node()*, $confi
                 pages:clean-footnotes($fn/node())
             }
     return
+
         <div class="{$config:css-content-class} {$class}">
-        {
-            $body,
-            if ($footnotes) then
-                nav:output-footnotes($footnotes)
-            else
-                ()
-            ,
-            $html//paper-tooltip
-        }
+            <div id="body">
+            {
+                $body,
+                if ($footnotes) then
+                    nav:output-footnotes($footnotes)
+                
+
+                else
+                    ()
+                ,
+                $html//paper-tooltip
+            }
+            </div>
+            {
+                if ($layers) then 
+                    nav:output-layers($layers)
+                else
+                    ()
+            }
+            <!-- slots for 2nd and 3rd layer content-->
+            <div class="col1"></div>
+            <div class="col2"></div>
         </div>
 };
 
@@ -197,6 +217,8 @@ declare function pages:clean-footnotes($nodes as node()*) {
 		        ()
             case element() return
                 if ($node/@class = "footnote") then
+                    ()
+                else if ($node/@class = "layer") then
                     ()
                 else
                     element { node-name($node) } {
