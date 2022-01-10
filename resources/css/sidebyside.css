@@ -1,5 +1,6 @@
 body {
     --pb-view-max-width: 70vw;
+    --pb-view-height: 70vh;
 }
 
 #view1 {
