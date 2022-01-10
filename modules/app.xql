@@ -62,10 +62,8 @@ function app:list($node as node(), $model as map(*), $section as xs:string, $col
 declare
 function app:index($request as map(*)) {
     let $index := doc($config:index)
-    
-    
+        
         for $i in $index//tei:item 
-        (: order by $i/tei:idno[@type="collection"] :)
         return
             let $link := 
                 if ($i/tei:idno[@type="collection"]) then 
