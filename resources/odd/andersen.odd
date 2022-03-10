@@ -132,6 +132,76 @@
 </pb-popover></pb:template>
         </model>
                 </elementSpec>
+            <elementSpec ident="supplied" mode="change">
+                    <model predicate="@reason='omitted'" behaviour="inline">
+            <outputRendition xml:space="preserve" scope="before">
+            content:"(";
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content:")";
+            </outputRendition>
+        </model>
+                    <model predicate="@reason" behaviour="inline" cssClass="app editorial">
+            <param name="content" value="."/>
+            <param name="alternate" value="@reason"/>
+            <pb:template xmlns="" xml:space="preserve"><pb-popover theme="material"><span slot="default">[[content]]</span><span slot="alternate">[[content]] supplied ([[alternate]])</span></pb-popover></pb:template>
+            <outputRendition xml:space="preserve" scope="before">
+            content:"[";
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content:"]";
+            </outputRendition>
+        </model>
+                    <model behaviour="inline">
+            <outputRendition xml:space="preserve" scope="before">
+            content:"{";
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content:"}";
+            </outputRendition>
+        </model>
+                </elementSpec>
+                <elementSpec ident="app" mode="add">
+                    <model predicate="@type=&#34;var&#34;" behaviour="inline" cssClass="app var">
+            <param name="content" value="lem"/>
+            <param name="alternate" value=" for $r in rdg  let $in := ($r/@instant, $r/child::*/@instant)[1] let $i := switch($in) case 'false' return ' later' case 'true' return ' instant' default return () return ($r, $i, ' → ')"/>
+            <set-param xmlns="http://teipublisher.com/1.0" name="pmode" value="'inner'"/>
+            <pb:template xmlns="" xml:space="preserve"><pb-popover theme="material">
+  <span slot="default"><span class="genetic toggle">[[alternate]]</span> [[content]]</span>
+  <span slot="alternate"><span class="note">[[alternate]]</span><br/><span class="note">[[content]]</span></span>
+</pb-popover></pb:template>
+        </model>
+                </elementSpec>
+                <elementSpec ident="add" mode="change">
+                    <model behaviour="inline" cssClass="app author"/>
+                </elementSpec>
+                <elementSpec ident="del" mode="change">
+                    <model behaviour="inline" cssClass="app author del" pb:mode="@">
+            <param name="content" value="."/>
+            <param name="when" value="if (@instant=&#34;false&#34;) then '(later)' else '(instant)'"/>
+            <pb:template xmlns="" xml:space="preserve"><pb-popover theme="material"><span slot="default">[[content]]</span><span slot="alternate">[[content]] deleted [[when]]</span></pb-popover></pb:template>
+        </model>
+                    <model predicate="ancestor::app and $parameters?pmode='inner'" behaviour="inline" cssClass="app author del">
+            <desc>special processing for handling deletions within popover apparatus entries</desc>
+        </model>
+                    <model predicate="ancestor::app" behaviour="inline" cssClass="app author">
+            <param name="content" value="."/>
+            <param name="when" value="if (@instant=&#34;false&#34;) then ' (later) ' else ' (instant)'"/>
+            <pb:template xmlns="" xml:space="preserve"><span><span class="del">[[content]]</span> [[when]]</span></pb:template>
+        </model>
+                </elementSpec>
+                <elementSpec ident="unclear" mode="change">
+                    <model behaviour="inline" cssClass="app editorial unclear">
+            <param name="content" value="."/>
+            <pb:template xmlns="" xml:space="preserve"><pb-popover theme="material"><span slot="default">[[content]]</span><span slot="alternate"><i>[[content]]</i> unclear</span></pb-popover></pb:template>
+        </model>
+                </elementSpec>
+                <elementSpec ident="lb" mode="change">
+                    <model behaviour="break" cssClass="lines toggle" useSourceRendition="true">
+            <param name="type" value="'line'"/>
+            <param name="label" value="@n"/>
+        </model>
+                </elementSpec>
             </schemaSpec>
         </body>
     </text>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes"/>
+        <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-16.png" sizes="16x16"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-24.png" sizes="24x24"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-32.png" sizes="32x32"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-64.png" sizes="64x64"/>
+
+        <title data-template="config:app-title"/>
+        <meta name="description" content="Two colums with facsimile"/>
+        <meta name="pb-template" content="view.html"/>
+
+        <link rel="stylesheet" type="text/css" href="resources/fonts/font.css"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald&amp;display=swap"/>
+        <link rel="stylesheet" href="resources/css/theme.css"/>
+        <link rel="stylesheet" href="resources/css/twocolumn.css"/>
+
+        <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
+    </head>
+
+    <body>
+        <pb-page data-template="pages:pb-page" unresolved="unresolved">
+            <pb-document id="document1" data-template="pages:pb-document"/>
+            <app-drawer-layout force-narrow="force-narrow">
+                <app-drawer data-template="templates:include" data-template-path="templates/drawer.html"/>
+                <app-header-layout>
+                    <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall">
+                        <app-toolbar data-template="templates:include" data-template-path="templates/menu.html"/>
+                        <app-toolbar data-template="templates:include" data-template-path="templates/toolbar.html"/>
+                    </app-header>
+
+                    <pb-drawer toggle="tocToggle" class="toc" emit="toc" subscribe="transcription">
+                        <div class="drawer-content">
+                            <h3>
+                                <pb-i18n key="document.contents">Contents</pb-i18n>
+                            </h3>
+                            <pb-load id="toc" url="api/document/{doc}/contents?target=transcription&amp;icons=true" expand="expand" src="document1" subscribe="toc" load-once="load-once">
+                                <pb-i18n key="dialogs.loading">Loading</pb-i18n>
+                            </pb-load>
+                        </div>
+                    </pb-drawer>
+                    <section class="breadcrumbs">
+                        <pb-toggle-feature name="genetic" selector=".genetic" emit="transcription">Hide genesis</pb-toggle-feature>
+                        <pb-toggle-feature name="lines" selector=".lines" emit="transcription">No line breaks</pb-toggle-feature>
+
+                        <pb-view id="title-view1" src="document1" xpath="//teiHeader/fileDesc/titleStmt/title" view="single">
+                            <pb-param name="header" value="short"/>
+                        </pb-view>
+                    </section>
+                    <main class="content-body">
+                        <pb-view id="view1" src="document1" column-separator=".tei-cb" append-footnotes="append-footnotes" 
+                        subscribe="transcription" emit="transcription" wait-for="#facsimile"
+                        load-css="resources/css/twocol.css">
+                           <pb-param name="mode" value="facsimile"/>
+                        </pb-view>
+                        <pb-facsimile id="facsimile" base-uri="https://img.andersen.sdu.dk/iiif/2/" 
+                            default-zoom-level="0" show-navigation-control="show-navigation-control" show-navigator="show-navigator" subscribe="transcription"/>
+
+                    </main>
+                </app-header-layout>
+            </app-drawer-layout>
+        </pb-page>
+        <div class="splash"/>
+        <script>
+         
+        
+        
+         function extractTemplates(chunk, root, col) {
+             const floats = chunk.querySelectorAll(`.layer-link`);
+             floats.forEach((marker) => {
+                 const block = root.querySelector(marker.hash);
+                 const newBlock = document.createElement('div');
+                 const rect = marker.getBoundingClientRect();
+                 newBlock.className = 'container';
+                 newBlock.style.position = 'absolute';
+                 const top = rect.top - 210;
+                 newBlock.style.top = `${top}px`;
+                 newBlock.innerHTML = block.innerHTML;
+                 const column = root.querySelector(`.col${col}`);
+                 column.appendChild(newBlock);
+                 extractTemplates(newBlock, root, col + 1);
+             });
+         }
+ 
+          function addButtons(floats) {
+            console.log('float count, %d', floats.length);
+            
+            floats.forEach(float => {
+                   float.addEventListener('mouseenter', () => {
+                          console.log('enter %o', float);                       
+                            float.style.zIndex = 1;
+                            float.style.backgroundColor = 'white';
+                            float.style.borderColor = '#bbfbfc'; 
+                            float.style.borderWidth = '2px';
+                     });
+                     float.addEventListener('mouseleave', () => {
+                          console.log('leave %o', float);                   
+                            float.style.zIndex = 0;
+                            float.style.backgroundColor = '';
+                            float.style.borderColor = '#000000';
+                            float.style.borderWidth = '2px';
+                     });
+            });      
+          };
+    
+        window.addEventListener('load', () => {
+            pbEvents.subscribe('pb-update', ['transcription'], (ev) => {
+                    console.log(ev.detail); // should include foo: 'baz'
+                    const root = ev.detail.root.querySelector('#body');
+                    extractTemplates(root, ev.detail.root, 1);
+                    addButtons(ev.detail.root.querySelectorAll(`.container`));
+            }, false);         
+        });
+     </script>
+ 
+    </body>
+</html>

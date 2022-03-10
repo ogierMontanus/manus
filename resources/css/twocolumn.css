@@ -1,0 +1,30 @@
+body {
+   
+}
+
+#view1 {
+    height: var(--pb-view-height);
+    overflow: auto;
+}
+
+.content-body {
+    position: relative;
+    display: grid;
+    grid-template-columns: 70% 1fr;
+    grid-column-gap: 0px;
+    padding: 0 4px;
+   
+}
+
+.content-body pb-facsimile {
+    height: var(--pb-view-height);
+   
+}
+
+.content-body pb-view {
+  
+}
+
+pb-view {
+  max-width: 100vw;
+}
