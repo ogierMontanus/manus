@@ -65,18 +65,26 @@ function app:index($request as map(*)) {
         
         for $i in $index//tei:item 
         return
-            let $link := 
+       
+            let $link-da := 
                 if ($i/tei:idno[@type="collection"]) then 
-                    <a href="landing.html?collection={$i/tei:idno[@type='collection']}" target="_blank">{$i/tei:title/string()}</a>
+                    <a href="landing.html?collection={$i/tei:idno[@type='collection']}" target="_blank">{distinct-values($i/tei:title[@xml:lang="da"][.!=''])}</a>
                 else
-                    $i/tei:title/string()
+                    distinct-values($i/tei:title[@xml:lang="da"][.!=''])
+
+            let $link-en := 
+                if ($i/tei:idno[@type="collection"]) then 
+                    <a href="landing.html?collection={$i/tei:idno[@type='collection']}" target="_blank">{distinct-values($i/tei:title[@xml:lang="en"][.!=''])}</a>
+                else
+                    distinct-values($i/tei:title[@xml:lang="en"][.!=''])
             
             return
                 map {
-                    "name": $link, 
+                    "name": $link-da, 
+                    "english": $link-en,
                     "date": $i/tei:date/string(),
                     "desc": if ($i/tei:desc/string()) then <div>{$i/tei:desc/node()}</div> else '',
-                    "image": if ($i/tei:idno[@type="image"]/string()) then 'resources/images/' || $i/tei:idno[@type="image"]/string() else ''
+                    "image": if ($i/tei:idno[@type="image"]/string()) then 'resources/images/' || xmldb:encode-uri($i/tei:idno[@type="image"]/string()) else ''
                     }
     
 };
