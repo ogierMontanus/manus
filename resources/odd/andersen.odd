@@ -162,21 +162,17 @@
         </model>
                 </elementSpec>
                 <elementSpec ident="app" mode="add">
-                    <model predicate="@type=&#34;var&#34;" behaviour="inline" cssClass="app var">
+                    <model predicate="@type=&#34;var&#34;" behaviour="inline" cssClass="app var ">
             <param name="content" value="lem"/>
             <param name="alternate" value=" for $r in rdg  let $in := ($r/@instant, $r/child::*/@instant)[1] let $i := switch($in) case 'false' return ' later' case 'true' return ' instant' case 'unknown' return ' unknown' default return () return ($r, $i, ' → ')"/>
-            <set-param xmlns="http://teipublisher.com/1.0" name="pmode" value="'inner'"/>
-            <pb:template xmlns="" xml:space="preserve"><pb-popover theme="material">
-  <span slot="default"><span class="genetic toggle">[[alternate]]</span> [[content]]</span>
-  <span slot="alternate"><span class="note">[[alternate]]</span><br/><span class="note">[[content]]</span></span>
-</pb-popover></pb:template>
+            <pb:template xmlns="" xml:space="preserve"><span slot="default"><span class="genetic toggle">[[alternate]]</span> [[content]]</span></pb:template>
         </model>
                 </elementSpec>
                 <elementSpec ident="add" mode="change">
                     <model behaviour="inline" cssClass="app author"/>
                 </elementSpec>
                 <elementSpec ident="del" mode="change">
-                    <model behaviour="inline" cssClass="app author del" pb:mode="@">
+                    <model behaviour="inline" cssClass="app author del">
             <param name="content" value="."/>
             <param name="when" value="if (@instant=&#34;false&#34;) then '(later)' else '(instant)'"/>
             <pb:template xmlns="" xml:space="preserve"><pb-popover theme="material"><span slot="default">[[content]]</span><span slot="alternate">[[content]] deleted [[when]]</span></pb-popover></pb:template>
