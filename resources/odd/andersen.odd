@@ -202,11 +202,14 @@
         </model>
                 </elementSpec>
             <elementSpec ident="rdg" mode="add">
-                    <model predicate="../@type=&#34;var&#34;" behaviour="inline">
+                    <model predicate="../@type=&#34;var&#34;" behaviour="inline" cssClass="rdg">
             <param name="time" value="let $in := (@instant, child::*/@instant)[1] let $i := switch($in) case 'false' return 'later' case 'true' return 'instant' case 'unknown' return 'unknown' default return ()  return $i"/>
             <param name="rdg" value="."/>
             <pb:template xmlns="" xml:space="preserve"><span><span>[[rdg]]</span><pb-i18n key="genetic.[[time]]" class="gen"/></span></pb:template>
         </model>
+                </elementSpec>
+            <elementSpec ident="lem" mode="add">
+                    <model behaviour="inline" cssClass="lem"/>
                 </elementSpec>
             </schemaSpec>
         </body>

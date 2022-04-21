@@ -91,3 +91,14 @@ color: rgba(0, 0, 0, 0.5);
 .gen::before {
     content: ' ';
 }
+.add {
+    color: green;
+}
+
+.rdg {
+    color: #2c2c8f;
+}
+
+.lem {
+    color: #206420;
+}
