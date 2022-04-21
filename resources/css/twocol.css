@@ -48,7 +48,30 @@ color: rgba(0, 0, 0, 0.5);
 
 .del {text-decoration: line-through solid 1px;}
 
+.how.toggle.add {
+    vertical-align: super;
+}
 
-.toggle {
+.how.add {
+    vertical-align: auto;
+}
+
+.how.toggle.del {
+    text-decoration: line-through;
+}
+
+.how.del {
+    text-decoration: none;
+}
+
+.lines.toggle {
     display: none;
+}
+
+.when.toggle {
+    display: inline;
+}
+
+.when {
+    display:none;
 }
