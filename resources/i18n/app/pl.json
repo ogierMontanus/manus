@@ -3,8 +3,8 @@
         "title": "Foo"
     },
     "genetic": {
-        "instant": "instant",
-        "later": "later",
+        "instant": "natychmiast",
+        "later": "później",
         "unknown": ""
     }
 }

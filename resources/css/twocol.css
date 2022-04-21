@@ -75,3 +75,15 @@ color: rgba(0, 0, 0, 0.5);
 .when {
     display:none;
 }
+
+.gen {
+    font-style: italic;
+}
+
+.gen::after {
+    content: ' → '; 
+}
+
+.gen::before {
+    content: ' ';
+}
