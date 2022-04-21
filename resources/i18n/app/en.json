@@ -6,5 +6,11 @@
         "instant": "instant",
         "later": "later",
         "unknown": ""
+    },
+    "toggles": {
+        "details": "More details",
+        "when": "When",
+        "how": "How & where",
+        "lines": "Line breaks"
     }
 }

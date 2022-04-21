@@ -44,11 +44,21 @@
                         </div>
                     </pb-drawer>
                     <section class="breadcrumbs">
-                        <pb-toggle-feature name="when" selector=".when" emit="transcription" default="off">When</pb-toggle-feature>
-                        <pb-toggle-feature name="how" selector=".how" emit="transcription" default="off">How &amp; where</pb-toggle-feature>
+                        <pb-toggle-feature name="details" selector=".when,.how" emit="transcription" default="off">
+                            <pb-i18n key="toggles.details"></pb-i18n>
+                        </pb-toggle-feature>
+
+                        <pb-toggle-feature name="when" selector=".when" emit="transcription" default="off">
+                            <pb-i18n key="toggles.when"></pb-i18n>
+                        </pb-toggle-feature>
+                        <pb-toggle-feature name="how" selector=".how" emit="transcription" default="off">
+                            <pb-i18n key="toggles.how"></pb-i18n>
+                        </pb-toggle-feature>
 
                         <!--pb-toggle-feature name="genetic" selector=".genetic" emit="transcription">Hide genesis</pb-toggle-feature-->
-                        <pb-toggle-feature name="lines" selector=".lines" emit="transcription" default="on">No line breaks</pb-toggle-feature>
+                        <pb-toggle-feature name="lines" selector=".lines" emit="transcription" default="off">
+                            <pb-i18n key="toggles.lines"></pb-i18n>
+                        </pb-toggle-feature>
 
                         <pb-view id="title-view1" src="document1" xpath="//teiHeader/fileDesc/titleStmt/title" view="single">
                             <pb-param name="header" value="short"/>
