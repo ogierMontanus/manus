@@ -1,0 +1,16 @@
+{
+    "myapp": {
+        "title": "Foo"
+    },
+    "genetic": {
+        "instant": "straks",
+        "later": "senere",
+        "unknown": ""
+    },
+    "toggles": {
+        "details": "Flere detaljer",
+        "when": "Hvornår",
+        "how": "Hvordan og hvor",
+        "lines": "Linjebrud"
+    }
+}
