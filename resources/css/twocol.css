@@ -1,6 +1,6 @@
 .content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 60% 1fr;
     grid-column-gap: 10px;
 }
 
@@ -57,7 +57,7 @@ color: rgba(0, 0, 0, 0.5);
 }
 
 .how.toggle.del {
-    text-decoration: line-through;
+    text-decoration: line-through solid 1px;
 }
 
 .how.del {
@@ -101,4 +101,32 @@ color: rgba(0, 0, 0, 0.5);
 
 .lem {
     color: #206420;
+}
+
+.supplied {
+    display: inline-block;
+    border: 1px dotted;
+}
+
+.retrace {
+    font-weight: 600;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+a[name="del"]::after {
+    content: '||||';
+}
+a[name="del"] {
+    display: inline-block;
+    width: 2em;
+    background-color: aqua;
+}
+
+.tei-delSpan ~ * {
+    display: inline-block;
+   
+    background-color: pink;
 }

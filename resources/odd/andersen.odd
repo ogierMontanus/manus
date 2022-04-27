@@ -133,7 +133,7 @@
         </model>
                 </elementSpec>
             <elementSpec ident="supplied" mode="change">
-                    <model predicate="@reason='omitted'" behaviour="inline">
+                    <model predicate="@reason='omitted'" behaviour="inline" cssClass="supplied">
             <outputRendition xml:space="preserve" scope="before">
             content:"(";
             </outputRendition>
@@ -141,7 +141,7 @@
             content:")";
             </outputRendition>
         </model>
-                    <model predicate="@reason" behaviour="inline" cssClass="app editorial">
+                    <model predicate="@reason" behaviour="inline" cssClass="app editorial supplied">
             <param name="content" value="."/>
             <param name="alternate" value="@reason"/>
             <pb:template xmlns="" xml:space="preserve"><pb-popover theme="material"><span slot="default">[[content]]</span><span slot="alternate">[[content]] supplied ([[alternate]])</span></pb-popover></pb:template>
@@ -152,7 +152,7 @@
             content:"]";
             </outputRendition>
         </model>
-                    <model behaviour="inline">
+                    <model behaviour="inline" cssClass="supplied">
             <outputRendition xml:space="preserve" scope="before">
             content:"{";
             </outputRendition>
@@ -193,6 +193,12 @@
                     <model behaviour="inline" cssClass="app editorial unclear">
             <param name="content" value="."/>
             <pb:template xmlns="" xml:space="preserve"><pb-popover theme="material"><span slot="default">[[content]]</span><span slot="alternate"><i>[[content]]</i> unclear</span></pb-popover></pb:template>
+            <outputRendition xml:space="preserve" scope="before">
+            content: '&lt;';
+            </outputRendition>
+            <outputRendition xml:space="preserve" scope="after">
+            content: '&gt;';
+            </outputRendition>
         </model>
                 </elementSpec>
                 <elementSpec ident="lb" mode="change">
@@ -211,6 +217,39 @@
             <elementSpec ident="lem" mode="add">
                     <model behaviour="inline" cssClass="lem"/>
                 </elementSpec>
+            <elementSpec ident="retrace" mode="add">
+                    <model behaviour="inline" cssClass="retrace"/>
+                </elementSpec>
+                <elementSpec ident="hi" mode="change">
+                    <model predicate="@rend" behaviour="inline" useSourceRendition="true">
+            <param name="content" value="."/>
+            <param name="rend" value="@rend"/>
+            <pb:template xmlns="" xml:space="preserve"><span class="[[rend]]">[[content]]</span></pb:template>
+        </model>
+                    <model predicate="not(@rendition)" behaviour="inline">
+            <outputRendition xml:space="preserve">
+            font-style: italic;
+            </outputRendition>
+        </model>
+                </elementSpec>
+                <elementSpec ident="note" mode="change">
+                    <model behaviour="note">
+            <param name="place" value="@place"/>
+            <param name="label" value="@n"/>
+            <param name="content" value="."/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="delSpan" mode="add">
+                    <model behaviour="inline">
+            <param name="target" value="@spanTo"/>
+            <pb:template xmlns="" xml:space="preserve"><a name="del" href="[[target]]"/></pb:template>
+        </model>
+                </elementSpec>
+                <elementSpec ident="anchor" mode="change">
+        <model behaviour="anchor">
+            <param name="id" value="@xml:id"/>
+        </model>
+    </elementSpec>
             </schemaSpec>
         </body>
     </text>

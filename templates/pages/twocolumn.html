@@ -50,6 +50,7 @@
                         {&quot;name&quot;: &quot;When&quot;, &quot;selectors&quot;: [{&quot;selector&quot;: &quot;.when&quot;, &quot;state&quot;: true},{&quot;selector&quot;: &quot;.how&quot;, &quot;state&quot;: false}]},
                         {&quot;name&quot;: &quot;How and Where&quot;, &quot;selectors&quot;: [{&quot;selector&quot;: &quot;.how&quot;, &quot;state&quot;: true}, {&quot;selector&quot;: &quot;.when&quot;, &quot;state&quot;: false}]}]" 
                         emit="transcription" subscribe="transcription"/>
+                        <pb-toggle-feature name="lines" selector=".lines" emit="transcription" default="off"><pb-i18n key="toggles.lines"/></pb-toggle-feature>
                         <pb-view id="title-view1" src="document1" xpath="//teiHeader/fileDesc/titleStmt/title" view="single">
                             <pb-param name="header" value="short"/>
                         </pb-view>
