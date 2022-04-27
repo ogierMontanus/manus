@@ -84,7 +84,7 @@ function app:index($request as map(*)) {
                     "english": $link-en,
                     "date": $i/tei:date/string(),
                     "desc": if ($i/tei:desc/string()) then <div>{$i/tei:desc/node()}</div> else '',
-                    "image": if ($i/tei:idno[@type="image"]/string()) then 'resources/images/' || xmldb:encode-uri($i/tei:idno[@type="image"]/string()) else ''
+                    "image": if ($i/tei:idno[@type="image"]/string()) then xmldb:encode-uri('resources/images/' || $i/tei:idno[@type="image"]/string()) else ''
                     }
     
 };
