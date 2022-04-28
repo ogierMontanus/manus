@@ -116,17 +116,21 @@ color: rgba(0, 0, 0, 0.5);
     text-decoration: underline;
 }
 
-a[name="del"]::after {
-    content: '||||';
+a[name="del"]::before {
+    content: '<|||';
 }
+
 a[name="del"] {
     display: inline-block;
     width: 2em;
     background-color: aqua;
 }
 
-.tei-delSpan ~ * {
+span[id^=del] {
     display: inline-block;
-   
     background-color: pink;
+}
+
+span[id^=del]::after {
+    content: '|||>';
 }
