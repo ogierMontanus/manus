@@ -84,7 +84,10 @@ function app:index($request as map(*)) {
                     "english": $link-en,
                     "date": $i/tei:date/string(),
                     "desc": if ($i/tei:desc/string()) then <div>{$i/tei:desc/node()}</div> else '',
-                    "image": if ($i/tei:idno[@type="image"]/string()) then xmldb:encode-uri('resources/images/' || $i/tei:idno[@type="image"]/string()) else ''
+                    "image": 
+                        if ($i/tei:idno[@type="image"]/string()) then 
+                            xmldb:encode-uri('../andersen-data/data/images/' || $i/tei:idno[@type="image"]/string()) 
+                        else ''
                     }
     
 };
