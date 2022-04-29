@@ -233,10 +233,14 @@
         </model>
                 </elementSpec>
                 <elementSpec ident="note" mode="change">
-                    <model behaviour="note">
-            <param name="place" value="@place"/>
-            <param name="label" value="@n"/>
+                    <model behaviour="inline">
             <param name="content" value="."/>
+            <param name="label" value="let $label := @n let $c := . let $count := root(.)//note return 1 + count( $count[. &lt;&lt; $c])"/>
+            <pb:template xmlns="" xml:space="preserve"><pb-popover theme="material">
+            <span slot="default" class="note-label">[[label]]</span>
+            <span slot="alternate">[[content]]
+            </span>
+</pb-popover></pb:template>
         </model>
                 </elementSpec>
                 <elementSpec ident="delSpan" mode="add">
@@ -246,10 +250,10 @@
         </model>
                 </elementSpec>
                 <elementSpec ident="anchor" mode="change">
-        <model behaviour="anchor">
+                    <model behaviour="anchor">
             <param name="id" value="@xml:id"/>
         </model>
-    </elementSpec>
+                </elementSpec>
             </schemaSpec>
         </body>
     </text>

@@ -134,3 +134,8 @@ span[id^=del] {
 span[id^=del]::after {
     content: '|||>';
 }
+
+.note-label {
+    vertical-align: super;
+    font-size: smaller;
+}
