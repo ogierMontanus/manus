@@ -246,12 +246,13 @@
                 <elementSpec ident="delSpan" mode="add">
                     <model behaviour="inline">
             <param name="target" value="@spanTo"/>
-            <pb:template xmlns="" xml:space="preserve"><a name="del" href="[[target]]"/></pb:template>
+            <pb:template xmlns="" xml:space="preserve"><a name="del" class="delSpan" href="#[[target]]"/></pb:template>
         </model>
                 </elementSpec>
                 <elementSpec ident="anchor" mode="change">
-                    <model behaviour="anchor">
+                    <model behaviour="inline">
             <param name="id" value="@xml:id"/>
+            <pb:template xmlns="" xml:space="preserve"><span id="[[id]]"/></pb:template>
         </model>
                 </elementSpec>
             </schemaSpec>

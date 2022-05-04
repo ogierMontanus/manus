@@ -117,25 +117,32 @@ color: rgba(0, 0, 0, 0.5);
 }
 
 a[name="del"]::before {
-    content: '<|||';
+    content: '<|';
 }
 
 a[name="del"] {
     display: inline-block;
-    width: 2em;
     background-color: aqua;
 }
 
 span[id^=del] {
     display: inline-block;
-    background-color: pink;
+    background-color: aqua;
 }
 
 span[id^=del]::after {
-    content: '|||>';
+    content: '|>';
 }
 
 .note-label {
     vertical-align: super;
     font-size: smaller;
+}
+
+span[slot=alternate] .deleted {
+    background-color: inherit;
+}
+
+.deleted {
+    border-bottom: 3px solid orange;
 }

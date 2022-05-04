@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="resources/css/twocolumn.css"/>
 
         <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
+       
     </head>
 
     <body>
@@ -63,15 +64,12 @@
                         </pb-view>
                         <pb-facsimile id="facsimile" base-uri="https://img.andersen.sdu.dk/iiif/2/" 
                             default-zoom-level="0" show-navigation-control="show-navigation-control" show-navigator="show-navigator" subscribe="transcription"/>
-
                     </main>
                 </app-header-layout>
             </app-drawer-layout>
         </pb-page>
-        <div class="splash"/>
+        <div class="splash"/>      
         <script>
-         
-        
         
          function extractTemplates(chunk, root, col) {
              const floats = chunk.querySelectorAll(`.layer-link`);
@@ -110,6 +108,36 @@
                      });
             });      
           };
+
+            function markSpans(span) {
+                const content = span.querySelector('#content');
+                const walker = document.createTreeWalker(
+                content,
+                NodeFilter.SHOW_ALL | NodeFilter.SHOW_TEXT
+                );
+
+
+                const textNodes = [];
+                content.querySelectorAll('a.delSpan').forEach((anchor) => {
+                walker.currentNode = anchor;
+                const end = content.querySelector(anchor.hash);
+                while (walker.nextNode()) {
+                    if (walker.currentNode === end) {
+                    break;
+                    }
+                    if (walker.currentNode.nodeType === Node.TEXT_NODE) {
+                    textNodes.push(walker.currentNode);
+                    }
+                }
+
+                textNodes.forEach((node) => {
+                    const wrapper = document.createElement('span');
+                    wrapper.className = 'deleted';
+                    wrapper.appendChild(node.cloneNode());
+                    node.replaceWith(wrapper);
+                });
+            });
+        };
     
         window.addEventListener('load', () => {
             pbEvents.subscribe('pb-update', ['transcription'], (ev) => {
@@ -117,6 +145,7 @@
                     const root = ev.detail.root.querySelector('#body');
                     extractTemplates(root, ev.detail.root, 1);
                     addButtons(ev.detail.root.querySelectorAll(`.container`));
+                    markSpans(ev.detail.root);
             }, false);         
         });
      </script>
