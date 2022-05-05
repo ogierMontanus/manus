@@ -123,9 +123,19 @@ color: rgba(0, 0, 0, 0.5);
 
 span[slot=alternate] .deleted {
     border-bottom: none;
+    background-image: none;
+}
+
+span[slot=alternate] .added {
+    border-bottom: none;
+    background-image: none;
 }
 
 .deleted {
     border-bottom: 1px solid red;
     background-image: url('../images/delSpan.gif');
+}
+
+.added {
+    border-bottom: 3px solid green;
 }

@@ -255,6 +255,12 @@
             <pb:template xmlns="" xml:space="preserve"><span id="[[id]]"/></pb:template>
         </model>
                 </elementSpec>
+            <elementSpec ident="addSpan" mode="add">
+                    <model behaviour="inline">
+            <param name="target" value="@spanTo"/>
+            <pb:template xmlns="" xml:space="preserve"><a name="del" class="addSpan" href="#[[target]]"/></pb:template>
+        </model>
+                </elementSpec>
             </schemaSpec>
         </body>
     </text>

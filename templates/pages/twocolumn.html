@@ -117,27 +117,48 @@
                 );
 
 
-                const textNodes = [];
+                const delNodes = [];
                 content.querySelectorAll('a.delSpan').forEach((anchor) => {
-                walker.currentNode = anchor;
-                const end = content.querySelector(anchor.hash);
-                while (walker.nextNode()) {
-                    if (walker.currentNode === end) {
-                    break;
+                    walker.currentNode = anchor;
+                    const end = content.querySelector(anchor.hash);
+                    while (walker.nextNode()) {
+                        if (walker.currentNode === end) {
+                        break;
+                        }
+                        if (walker.currentNode.nodeType === Node.TEXT_NODE) {
+                        delNodes.push(walker.currentNode);
+                        }
                     }
-                    if (walker.currentNode.nodeType === Node.TEXT_NODE) {
-                    textNodes.push(walker.currentNode);
-                    }
-                }
 
-                textNodes.forEach((node) => {
-                    const wrapper = document.createElement('span');
-                    wrapper.className = 'deleted';
-                    wrapper.appendChild(node.cloneNode());
-                    node.replaceWith(wrapper);
+                    delNodes.forEach((node) => {
+                        const wrapper = document.createElement('span');
+                        wrapper.className = 'deleted';
+                        wrapper.appendChild(node.cloneNode());
+                        node.replaceWith(wrapper);
+                    });
                 });
-            });
-        };
+
+                const addNodes = [];
+                    content.querySelectorAll('a.addSpan').forEach((anchor) => {
+                    walker.currentNode = anchor;
+                    const end = content.querySelector(anchor.hash);
+                    while (walker.nextNode()) {
+                        if (walker.currentNode === end) {
+                        break;
+                        }
+                        if (walker.currentNode.nodeType === Node.TEXT_NODE) {
+                        addNodes.push(walker.currentNode);
+                        }
+                    }
+
+                    addNodes.forEach((node) => {
+                        const wrapper = document.createElement('span');
+                        wrapper.className = 'added';
+                        wrapper.appendChild(node.cloneNode());
+                        node.replaceWith(wrapper);
+                    });
+                });
+            };
     
         window.addEventListener('load', () => {
             pbEvents.subscribe('pb-update', ['transcription'], (ev) => {
