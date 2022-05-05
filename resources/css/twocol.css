@@ -129,6 +129,7 @@ span[slot=alternate] .deleted {
 span[slot=alternate] .added {
     border-bottom: none;
     background-image: none;
+    background-color: inherit;
 }
 
 .deleted {
@@ -137,5 +138,6 @@ span[slot=alternate] .added {
 }
 
 .added {
-    border-bottom: 3px solid green;
+    background-color: #dbd9d9;
+    border-bottom: 1px solid red;
 }
