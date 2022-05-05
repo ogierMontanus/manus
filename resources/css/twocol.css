@@ -116,33 +116,16 @@ color: rgba(0, 0, 0, 0.5);
     text-decoration: underline;
 }
 
-a[name="del"]::before {
-    content: '<|';
-}
-
-a[name="del"] {
-    display: inline-block;
-    background-color: aqua;
-}
-
-span[id^=del] {
-    display: inline-block;
-    background-color: aqua;
-}
-
-span[id^=del]::after {
-    content: '|>';
-}
-
 .note-label {
     vertical-align: super;
     font-size: smaller;
 }
 
 span[slot=alternate] .deleted {
-    background-color: inherit;
+    border-bottom: none;
 }
 
 .deleted {
-    border-bottom: 3px solid orange;
+    border-bottom: 1px solid red;
+    background-image: url('../images/delSpan.gif');
 }

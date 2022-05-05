@@ -194,10 +194,10 @@
             <param name="content" value="."/>
             <pb:template xmlns="" xml:space="preserve"><pb-popover theme="material"><span slot="default">[[content]]</span><span slot="alternate"><i>[[content]]</i> unclear</span></pb-popover></pb:template>
             <outputRendition xml:space="preserve" scope="before">
-            content: '&lt;';
+            content: '〈';
             </outputRendition>
             <outputRendition xml:space="preserve" scope="after">
-            content: '&gt;';
+            content: '〉';
             </outputRendition>
         </model>
                 </elementSpec>
