@@ -39,17 +39,18 @@ declare
     %templates:default("section", "dossier")
 
 function app:list($node as node(), $model as map(*), $section as xs:string, $collection as xs:string) {
-    let $path := $config:data-articles || '/' || $collection || '/index.xml'
+    let $path := $config:data-articles || '/' || substring-after($collection, 'works/') || '/index.xml'
     let $index := doc($path)
     let $items := $index//tei:list[tei:head[@n=$section]]/tei:item
     return
     <paper-card class="doclist" data-i18n="[heading]browse.{$section}" heading="{$section}">
         <div>
-            <h2>{$collection}</h2>    
+            <h2>{$collection}</h2>   
+            <h3>{$path}</h3> 
             <ul>
             {
                 for $d in $items 
-                    let $path := 'works/' || $collection || '/' || normalize-space($d)
+                    let $path := $collection || '/' || normalize-space($d)
                     let $title := normalize-space(doc($config:data-root || '/' || $path)//tei:titleStmt/tei:title)
                 return 
                     <li><a href="{$path}">{$title}</a></li>
@@ -68,13 +69,13 @@ function app:index($request as map(*)) {
        
             let $link-da := 
                 if ($i/tei:idno[@type="collection"]) then 
-                    <a href="landing.html?collection={$i/tei:idno[@type='collection']}" target="_blank">{distinct-values($i/tei:title[@xml:lang="da"][.!=''])}</a>
+                    <a href="landing.html?collection=works/{$i/tei:idno[@type='collection']}" target="_blank">{distinct-values($i/tei:title[@xml:lang="da"][.!=''])}</a>
                 else
                     distinct-values($i/tei:title[@xml:lang="da"][.!=''])
 
             let $link-en := 
                 if ($i/tei:idno[@type="collection"]) then 
-                    <a href="landing.html?collection={$i/tei:idno[@type='collection']}" target="_blank">{distinct-values($i/tei:title[@xml:lang="en"][.!=''])}</a>
+                    <a href="landing.html?collection=works/{$i/tei:idno[@type='collection']}" target="_blank">{distinct-values($i/tei:title[@xml:lang="en"][.!=''])}</a>
                 else
                     distinct-values($i/tei:title[@xml:lang="en"][.!=''])
             
