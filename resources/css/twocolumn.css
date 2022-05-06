@@ -10,15 +10,14 @@ body {
 .content-body {
     position: relative;
     display: grid;
-    grid-template-columns: 70% 1fr;
+    grid-template-columns: 60% 1fr;
     grid-column-gap: 0px;
     padding: 0 4px;
    
 }
 
 .content-body pb-facsimile {
-    height: var(--pb-view-height);
-   
+    height: calc(100vh - 160px);
 }
 
 .content-body pb-view {
