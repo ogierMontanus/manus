@@ -112,14 +112,29 @@
             <param name="label" value="@n"/>
             <param name="facs" value="'https://img.andersen.sdu.dk/iiif/2/'|| @facs ||'/full/1200,/0/default.jpg'"/>
             <param name="file" value="@facs"/>
-            <pb:template xmlns="" xml:space="preserve"><pb-popover persistent="persistent">
+            <pb:template xmlns="" xml:space="preserve"><div>
+<jinn-window name="barbar" headercontrols="close" position="right-top" title="[[label]]">
+  <button slot="icon">Open [[label]]</button>
+      <template>              
+        <pb-facs-link label="[[label]]" facs="[[facs]]" emit="[[facs]]">[[label]]</pb-facs-link>
+        <pb-facsimile type="image" subscribe="[[facs]]" default-zoom-level="0" show-navigator="" reference-strip="" show-navigation-control="" show-home-control="" show-rotation-control="">                        
+        </pb-facsimile>                    
+      </template>
+</jinn-window>
+
+<pb-popover persistent="persistent">
+  <span>
   <paper-icon-button icon="icons:perm-media"/>
+    <pb-facs-link label="[[label]]" facs="[[facs]]" emit="transcription">[[label]]</pb-facs-link>
+  </span>
   <span slot="alternate">
-    <b><pb-facs-link facs="[[facs]]" emit="transcription">[[label]]</pb-facs-link></b>
+    
     <br/>
      Filename: [[file]]
   </span>
-</pb-popover></pb:template>
+</pb-popover>
+   
+</div></pb:template>
         </model>
                     <model behaviour="inline">
             <param name="label" value="@n"/>
