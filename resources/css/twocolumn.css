@@ -27,3 +27,13 @@ body {
 pb-view {
   max-width: 100vw;
 }
+
+.jinn-window {
+  padding: 1em;
+}
+
+.jinn pb-facsimile {
+    height: 300px;
+    width: 300px;
+    border: 1px solid gray;
+  }

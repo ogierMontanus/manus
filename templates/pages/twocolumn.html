@@ -18,8 +18,37 @@
         <link rel="stylesheet" href="resources/css/theme.css"/>
         <link rel="stylesheet" href="resources/css/twocolumn.css"/>
 
-        <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
-       
+        <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"></script>
+
+        <!-- <script type="module" src="https://unpkg.com/@jinntec/jinn-window@1.0.3/dist/jinn-window.js"></script> -->
+        <!-- Include local version of the jspanel -->
+        <link href="resources/css/jspanel.css" rel="stylesheet"/>
+        <script type="module" src="resources/scripts/jinn-window.js"></script>
+        <script src="resources/scripts/jinn.js"></script>
+
+        <style>
+           
+
+        .jsPanel{
+            min-height:400px;
+        }
+        .jsPanel-content > div{
+            display: grid;
+            grid-template-rows: 6rem auto;
+            height:100%;
+        }
+
+        .jsPanel pb-facsimile {
+        /*.jsPanel jsPanel-content, .jsPanel pb-facsimile {*/
+            min-width:400px;
+            min-height:400px;
+            width:100%;
+            height: 100%;
+            border: 1px solid gray;
+        }
+
+        
+        </style>
     </head>
 
     <body>
@@ -49,17 +78,31 @@
                             <pb-param name="header" value="short"/>
                         </pb-view>
                     </section>
+                    <section>
+                        <jinn-window name="barbar" headercontrols="close" position="right-top" title="Viewer test">
+                            <button slot="icon">Go</button>
+                            <template>
+                                <h1>Facsimile Viewer Test</h1>
+                                <pb-facsimile base-uri="https://apps.existsolutions.com/cantaloupe/iiif/2/"
+                                              facsimiles="[&quot;15929_000_IDL5772_BOss12034_IIIp79.jpg&quot;, &quot;15929_000_IDL5772_BOss12034_IIIp80.jpg&quot;, &quot;15929_000_IDL5772_BOss12034_IIIp81.jpg&quot;, &quot;15929_000_IDL5772_BOss12034_IIIp82.jpg&quot;,
+                                                &quot;does-not-exist.jpg&quot;]" default-zoom-level="0" show-navigator="" reference-strip=""
+                                              show-navigation-control="" show-home-control="" show-rotation-control="">
+                                </pb-facsimile>                    
+                            </template>
+                        </jinn-window>
+                    </section>
                     <main class="content-body">
                         <pb-view id="view1" src="document1" column-separator=".tei-cb" append-footnotes="append-footnotes" 
                         subscribe="transcription" emit="transcription" wait-for="#facsimile"
                         load-css="resources/css/twocol.css">
                            <pb-param name="mode" value="facsimile"/>
                         </pb-view>
-                        <pb-facsimile id="facsimile" type="image" subscribe="transcription" default-zoom-level="0" show-navigation-control="show-navigation-control" show-navigator="show-navigator" />
-                      <!--
-                        pb-facsimile id="facsimile" base-uri="https://img.andersen.sdu.dk/iiif/2/" 
-                            default-zoom-level="0" show-navigation-control="show-navigation-control" show-navigator="show-navigator" subscribe="transcription"/
-                            -->
+                        <pb-facsimile id="facsimile" type="image" 
+                            subscribe="transcription" 
+                            default-zoom-level="0" 
+                            show-navigation-control="show-navigation-control" 
+                            show-navigator="show-navigator" 
+                            />
                     </main>
                 </app-header-layout>
             </app-drawer-layout>
@@ -164,8 +207,7 @@
                     addButtons(ev.detail.root.querySelectorAll(`.container`));
                     markSpans(ev.detail.root);
             }, false);         
-        });
+        });   
      </script>
- 
     </body>
 </html>
