@@ -78,19 +78,6 @@
                             <pb-param name="header" value="short"/>
                         </pb-view>
                     </section>
-                    <section>
-                        <jinn-window name="barbar" headercontrols="close" position="right-top" title="Viewer test">
-                            <button slot="icon">Go</button>
-                            <template>
-                                <h1>Facsimile Viewer Test</h1>
-                                <pb-facsimile base-uri="https://apps.existsolutions.com/cantaloupe/iiif/2/"
-                                              facsimiles="[&quot;15929_000_IDL5772_BOss12034_IIIp79.jpg&quot;, &quot;15929_000_IDL5772_BOss12034_IIIp80.jpg&quot;, &quot;15929_000_IDL5772_BOss12034_IIIp81.jpg&quot;, &quot;15929_000_IDL5772_BOss12034_IIIp82.jpg&quot;,
-                                                &quot;does-not-exist.jpg&quot;]" default-zoom-level="0" show-navigator="" reference-strip=""
-                                              show-navigation-control="" show-home-control="" show-rotation-control="">
-                                </pb-facsimile>                    
-                            </template>
-                        </jinn-window>
-                    </section>
                     <main class="content-body">
                         <pb-view id="view1" src="document1" column-separator=".tei-cb" append-footnotes="append-footnotes" 
                         subscribe="transcription" emit="transcription" wait-for="#facsimile"
