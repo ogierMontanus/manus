@@ -112,15 +112,20 @@
             <param name="label" value="@n"/>
             <param name="facs" value="'https://img.andersen.sdu.dk/iiif/2/'|| @facs ||'/full/1200,/0/default.jpg'"/>
             <param name="file" value="@facs"/>
-            <pb:template xmlns="" xml:space="preserve"><jinn-window name="barbar" headercontrols="close" position="right-top" title="[[label]]">
-  <span slot="icon"><button><iron-icon icon="icons:perm-media"/>[[label]]</button></span>
-      <template>              
-        <pb-facs-link label="[[label]]" facs="[[facs]]" emit="[[facs]]"/>
-        <h3>[[file]]</h3>
-        <pb-facsimile type="image" subscribe="[[facs]]" default-zoom-level="0" show-navigation-control="" show-home-control="" show-full-page-control="">                        
-        </pb-facsimile>                    
-      </template>
-</jinn-window></pb:template>
+            <param name="pos" value="let $layer := $get(.)/ancestor::floatingText/@type return switch($layer)  case &#34;secondLayer&#34; return 'center-top' default return 'right-top'"/>
+            <pb:template xmlns="" xml:space="preserve"><span>
+  <pb-facs-link label="[[label]]" facs="[[facs]]" emit="transcription"/>
+  <jinn-window name="[[facs]]" headercontrols="close" position="[[pos]]" title="[[label]]">
+    <span slot="icon"><button><iron-icon icon="icons:perm-media"/>[[label]]</button></span>
+        <template>              
+          <pb-facs-link label="[[label]]" facs="[[facs]]" emit="[[facs]]"/>
+          
+          <div slot="before"><h3>[[label]]</h3><h4>[[file]]</h4></div>
+          <pb-facsimile type="image" subscribe="[[facs]]" default-zoom-level="0" show-navigation-control="" show-home-control="" show-full-page-control="">                        
+          </pb-facsimile>                    
+        </template>
+  </jinn-window>
+</span></pb:template>
         </model>
                     <model behaviour="inline">
             <param name="label" value="@n"/>
