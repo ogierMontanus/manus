@@ -40,38 +40,17 @@
         <body>
             <schemaSpec start="TEI teiCorpus" ident="andersen" source="teipublisher.odd"> <elementSpec ident="pb" mode="change">
                     <modelSequence>
-            <model predicate="$parameters?mode='facsimile'" behaviour="inline">
+            <model predicate="$parameters?mode='facsimile'" behaviour="pass-through">
                 <param name="facs" value="'https://img.andersen.sdu.dk/iiif/2/'|| @facs ||'/full/1200,/0/default.jpg'"/>
                 <param name="label" value="@n"/>
-                <pb:template xmlns="" xml:space="preserve"><pb-popover persistent="persistent">
-  <paper-icon-button icon="icons:perm-media"/>
-  <span slot="alternate">
-    <b><pb-facs-link facs="[[facs]]" emit="transcription">[[label]]</pb-facs-link></b>
-
-     Filename: <span id="status">[[facs]]</span>
-  </span>
-</pb-popover></pb:template>
-            </model>
-            <model predicate="not($parameters?mode='facsimile')" behaviour="inline">
-                <param name="label" value="@n"/>
-                <param name="facs" value="'https://img.andersen.sdu.dk/iiif/2/'|| @facs ||'/full/1200,/0/default.jpg'"/>
-                <pb:template xmlns="" xml:space="preserve"><pb-popover>
-  <paper-icon-button icon="icons:perm-media"/>
-  <span slot="alternate">
-    <b>[[label]]</b>
-    <br/>
-     Filename: [[facs]]
-  </span>
-</pb-popover></pb:template>
-            </model>
-            <model behaviour="inline">
-                <param name="content" value="(if (@ed='A') then () else @ed/string() || ' ', @n)"/>
-                <outputRendition xml:space="preserve" scope="before">
-                content: '| [';
-                </outputRendition>
-                <outputRendition xml:space="preserve" scope="after">
-                content: ']';
-                </outputRendition>
+                <param name="pos" value="'left-top'"/>
+                <pb:template xmlns="" xml:space="preserve">     <jinn-window name="[[facs]]" headercontrols="close" position="[[pos]]" title="[[label]]">
+    <span slot="icon"><button><iron-icon icon="icons:perm-media"/><span>[[label]]</span></button></span>
+        <template>              
+          <pb-facs-link label="[[label]]" facs="[[facs]]" emit="[[facs]]"/>
+          <pb-facsimile type="image" subscribe="[[facs]]" default-zoom-level="1" show-navigation-control="" show-home-control=""/>               
+        </template>
+  </jinn-window></pb:template>
             </model>
             <model predicate="@facs" behaviour="webcomponent">
                 <param name="name" value="'pb-facs-link'"/>
@@ -103,7 +82,7 @@
             <model behaviour="inline">
                 <param name="body" value="body"/>
                 <param name="id" value="'l' || translate(util:node-id(.), '.', '_')"/>
-                <pb:template xmlns="" xml:space="preserve"><div class="layer" id="[[id]]">[[id]] [[body]]</div></pb:template>
+                <pb:template xmlns="" xml:space="preserve"><div class="layer" id="[[id]]">[[body]]</div></pb:template>
             </model>
         </modelSequence>
                 </elementSpec>
@@ -116,13 +95,10 @@
             <pb:template xmlns="" xml:space="preserve"><span>
   <pb-facs-link label="[[label]]" facs="[[facs]]" emit="transcription"/>
   <jinn-window name="[[facs]]" headercontrols="close" position="[[pos]]" title="[[label]]">
-    <span slot="icon"><button><iron-icon icon="icons:perm-media"/>[[label]]</button></span>
+    <span slot="icon"><button><iron-icon icon="icons:perm-media"/><span>[[label]]</span></button></span>
         <template>              
           <pb-facs-link label="[[label]]" facs="[[facs]]" emit="[[facs]]"/>
-          
-          <div slot="before"><h3>[[label]]</h3><h4>[[file]]</h4></div>
-          <pb-facsimile type="image" subscribe="[[facs]]" default-zoom-level="0" show-navigation-control="" show-home-control="" show-full-page-control="">                        
-          </pb-facsimile>                    
+          <pb-facsimile type="image" subscribe="[[facs]]" default-zoom-level="1" show-navigation-control="" show-home-control=""/>               
         </template>
   </jinn-window>
 </span></pb:template>

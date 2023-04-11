@@ -32,3 +32,8 @@ color: rgba(0, 0, 0, 0.5);
    margin-left: -30px;
    background-color: #bbfbfc;
 }
+
+button span {
+    display: inline-block;
+    margin-left: 1em;
+}

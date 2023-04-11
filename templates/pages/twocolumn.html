@@ -34,7 +34,7 @@
         }
         .jsPanel-content > div{
             display: grid;
-            grid-template-rows: 6rem auto;
+            grid-template-rows: 1rem auto;
             height:100%;
         }
 
@@ -72,21 +72,21 @@
                                 <pb-i18n key="dialogs.loading">Loading</pb-i18n>
                             </pb-load>
                         </div>
-                    </pb-drawer>
-                    <section class="breadcrumbs">
-                       <pb-view id="title-view1" src="document1" xpath="//teiHeader/fileDesc/titleStmt/title" view="single">
-                            <pb-param name="header" value="short"/>
-                        </pb-view>
-                    </section>
+                    </pb-drawer>                   
                     <main class="content-body">
-                        <pb-view id="view1" src="document1" column-separator=".tei-cb" append-footnotes="append-footnotes" 
-                        subscribe="transcription" emit="transcription" wait-for="#facsimile"
-                        load-css="resources/css/twocol.css">
-                           <pb-param name="mode" value="facsimile"/>
-                        </pb-view>
+                        <div class="left-panel">
+                            <pb-view id="title-view1" src="document1" xpath="//teiHeader/fileDesc/titleStmt/title" view="single">
+                                <pb-param name="header" value="short"/>
+                            </pb-view>
+                            <pb-view id="view1" src="document1" column-separator=".tei-cb" append-footnotes="append-footnotes" 
+                            subscribe="transcription" emit="transcription" wait-for="#facsimile"
+                            load-css="resources/css/twocol.css">
+                            <pb-param name="mode" value="facsimile"/>
+                            </pb-view>
+                        </div>
                         <pb-facsimile id="facsimile" type="image" 
                             subscribe="transcription" 
-                            default-zoom-level="0" 
+                            default-zoom-level="1" 
                             show-navigation-control="show-navigation-control" 
                             show-navigator="show-navigator" 
                             reference-strip=""
@@ -99,7 +99,7 @@
         </pb-page>
         <div class="splash"/>      
         <script>
-        
+
          function extractTemplates(chunk, root, col) {
              const floats = chunk.querySelectorAll(`.layer-link`);
              floats.forEach((marker) => {
