@@ -47,6 +47,18 @@ declare variable $config:origin-whitelist := (
     "(?:https?://localhost:.*|https?://127.0.0.1:.*)"
 );
 
+(:~~
+ : Set to true to allow caching: if the browser sends an If-Modified-Since header,
+ : TEI Publisher will respond with a 304 if the resource has not changed since last
+ : access. However, this does *not* take into account changes to ODD or other auxiliary 
+ : files, so don't use it during development.
+ :)
+declare variable $config:enable-proxy-caching :=
+    let $prop := util:system-property("teipublisher.proxy-caching")
+    return
+        exists($prop) and lower-case($prop) = 'true'
+;
+
 (:~
  : Should documents be located by xml:id or filename?
  :)
@@ -275,8 +287,17 @@ declare variable $config:app-root :=
  : but may need to be changed if the app is behind a proxy.
  :)
 declare variable $config:context-path :=
-   request:get-context-path() || substring-after($config:app-root, "/db")
-    (: "" :)
+    let $prop := util:system-property("teipublisher.context-path")
+    return
+        if (exists($prop)) then
+            if ($prop = "auto") then
+                request:get-context-path() || substring-after($config:app-root, "/db") 
+            else
+                $prop
+        else if (exists(request:get-header("X-Forwarded-Host")))
+            then ""
+        else
+            request:get-context-path() || substring-after($config:app-root, "/db")
 ;
 
 (:~

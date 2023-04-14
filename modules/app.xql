@@ -37,8 +37,7 @@ function app:visu($node as node(), $model as map(*), $collection as xs:string) {
 declare
     %templates:wrap
     %templates:default("section", "dossier")
-
-function app:list($node as node(), $model as map(*), $section as xs:string, $collection as xs:string) {
+function app:list($node as node(), $model as map(*), $section as xs:string?, $collection as xs:string) {
     let $path := $config:data-articles || '/' || substring-after($collection, 'works/') || '/index.xml'
     let $index := doc($path)
     let $items := $index//tei:list[tei:head[@n=$section]]/tei:item
