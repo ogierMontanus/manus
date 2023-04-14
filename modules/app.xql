@@ -38,6 +38,7 @@ declare
     %templates:wrap
     %templates:default("section", "dossier")
 function app:list($node as node(), $model as map(*), $section as xs:string?, $collection as xs:string) {
+    let $section := if ($section) then $section else 'dossier'
     let $path := $config:data-articles || '/' || substring-after($collection, 'works/') || '/index.xml'
     let $index := doc($path)
     let $items := $index//tei:list[tei:head[@n=$section]]/tei:item
