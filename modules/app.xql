@@ -16,7 +16,7 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare
     %templates:wrap
 function app:info($node as node(), $model as map(*), $collection as xs:string) {
-    let $path := $config:data-articles || '/' || $collection || '/index.xml'
+    let $path := $config:data-articles || '/' || substring-after($collection, 'works/') || '/index.xml'
     let $index := doc($path)
     return
     <p>
@@ -29,8 +29,10 @@ function app:info($node as node(), $model as map(*), $collection as xs:string) {
 declare
     %templates:wrap
 function app:visu($node as node(), $model as map(*), $collection as xs:string) {
-    <p>
-        <img src="../andersen-data/data/articles/{$collection}/chessboard.svg" />
+        let $c := substring-after($collection, 'works/')
+        return
+        <p>
+        <img src="../andersen-data/data/articles/{$c}/chessboard.svg" />
     </p>
 };
 
