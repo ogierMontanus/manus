@@ -287,7 +287,7 @@ declare variable $config:app-root :=
  : but may need to be changed if the app is behind a proxy.
  :)
 declare variable $config:context-path :=
-    let $prop := util:system-property("teipublisher.context-path")
+    (: let $prop := util:system-property("teipublisher.context-path")
     return
         if (exists($prop)) then
             if ($prop = "auto") then
@@ -296,7 +296,7 @@ declare variable $config:context-path :=
                 $prop
         else if (exists(request:get-header("X-Forwarded-Host")))
             then ""
-        else
+        else:)
             request:get-context-path() || substring-after($config:app-root, "/db")
 ;
 
