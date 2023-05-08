@@ -212,8 +212,8 @@
                     <app-toolbar class="menubar">
                         <a href="${app}/index.html" class="logo" data-template="pages:parse-params"/>
                         <pb-media-query query="(min-width: 1024px)">
-                            <a href="${app}/index.html" data-template="pages:parse-params">Start</a>
-                            <pb-restricted login="login" group="tei">
+                            <!--<a href="${app}/index.html" data-template="pages:parse-params">Start</a>-->
+                            <!--<pb-restricted login="login" group="tei">
                                 <paper-menu-button>
                                     <a href="#" slot="dropdown-trigger">
                                         <pb-i18n key="menu.admin.title">Admin</pb-i18n>
@@ -230,16 +230,16 @@
                                         </paper-item>
                                     </paper-listbox>
                                 </paper-menu-button>
-                            </pb-restricted>
+                            </pb-restricted>-->
                             <!-- Search input -->
                             <pb-search action="${app}/search.html" data-template="pages:parse-params" value="${query}" redirect="redirect"/>
 
                             <!-- language selector -->
-                            <pb-lang name="lang" data-template="pages:languages"/>
+                            <!--<pb-lang name="lang" data-template="pages:languages"/>-->
                         </pb-media-query>
-                        <pb-login id="login" group="tei">
+                        <!--<pb-login id="login" group="tei">
                             <iron-icon slot="icon" icon="account-circle"/>
-                        </pb-login>
+                        </pb-login>-->
                         <pb-progress indeterminate="indeterminate" bottom-item="bottom-item" subscribe="docs"/>
                     </app-toolbar>
                     <pb-media-query query="(max-width: 1023px)">
@@ -253,7 +253,7 @@
 
                 <main>
                     <section>
-                        <h1 class="tp-title">Hans Christian Andersens <i>Eventyr og Historier</i> — Den digitale manuskriptudgave</h1>
+                        <h1 class="tp-title">H.C. Andersens <i>Eventyr og Historier</i> — Den digitale manuskriptudgave</h1>
                     </section>
                     <section class="panels">               
                         <div class="dossier">

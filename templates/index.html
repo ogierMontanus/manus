@@ -307,17 +307,15 @@
                     <app-toolbar class="menubar">
                         <a href="${app}/index.html" class="logo" data-template="pages:parse-params"/>
                         <pb-media-query query="(min-width: 1024px)">
-                            <a href="${app}/index.html" data-template="pages:parse-params">Start</a>
+                            <!--<a href="${app}/index.html" data-template="pages:parse-params">Start</a>-->
                             
                             <a href="${app}/articles/guide.xml" data-template="pages:parse-params">
-                                <pb-i18n key="browse.guide">Vejl</pb-i18n>
+                                <pb-i18n key="browse.guide">Vejledning</pb-i18n>
                             </a>
                             <a href="${app}/articles/about.xml" data-template="pages:parse-params">
                                 <pb-i18n key="browse.about">Om pilotprojektet og udgaven</pb-i18n>
                             </a>
-                            <a href="mailto:nh@sdu.dk"><pb-i18n key="browse.contact">Kontakt</pb-i18n></a>
-                       
-                            <pb-restricted login="login" group="tei">
+                             <!--<pb-restricted login="login" group="tei">
                                 <paper-menu-button>
                                     <a href="#" slot="dropdown-trigger">
                                         <pb-i18n key="menu.admin.title">Admin</pb-i18n>
@@ -334,22 +332,19 @@
                                         </paper-item>
                                     </paper-listbox>
                                 </paper-menu-button>
-                            </pb-restricted>
+                            </pb-restricted>-->
                             <!-- Search input -->
                             <pb-search action="${app}/search.html" data-template="pages:parse-params" value="${query}" redirect="redirect"/>
 
                             <!-- language selector -->
-                            <pb-lang name="lang" data-template="pages:languages"/>
+                            <!--<pb-lang name="lang" data-template="pages:languages"/>-->
                         </pb-media-query>
-                        <pb-login id="login" group="tei">
-                            <iron-icon slot="icon" icon="account-circle"/>
-                        </pb-login>
-                        <pb-progress indeterminate="indeterminate" bottom-item="bottom-item" subscribe="docs"/>
+                         <pb-progress indeterminate="indeterminate" bottom-item="bottom-item" subscribe="docs"/>
                     </app-toolbar>
                     <pb-media-query query="(max-width: 1023px)">
                         <app-toolbar class="toolbar" sticky="sticky">
                             <!-- Search input -->
-                            <pb-search action="${app}/search.html" data-template="pages:parse-params" value="${query}" redirect="redirect"/>
+                            <pb-search actin="${app}/search.html" data-template="pages:parse-params" value="${query}" redirect="redirect"/>
                             <paper-icon-button icon="icons:menu" drawer-toggle="drawer-toggle"/>
                         </app-toolbar>
                     </pb-media-query>
@@ -396,7 +391,7 @@
                              <p style="text-align:center; font-size:14px;">Webdesign ved Magdalena Turska og Holger Berg baseret på <a href="https://teipublisher.com/index.html" target="_blank">TEI Publisher</a> frameworket, der bliver drevet af <a href="https://e-editiones.org/" target="_blank">e-editiones.org</a>.</p>
                              <p style="text-align:center"><a href="https://e-editiones.org/" target="_blank"><img src="resources/images/powered-by-editiones-color.svg" width="10%"/></a></p>
                              <p style="text-align:center; font-size:20px;">
-                                <a href="${app}/articles/terms-of-use.xml#cookies" target="_blank" data-template="pages:parse-params">Information about cookies.</a>
+                                <a href="${app}/articles/terms-of-use.xml#cookies" target="_blank" data-template="pages:parse-params">Oplysninger om cookies.</a>
                              </p>
                              <p class="footer" style="text-align:right; font-size:10px;">
                                 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">

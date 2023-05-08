@@ -32,7 +32,7 @@ function app:visu($node as node(), $model as map(*), $collection as xs:string) {
         let $c := substring-after($collection, 'works/')
         return
         <p>
-        <img src="../andersen-data/data/articles/{$c}/chessboard.svg" />
+        <img src="../andersen-data/data/articles/{$c}/{$c}-landing.svg" />
     </p>
 };
 
