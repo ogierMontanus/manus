@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <html>
 
 <head>
@@ -190,6 +189,11 @@
                 margin-right: 20px;
             }
             
+            .partners {
+                margin-top: 40px;
+                text-align: center;
+            }
+            
             h1,
             h2,
             h3,
@@ -279,7 +283,7 @@
     };
   </script>
  
-  <script nonce="undefined" src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
+  <script nonce="undefined" src="https://cdn.zinggrid.com/zinggrid.min.js"/>
   <script nonce="undefined">
     ZingGrid.registerLanguage(myLang, 'custom');
   </script>
@@ -351,8 +355,10 @@
                 </app-header>
 
                 <main>
+                     <img alt="test-banner" src="resources/images/test-banner.svg" style="border-width:0; position: fixed; z-index: 1; left: 0; top: -2%; max-width: 7rem; z-index: 1;"/> 
                     <section>
-                        <h1 class="tp-title">Hans Christian Andersens <i>Eventyr og Historier</i></h1>
+                        <h1 class="tp-title">Hans Christian Andersens <i>Eventyr og Historier</i>
+                            </h1>
                         <h2>Den digitale manuskriptudgave</h2>
                     </section>
                     <section class="panels">
@@ -376,20 +382,36 @@
 
     -->
     <zg-colgroup>
-      <zg-column index="name" type="element" header="Danish title"></zg-column>
+      <zg-column index="name" type="element" header="Danish title"/>
          <!--<zg-column index="english" type="element" header="English title"></zg-column>-->
-      <zg-column index="date"></zg-column>
-         <zg-column type="image" index="image" header=" " search="disabled" width="300px"></zg-column>
-         <zg-column index="desc" width="30%" type="element" header="Remarks"></zg-column>
+      <zg-column index="date"/>
+         <zg-column type="image" index="image" header=" " search="disabled" width="300px"/>
+         <zg-column index="desc" width="30%" type="element" header="Remarks"/>
     </zg-colgroup>
   </zing-grid>
                              
-                             <p class="partners" style="text-align: center;">Udgaven modtager finansiel støtte af <a href="https://augustinusfonden.dk//"><img style="float: center;;margin-bottom: -23px; padding-left:5px" src="resources/images/augustinus_fonden_logo_rgb.png" height="100 px" width="218px" alt="Augustinus Fonden"/></a><a href="https://louis-hansenfonden.dk/"><img style="float: center;;margin-bottom: -23px; padding-left:5px" src="resources/images//Louis-Hansens Fond Horisontal Black.png" width="218px" alt="Louis-Hansens Fonden"/></a><!--<img style="float: center; padding-left:10px" alt="SDU" src="resources/images//SDU_BLACK_RGB_png.png" height="30px"/>-->.</p>
-                             <p class="partners" style="text-align: center;">Desuden støtter <img style="float: center; padding-left:10px" alt="Kulturministeriet" src="resources/images//kum_logo_translucent.gif" height="60px"/> <img style="float: center; padding-left:10px" alt="SDU" src="resources/images//SDU_BLACK_RGB_png.png" height="30px"/></p>
-                             <p style="text-align: center"><span>Samarbejdspartnere: </span> <span class="nobr">Det Danske Sprog- og Litteraturselskab</span>, Det Kongelige Bibliotek samt Museum Odense</p>
+                             <p class="partners">Udgaven støttes finansielt af</p> 
+                             <p class="partners">
+                             <a href="https://augustinusfonden.dk//">
+                                        <img src="resources/images/augustinus_fonden_logo_rgb.png" width="280px" alt="Augustinus Fonden"/>
+                                    </a>
+                             </p>
+                             <p class="partners">
+                                    <a href="https://louis-hansenfonden.dk/">
+                                        <img src="resources/images/Louis-Hansens Fond Horisontal Black.png" width="260px" alt="Louis-Hansens Fonden"/>
+                                    </a>
+                             </p>
+                             <p class="partners"><!--Desuden støtter--><img style="float: center; padding-left:10px" alt="Kulturministeriet" src="resources/images/kum_logo_translucent.gif" width="230px"/></p>
+                             <p class="partners" style="text-align: center;"> <img  alt="SDU" src="resources/images/SDU_BLACK_RGB_png.png" width="110px"/>
+                                </p>
+                             <p class="partners">Samarbejdspartnere:  <span class="nobr">Det Danske Sprog- og Litteraturselskab</span>, Det Kongelige Bibliotek samt Museum Odense.</p>
                              <!--<p class="partners" style="text-align: center;">Vi takker også <a href="${app}/articles/index.xml#sponsorer">vores tidligere sponsorer</a>.</p>-->
-                             <p style="text-align:center; font-size:14px;">Webdesign ved Magdalena Turska og Holger Berg baseret på <a href="https://teipublisher.com/index.html" target="_blank">TEI Publisher</a> frameworket, der bliver drevet af <a href="https://e-editiones.org/" target="_blank">e-editiones.org</a>.</p>
-                             <p style="text-align:center"><a href="https://e-editiones.org/" target="_blank"><img src="resources/images/powered-by-editiones-color.svg" width="10%"/></a></p>
+                             <p class="partners" style="font-size:14px;">Webdesign ved Magdalena Turska og Holger Berg baseret på <a href="https://teipublisher.com/index.html" target="_blank">TEI Publisher</a> frameworket, der bliver drevet af <a href="https://e-editiones.org/" target="_blank">e-editiones.org</a>.</p>
+                             <p style="text-align:center">
+                                    <a href="https://e-editiones.org/" target="_blank">
+                                        <img src="resources/images/powered-by-editiones-color.svg" width="10%"/>
+                                    </a>
+                                </p>
                              <p style="text-align:center; font-size:20px;">
                                 <a href="${app}/articles/terms-of-use.xml#cookies" target="_blank" data-template="pages:parse-params">Oplysninger om cookies.</a>
                              </p>
@@ -459,7 +481,7 @@
   
 // window:load event for Javascript to run after HTML
 // because this Javascript is injected into the document head
-window.addEventListener('load', () => {
+window.addEventListener('load', () =&gt; {
   // Javascript code to execute after DOM content
   // element references
   const searchGrid = document.getElementById('searchGrid');
@@ -474,8 +496,8 @@ window.addEventListener('load', () => {
     clearTimeout(searchTimeoutId);
     let targetValue = e.target.value;
     // delay 100 milliseconds to debounce user input
-    searchTimeoutId = setTimeout((userInput) => {
-      requestAnimationFrame(() => zgRef.searchGrid(userInput));
+    searchTimeoutId = setTimeout((userInput) =&gt; {
+      requestAnimationFrame(() =&gt; zgRef.searchGrid(userInput));
     }, 100, targetValue);
   }
  
@@ -490,5 +512,6 @@ window.addEventListener('load', () => {
 </script>
  
 </body>
+         
 
 </html>

@@ -1,6 +1,6 @@
 /* Due to a safari issue, relative paths to background images won't work as variables, so we list them here */
-.logo { background-image: url("../images/tei-publisher-logo-contrast-color.svg"); }
-.splash { background-image: url("../images/tei-publisher-logo-color.svg"); }
+.logo { background-image: url("../images/HCA-Phantasy-Cut_rect-darkblue.png"); }/*../images/tei-publisher-logo-contrast-color.svg" */
+.splash { background-image: url("../images/HCA-Phantasy-Cut_rect-darkblue.png"); }/* ../images/tei-publisher-logo-color.svg */
 .menubar { background-image: none; }
 .toolbar { background-image: none; }
 app-header { background-image: none; }
