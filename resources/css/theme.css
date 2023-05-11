@@ -3,7 +3,7 @@
 .splash { background-image: url("../images/HCA-Phantasy-Cut_rect-darkblue.png"); }/* ../images/tei-publisher-logo-color.svg */
 .menubar { background-image: none; }
 .toolbar { background-image: none; }
-app-header { background-image: none; }
+app-header { background-image: none;}
 
 body {
     --pb-splash-image-size: 360px auto;

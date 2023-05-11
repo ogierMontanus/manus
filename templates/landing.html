@@ -208,7 +208,7 @@
                     </div>
                 </app-drawer>
                 <app-header-layout>
-                <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall">
+                     <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall" style="z-index:0;">
                     <app-toolbar class="menubar">
                         <a href="${app}/index.html" class="logo" data-template="pages:parse-params"/>
                         <pb-media-query query="(min-width: 1024px)">
@@ -249,6 +249,7 @@
                             <paper-icon-button icon="icons:menu" drawer-toggle="drawer-toggle"/>
                         </app-toolbar>
                     </pb-media-query>
+                          
                 </app-header>
 
                 <main>
@@ -264,7 +265,7 @@
                             <div data-template="app:visu"/>
                         </aside>          
                     </section>
-                     <img alt="test-banner" src="resources/images/test-banner.svg" style="border-width:0; position: fixed; z-index: 1; left: 0; top: 7%; max-width: 7rem; z-index: 1;"/>
+                     <img alt="test-banner" src="resources/images/test-banner.svg" style="border-width:0; position: fixed; z-index: 1; left: 0; top: 0; max-width: 4rem; z-index: 1;"/>
                 </main>
                 <footer class="version">
                     App: v<span data-template="pages:version"/> /
