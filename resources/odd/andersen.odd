@@ -92,7 +92,7 @@
             <param name="label" value="@n"/>
             <param name="facs" value="'https://img.andersen.sdu.dk/iiif/2/'|| @facs ||'/full/1200,/0/default.jpg'"/>
             <param name="file" value="@facs"/>
-            <param name="pos" value="let $layer := $get(.)/ancestor::floatingText/@type return switch($layer)  case &#34;secondLayer&#34; return 'center-top' default return 'right-top'"/>
+            <param name="pos" value="let $layer := ($get(.)/ancestor::floatingText/@type)[1] return switch($layer)  case &#34;secondLayer&#34; return 'center-top' default return 'right-top'"/>
             <pb:template xmlns="" xml:space="preserve"><span>
   <pb-facs-link label="[[label]]" facs="[[facs]]" emit="transcription"/>
   <jinn-window name="[[facs]]" headercontrols="close" position="[[pos]]" title="[[label]]">
