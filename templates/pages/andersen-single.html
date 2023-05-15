@@ -16,7 +16,7 @@
         <link rel="stylesheet" type="text/css" href="resources/fonts/font.css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald&amp;display=swap"/>
         <link rel="stylesheet" href="resources/css/theme.css"/>
-        <link rel="stylesheet" href="resources/css/twocolumn.css"/>
+        <link rel="stylesheet" href="resources/css/andersen-single.css"/>
 
         <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"></script>
 
@@ -62,38 +62,28 @@
                         <app-toolbar data-template="templates:include" data-template-path="templates/menu.html"/>
                         <app-toolbar data-template="templates:include" data-template-path="templates/toolbar.html"/>
                          <img alt="test-banner" src="resources/images/test-banner.svg" style="border-width:0; position: fixed; z-index: 1; left: 0; top: 0; max-width: 4rem; z-index: 1;"/>
-                    </app-header>
-
-                     <pb-drawer toggle="tocToggle" class="toc" emit="toc" subscribe="transcription">
-                        <div class="drawer-content">
-                            <h3>
-                                <pb-i18n key="document.contents">Contents</pb-i18n>
-                            </h3>
-                            <pb-load id="toc" url="api/document/{doc}/contents?target=transcription&amp;icons=true" expand="expand" src="document1" subscribe="toc" load-once="load-once">
-                                <pb-i18n key="dialogs.loading">Loading</pb-i18n>
-                            </pb-load>
-                        </div>
-                    </pb-drawer>                   
+                    </app-header>      
                     <main class="content-body">
                         <div class="left-panel">
                             <pb-view id="title-view1" src="document1" xpath="//teiHeader/fileDesc/titleStmt/title" view="single">
                                 <pb-param name="header" value="short"/>
                             </pb-view>
-                            <pb-view id="view1" src="document1" column-separator=".tei-cb" append-footnotes="append-footnotes" 
-                            subscribe="transcription" emit="transcription" wait-for="#facsimile" view="page"
+                            <pb-view id="view1" src="document1" view="single"
+                            column-separator=".tei-cb" append-footnotes="append-footnotes" 
+                            subscribe="transcription" emit="transcription" wait-for="#facsimile"
                             load-css="resources/css/twocol.css">
                                 <pb-param name="mode" value="facsimile"/>
                             </pb-view>
-                        </div>
+                        </div>      
                         <pb-facsimile id="facsimile" type="image" 
-                            subscribe="transcription" 
-                            default-zoom-level="1" 
-                            show-navigation-control="show-navigation-control" 
-                            show-navigator="show-navigator" 
-                            reference-strip=""
-                            reference-strip-size-ratio="0.1"
-                            show-full-page-control=""
-                            />                         
+                        subscribe="transcription" 
+                        default-zoom-level="1" 
+                        show-navigation-control="show-navigation-control" 
+                        show-home-control="show-home-control"
+                        reference-strip=""
+                        reference-strip-size-ratio="0.1"
+                        show-full-page-control=""
+                        />                    
                     </main>
                 </app-header-layout>
             </app-drawer-layout>

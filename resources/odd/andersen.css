@@ -24,6 +24,7 @@ color: rgba(0, 0, 0, 0.5);
 .container {
     border: 1px solid #808080;
     padding-left: 30px;
+    padding-right: 10px;
 }
 
 .container-button {

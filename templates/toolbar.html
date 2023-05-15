@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <app-toolbar class="toolbar" sticky="sticky">
-    <paper-icon-button id="tocToggle" class="toc-toggle" icon="icons:view-list"/>
-    <a href="${app}/landing.html?collection=${collection}" data-i18n="[title]browse.${collection}.title" title="" data-template="pages:parse-params">
-        <paper-icon-button icon="icons:folder-open"/>
+    <!-- <paper-icon-button id="tocToggle" class="toc-toggle" icon="icons:view-list"/> -->
+    <a href="${app}/landing.html?collection=${collection}" data-i18n="[title]browse.${collection}.title" title="collection" data-template="pages:parse-params">
+        <paper-icon-button icon="icons:file-upload"/>
+    </a>
+    <!-- <paper-icon-button id="tocToggle" class="toc-toggle" icon="icons:view-list"/> -->
+    <a href="${app}/${doc}?template=andersen-single.html&amp;view=single" title="single" data-template="pages:parse-params">
+        <paper-icon-button icon="icons:assignment"/>
+    </a>
+    <a href="${app}/${doc}?template=twocolumn.html&amp;view=page" title="paged" data-template="pages:parse-params">
+        <paper-icon-button icon="icons:assignment"/><iron-icon icon="icons:perm-media"/>
     </a>
     <pb-select-feature id="select-view1" name="view1" label="View" items="[
                         {&quot;name&quot;: &quot;Reading view&quot;, &quot;selectors&quot;: [{&quot;selector&quot;: &quot;.how&quot;, &quot;state&quot;: false}, {&quot;selector&quot;: &quot;.when&quot;, &quot;state&quot;: false}]},
@@ -27,6 +34,6 @@
     <pb-navigation emit="transcription" keyboard="right" subscribe="transcription" direction="forward" unit="page">
         <paper-icon-button icon="icons:chevron-right"/>
     </pb-navigation>
-    <paper-icon-button icon="icons:menu" drawer-toggle="drawer-toggle"/>
+    <!-- <paper-icon-button icon="icons:menu" drawer-toggle="drawer-toggle"/> -->
     <pb-progress subscribe="transcription" indeterminate="indeterminate" bottom-item="bottom-item"/>
 </app-toolbar>
