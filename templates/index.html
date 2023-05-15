@@ -318,7 +318,7 @@
                                 <pb-i18n key="browse.guide">Vejledning</pb-i18n>
                             </a>
                             <a href="${app}/articles/about.xml" data-template="pages:parse-params">
-                                <pb-i18n key="browse.about">Om pilotprojektet og udgaven</pb-i18n>
+                                <pb-i18n key="browse.about">Om udgaven</pb-i18n>
                             </a>
                              <!--<pb-restricted login="login" group="tei">
                                 <paper-menu-button>
@@ -384,11 +384,11 @@
 
     -->
     <zg-colgroup>
-      <zg-column index="name" type="element" header="Danish title"/>
+      <zg-column index="name" type="element" header="Værk"/>
          <!--<zg-column index="english" type="element" header="English title"></zg-column>-->
-      <zg-column index="date"/>
-         <zg-column type="image" index="image" header=" " search="disabled" width="300px"/>
-         <zg-column index="desc" width="30%" type="element" header="Remarks"/>
+      <zg-column index="date" header="Førsteudgave fra"/>
+         <zg-column type="image" index="image" header=" " search="disabled" sort="disabled" width="300px"/>
+         <zg-column index="desc" width="30%" type="element" sort="disabled" search="disabled" header="Profil"/>
     </zg-colgroup>
   </zing-grid>
                              
