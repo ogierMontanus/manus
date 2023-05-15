@@ -47,8 +47,8 @@ function app:list($node as node(), $model as map(*), $section as xs:string?, $co
     return
     <paper-card class="doclist" data-i18n="[heading]browse.{$section}" heading="{$section}">
         <div>
-            <h2>{$collection}</h2>   
-            <h3>{$path}</h3> 
+            <h2>{$index//tei:titleStmt/tei:title/string()}</h2>   
+
             <ul>
             {
                 for $d in $items 

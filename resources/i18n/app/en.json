@@ -8,9 +8,18 @@
         "unknown": ""
     },
     "toggles": {
+        "reading": "Reading view",
         "details": "More details",
         "when": "When",
         "how": "How & where",
         "lines": "Line breaks"
+    },
+    "view": {
+        "single": "Entire tale",
+        "paged": "Page by page"
+    },
+    "browse": {
+        "collection": "Back to dossier",
+        "dossier": "Dossier"
     }
 }

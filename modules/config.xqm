@@ -27,7 +27,7 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
  : This is recommended unless you develop your own components.
  :)
 (: declare variable $config:webcomponents :="dev"; :)
-declare variable $config:webcomponents := "2.4.5";
+declare variable $config:webcomponents := "2.4.8";
 
 (: declare variable $config:webcomponents-cdn := "http://localhost:8000"; :)
 (:~

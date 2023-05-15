@@ -8,9 +8,18 @@
         "unknown": ""
     },
     "toggles": {
+        "reading": "Læsevisning",
         "details": "Flere detaljer",
         "when": "Hvornår",
         "how": "Hvordan og hvor",
         "lines": "Linjebrud"
+    },
+    "view": {
+        "single": "Hele eventyret",
+        "paged": "Side for side"
+    },
+    "browse": {
+        "collection": "Tilbage til dossier",
+        "dossier": "Dossier"
     }
 }

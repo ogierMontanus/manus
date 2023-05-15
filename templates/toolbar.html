@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <app-toolbar class="toolbar" sticky="sticky">
     <!-- <paper-icon-button id="tocToggle" class="toc-toggle" icon="icons:view-list"/> -->
-    <a href="${app}/landing.html?collection=${collection}" data-i18n="[title]browse.${collection}.title" title="collection" data-template="pages:parse-params">
+    <a href="${app}/landing.html?collection=${collection}" data-i18n="[title]browse.collection" data-template="pages:parse-params">
         <paper-icon-button icon="icons:file-upload"/>
     </a>
     <!-- <paper-icon-button id="tocToggle" class="toc-toggle" icon="icons:view-list"/> -->
-    <a href="${app}/${doc}?template=andersen-single.html&amp;view=single" title="single" data-template="pages:parse-params">
+    <a href="${app}/${doc}?template=andersen-single.html&amp;view=single" data-i18n="[title]view.single" data-template="pages:parse-params">
         <paper-icon-button icon="icons:assignment"/>
     </a>
-    <a href="${app}/${doc}?template=twocolumn.html&amp;view=page" title="paged" data-template="pages:parse-params">
+    <a href="${app}/${doc}?template=twocolumn.html&amp;view=page" data-i18n="[title]view.paged" data-template="pages:parse-params">
         <paper-icon-button icon="icons:assignment"/><iron-icon icon="icons:perm-media"/>
     </a>
     <pb-select-feature id="select-view1" name="view1" label="View" items="[
-                        {&quot;name&quot;: &quot;Reading view&quot;, &quot;selectors&quot;: [{&quot;selector&quot;: &quot;.how&quot;, &quot;state&quot;: false}, {&quot;selector&quot;: &quot;.when&quot;, &quot;state&quot;: false}]},
-                        {&quot;name&quot;: &quot;All details&quot;, &quot;selectors&quot;: [{&quot;selector&quot;: &quot;.how&quot;, &quot;state&quot;: true},{&quot;selector&quot;: &quot;.when&quot;, &quot;state&quot;: true}]},
-                        {&quot;name&quot;: &quot;When&quot;, &quot;selectors&quot;: [{&quot;selector&quot;: &quot;.when&quot;, &quot;state&quot;: true},{&quot;selector&quot;: &quot;.how&quot;, &quot;state&quot;: false}]}
+                        {&quot;name&quot;: &quot;toggles.reading&quot;, &quot;selectors&quot;: [{&quot;selector&quot;: &quot;.how&quot;, &quot;state&quot;: false}, {&quot;selector&quot;: &quot;.when&quot;, &quot;state&quot;: false}]},
+                        {&quot;name&quot;: &quot;toggles.details&quot;, &quot;selectors&quot;: [{&quot;selector&quot;: &quot;.how&quot;, &quot;state&quot;: true},{&quot;selector&quot;: &quot;.when&quot;, &quot;state&quot;: true}]},
+                        {&quot;name&quot;: &quot;toggles.when&quot;, &quot;selectors&quot;: [{&quot;selector&quot;: &quot;.when&quot;, &quot;state&quot;: true},{&quot;selector&quot;: &quot;.how&quot;, &quot;state&quot;: false}]}
                         ]" 
                         emit="transcription" subscribe="transcription"/>
     <pb-toggle-feature name="lines" selector=".lines" emit="transcription" subscribe="transcription" default="off"><pb-i18n key="toggles.lines"/></pb-toggle-feature>                   
