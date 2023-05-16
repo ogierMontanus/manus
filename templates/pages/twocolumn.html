@@ -16,7 +16,6 @@
         <link rel="stylesheet" type="text/css" href="resources/fonts/font.css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald&amp;display=swap"/>
         <link rel="stylesheet" href="resources/css/theme.css"/>
-        <link rel="stylesheet" href="resources/css/twocolumn.css"/>
 
         <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"></script>
 
@@ -47,7 +46,29 @@
             border: 1px solid gray;
         }
 
-        
+        .content-body {
+            max-width: 100vw;
+            display: grid;
+            grid-template-columns: 1fr 600px;
+            grid-template-areas:
+                "breadcrumbs facsimile"
+                "transcription facsimile";
+        }
+
+        #layers-view {
+            grid-area: transcription;
+            max-width: 100%;
+            overflow: scroll;
+        }
+
+        #facsimile {
+            grid-area: facsimile;
+        }
+
+        #title-view {
+            grid-area: breadcrumbs;
+        }
+
         </style>
     </head>
 
@@ -75,16 +96,16 @@
                         </div>
                     </pb-drawer>                   
                     <main class="content-body">
-                        <div class="left-panel">
-                            <pb-view id="title-view1" src="document1" xpath="//teiHeader/fileDesc/titleStmt/title" view="single">
+                        
+                            <pb-view id="title-view" src="document1" xpath="//teiHeader/fileDesc/titleStmt/title" view="single">
                                 <pb-param name="header" value="short"/>
                             </pb-view>
-                            <pb-view id="view1" src="document1" column-separator=".tei-cb" append-footnotes="append-footnotes" 
+                            <pb-view id="layers-view" src="document1" column-separator=".tei-cb" append-footnotes="append-footnotes" 
                             subscribe="transcription" emit="transcription" wait-for="#facsimile" view="page"
                             load-css="resources/css/twocol.css">
                                 <pb-param name="mode" value="facsimile"/>
                             </pb-view>
-                        </div>
+                        
                         <pb-facsimile id="facsimile" type="image" 
                             subscribe="transcription" 
                             default-zoom-level="1" 
@@ -109,7 +130,7 @@
                  const rect = marker.getBoundingClientRect();
                  newBlock.className = 'container';
                  newBlock.style.position = 'absolute';
-                 const top = rect.top - 210;
+                 const top = rect.top;
                  newBlock.style.top = `${top}px`;
                  newBlock.innerHTML = block.innerHTML;
                  const column = root.querySelector(`.col${col}`);

@@ -1,17 +1,3 @@
-.content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 20px;
-}
-
-.col1,
-.col2 {
-    position: relative;
-}
-
-.layers {
-    display: none;
-}
 
 .container2 {
 color: rgba(0, 0, 0, 0.5);
@@ -120,6 +106,17 @@ color: rgba(0, 0, 0, 0.5);
 .note-label {
     vertical-align: super;
     font-size: smaller;
+}
+
+span[slot=icon] .deleted {
+    border-bottom: none;
+    background-image: none;
+}
+
+span[slot=icon] .added {
+    border-bottom: none;
+    background-image: none;
+    background-color: inherit;
 }
 
 span[slot=alternate] .deleted {

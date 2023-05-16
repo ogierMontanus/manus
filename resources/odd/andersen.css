@@ -2,13 +2,26 @@
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
+    gap: 16px;
+    max-width: 100%;
+    overflow: scroll;
 }
 
-.col1,
-.col2 {
-    position: relative;
-    max-width: 400px;
+.content #body {
+    min-width: 500px;
+    max-width: 800px;
 }
+
+.col1, .col2 {
+    min-width: 500px;
+    position: relative;
+}
+
+.col1:empty, .col2:empty {
+    width: 0px;
+    min-width: 0px;
+}
+
 .layers {
     display: none;
 }
