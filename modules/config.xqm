@@ -303,7 +303,7 @@ declare variable $config:context-path :=
 (:~
  : The root of the collection hierarchy containing data.
  :)
-declare variable $config:data-root :='/db/apps/andersen-data/data';
+declare variable $config:data-root :='/db/apps/manus-data/data';
 
 (:~
  : The root of the collection hierarchy whose files should be displayed

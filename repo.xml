@@ -8,7 +8,7 @@
     <type>application</type>
     <prepare>pre-install.xql</prepare>
     <finish>post-install.xql</finish>
-    <target>andersen</target>
+    <target>manus</target>
     <permissions user="hans" group="tei" mode="rw-r--r--"/>
     <deployed>2021-05-11T18:47:17.258+02:00</deployed>
 </meta>

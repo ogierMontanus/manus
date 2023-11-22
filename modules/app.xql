@@ -32,7 +32,7 @@ function app:visu($node as node(), $model as map(*), $collection as xs:string) {
         let $c := substring-after($collection, 'works/')
         return
         <p>
-        <img src="../andersen-data/data/articles/{$c}/{$c}-landing.svg" />
+        <img src="../manus-data/data/articles/{$c}/{$c}-landing.svg" />
     </p>
 };
 
@@ -89,7 +89,7 @@ function app:index($request as map(*)) {
                     "desc": if ($i/tei:desc/string()) then <div>{$i/tei:desc/node()}</div> else '',
                     "image": 
                         if ($i/tei:idno[@type="image"]/string()) then 
-                            xmldb:encode-uri('../andersen-data/data/images/' || $i/tei:idno[@type="image"]/string()) 
+                            xmldb:encode-uri('../manus-data/data/images/' || $i/tei:idno[@type="image"]/string()) 
                         else ''
                     }
     
