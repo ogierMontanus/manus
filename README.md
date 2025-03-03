@@ -1,7 +1,7 @@
 # manus
 Live version see
 https://hca.sdu.dk/manus/
-
+Customized by Magdalena Turska (jinnTec) and Holger Berg (University of Southern Denmark)
 
 ## UPDATE
 2025-03-03: Made public in version based on TEI-Publisher 9.
