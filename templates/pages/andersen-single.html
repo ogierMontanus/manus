@@ -139,16 +139,15 @@
                 }
 
                 function process(root) {
-                    const walker = document.createTreeWalker(
-                        root,
-                        NodeFilter.SHOW_ALL | NodeFilter.SHOW_TEXT
-                    );
-
                     const wrapBetweenAnchors = (cls, name) => {
                         root.querySelectorAll(`a.${cls}`).forEach((anchor) => {
                             const nodes = [];
+                            const walker = document.createTreeWalker(root, NodeFilter.SHOW_ALL);
                             walker.currentNode = anchor;
                             const end = root.querySelector(anchor.hash);
+                            if (!end) {
+                                return;
+                            }
                             while (walker.nextNode()) {
                                 if (walker.currentNode === end) {
                                     break;
@@ -169,6 +168,9 @@
                     wrapBetweenAnchors('delSpan', 'deleted');
                     wrapBetweenAnchors('addSpan', 'added');
 
+                    if (root instanceof Element && root.shadowRoot) {
+                        process(root.shadowRoot);
+                    }
                     root.querySelectorAll('*').forEach((el) => {
                         if (el.shadowRoot) {
                             process(el.shadowRoot);
