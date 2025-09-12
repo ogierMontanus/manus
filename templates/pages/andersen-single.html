@@ -130,54 +130,53 @@
           };
 
             function markSpans(span) {
-                const content = span.querySelector('#content');
-                const walker = document.createTreeWalker(
-                content,
-                NodeFilter.SHOW_ALL | NodeFilter.SHOW_TEXT
-                );
+                let content = span.querySelector('#content');
+                if (!content && span.shadowRoot) {
+                    content = span.shadowRoot.querySelector('#content');
+                }
+                if (!content) {
+                    return;
+                }
 
+                function process(root) {
+                    const walker = document.createTreeWalker(
+                        root,
+                        NodeFilter.SHOW_ALL | NodeFilter.SHOW_TEXT
+                    );
 
-                const delNodes = [];
-                content.querySelectorAll('a.delSpan').forEach((anchor) => {
-                    walker.currentNode = anchor;
-                    const end = content.querySelector(anchor.hash);
-                    while (walker.nextNode()) {
-                        if (walker.currentNode === end) {
-                        break;
+                    const wrapBetweenAnchors = (cls, name) => {
+                        root.querySelectorAll(`a.${cls}`).forEach((anchor) => {
+                            const nodes = [];
+                            walker.currentNode = anchor;
+                            const end = root.querySelector(anchor.hash);
+                            while (walker.nextNode()) {
+                                if (walker.currentNode === end) {
+                                    break;
+                                }
+                                if (walker.currentNode.nodeType === Node.TEXT_NODE) {
+                                    nodes.push(walker.currentNode);
+                                }
+                            }
+                            nodes.forEach((node) => {
+                                const wrapper = document.createElement('span');
+                                wrapper.className = name;
+                                wrapper.appendChild(node.cloneNode());
+                                node.replaceWith(wrapper);
+                            });
+                        });
+                    };
+
+                    wrapBetweenAnchors('delSpan', 'deleted');
+                    wrapBetweenAnchors('addSpan', 'added');
+
+                    root.querySelectorAll('*').forEach((el) => {
+                        if (el.shadowRoot) {
+                            process(el.shadowRoot);
                         }
-                        if (walker.currentNode.nodeType === Node.TEXT_NODE) {
-                        delNodes.push(walker.currentNode);
-                        }
-                    }
-
-                    delNodes.forEach((node) => {
-                        const wrapper = document.createElement('span');
-                        wrapper.className = 'deleted';
-                        wrapper.appendChild(node.cloneNode());
-                        node.replaceWith(wrapper);
                     });
-                });
+                }
 
-                const addNodes = [];
-                    content.querySelectorAll('a.addSpan').forEach((anchor) => {
-                    walker.currentNode = anchor;
-                    const end = content.querySelector(anchor.hash);
-                    while (walker.nextNode()) {
-                        if (walker.currentNode === end) {
-                        break;
-                        }
-                        if (walker.currentNode.nodeType === Node.TEXT_NODE) {
-                        addNodes.push(walker.currentNode);
-                        }
-                    }
-
-                    addNodes.forEach((node) => {
-                        const wrapper = document.createElement('span');
-                        wrapper.className = 'added';
-                        wrapper.appendChild(node.cloneNode());
-                        node.replaceWith(wrapper);
-                    });
-                });
+                process(content);
             };
     
         window.addEventListener('load', () => {
