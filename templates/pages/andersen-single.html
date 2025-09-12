@@ -130,7 +130,7 @@
           };
 
             function markSpans(span) {
-                const content = span.querySelector('#content');
+                const content = span.ownerDocument.body;
                 const walker = document.createTreeWalker(
                 content,
                 NodeFilter.SHOW_ALL | NodeFilter.SHOW_TEXT
@@ -186,9 +186,9 @@
                     const root = ev.detail.root.querySelector('#body');
                     extractTemplates(root, ev.detail.root, 1);
                     addButtons(ev.detail.root.querySelectorAll(`.container`));
-                    markSpans(ev.detail.root);
-            }, false);         
-        });   
+                    markSpans(document.body);
+            }, false);
+        });
      </script>
     </body>
 </html>
