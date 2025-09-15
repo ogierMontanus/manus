@@ -137,16 +137,16 @@
                 );
 
 
-                const delNodes = [];
                 content.querySelectorAll('a.delSpan').forEach((anchor) => {
+                    const delNodes = [];
                     walker.currentNode = anchor;
                     const end = content.querySelector(anchor.hash);
                     while (walker.nextNode()) {
                         if (walker.currentNode === end) {
-                        break;
+                            break;
                         }
                         if (walker.currentNode.nodeType === Node.TEXT_NODE) {
-                        delNodes.push(walker.currentNode);
+                            delNodes.push(walker.currentNode);
                         }
                     }
 
@@ -156,18 +156,22 @@
                         wrapper.appendChild(node.cloneNode());
                         node.replaceWith(wrapper);
                     });
+                    anchor.remove();
+                    if (end) {
+                        end.remove();
+                    }
                 });
 
-                const addNodes = [];
-                    content.querySelectorAll('a.addSpan').forEach((anchor) => {
+                content.querySelectorAll('a.addSpan').forEach((anchor) => {
+                    const addNodes = [];
                     walker.currentNode = anchor;
                     const end = content.querySelector(anchor.hash);
                     while (walker.nextNode()) {
                         if (walker.currentNode === end) {
-                        break;
+                            break;
                         }
                         if (walker.currentNode.nodeType === Node.TEXT_NODE) {
-                        addNodes.push(walker.currentNode);
+                            addNodes.push(walker.currentNode);
                         }
                     }
 
@@ -177,6 +181,10 @@
                         wrapper.appendChild(node.cloneNode());
                         node.replaceWith(wrapper);
                     });
+                    anchor.remove();
+                    if (end) {
+                        end.remove();
+                    }
                 });
             };
     
