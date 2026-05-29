@@ -40,9 +40,9 @@
             {
                 "label": "Deploy manus-data XAR",
                 "type": "shell",
-                "command": "xst package install build/manus-data-0.1.xar --uri http://localhost:8080 --user admin --password \"\" --force",
+                "command": "ok=0; for i in 1 2 3 4 5; do xst package install build/manus-data-0.1.xar --uri http://localhost:8080 --user admin --password \"\" --force && ok=1 && break || ([ $i -lt 5 ] && echo \"Retry $i/5...\" && sleep 5 || true); done; [ $ok -eq 1 ] || exit 1",
                 "windows": {
-                    "command": "$p = ''; xst package install build/manus-data-0.1.xar --uri http://localhost:8080 --user admin --password $p --force"
+                    "command": "$p = ''; $ok = $false; for ($i=1; $i -le 5; $i++) { xst package install build/manus-data-0.1.xar --uri http://localhost:8080 --user admin --password $p --force; if ($LASTEXITCODE -eq 0) { $ok = $true; break }; if ($i -lt 5) { Write-Host \"Retry $i/5...\"; Start-Sleep 5 } }; if (-not $ok) { exit 1 }"
                 },
                 "options": { "cwd": "${workspaceFolder:manus-data}" },
                 "problemMatcher": [],
@@ -59,9 +59,9 @@
             {
                 "label": "Deploy manus XAR",
                 "type": "shell",
-                "command": "xst package install build/manus-0.3.1.xar --uri http://localhost:8080 --user admin --password \"\" --force",
+                "command": "ok=0; for i in 1 2 3 4 5; do xst package install build/manus-0.3.1.xar --uri http://localhost:8080 --user admin --password \"\" --force && ok=1 && break || ([ $i -lt 5 ] && echo \"Retry $i/5...\" && sleep 5 || true); done; [ $ok -eq 1 ] || exit 1",
                 "windows": {
-                    "command": "$p = ''; xst package install build/manus-0.3.1.xar --uri http://localhost:8080 --user admin --password $p --force"
+                    "command": "$p = ''; $ok = $false; for ($i=1; $i -le 5; $i++) { xst package install build/manus-0.3.1.xar --uri http://localhost:8080 --user admin --password $p --force; if ($LASTEXITCODE -eq 0) { $ok = $true; break }; if ($i -lt 5) { Write-Host \"Retry $i/5...\"; Start-Sleep 5 } }; if (-not $ok) { exit 1 }"
                 },
                 "options": { "cwd": "${workspaceFolder:manus}" },
                 "problemMatcher": [],
@@ -70,9 +70,9 @@
             {
                 "label": "Open manus in Browser",
                 "type": "shell",
-                "command": "open 'http://localhost:8080/exist/apps/manus' 2>/dev/null || xdg-open 'http://localhost:8080/exist/apps/manus' 2>/dev/null || true",
+                "command": "if curl -sf http://localhost:8080/exist/apps/manus > /dev/null 2>&1; then open 'http://localhost:8080/exist/apps/manus' 2>/dev/null || xdg-open 'http://localhost:8080/exist/apps/manus' 2>/dev/null; else echo '[WARNING] manus did not respond after deploy — check eXist-db logs.'; fi",
                 "windows": {
-                    "command": "Start-Process 'http://localhost:8080/exist/apps/manus'"
+                    "command": "try { Invoke-WebRequest -Uri 'http://localhost:8080/exist/apps/manus' -UseBasicParsing -TimeoutSec 5 -EA Stop | Out-Null; Start-Process 'http://localhost:8080/exist/apps/manus' } catch { Write-Warning 'manus did not respond after deploy - check eXist-db logs.' }"
                 },
                 "problemMatcher": [],
                 "presentation": { "reveal": "silent", "panel": "shared" }
