@@ -49,6 +49,16 @@
                 "presentation": { "reveal": "always", "panel": "shared" }
             },
             {
+                "label": "Install manus dependencies",
+                "type": "shell",
+                "command": "for dep in html-templating tei-publisher-lib roaster; do echo \"Installing $dep...\"; xst package install \"$dep\" --uri http://localhost:8080 --user admin --password \"\" || echo \"$dep may already be installed\"; done",
+                "windows": {
+                    "command": "$p = ''; foreach ($dep in @('html-templating', 'tei-publisher-lib', 'roaster')) { Write-Host \"Installing $dep...\"; xst package install $dep --uri http://localhost:8080 --user admin --password $p; if ($LASTEXITCODE -ne 0) { Write-Host \"$dep may already be installed or unavailable\" } }"
+                },
+                "problemMatcher": [],
+                "presentation": { "reveal": "always", "panel": "shared" }
+            },
+            {
                 "label": "Build manus XAR",
                 "type": "shell",
                 "command": "ant xar",
@@ -84,6 +94,7 @@
                     "Start eXist-db on localhost:8080",
                     "Build manus-data XAR",
                     "Deploy manus-data XAR",
+                    "Install manus dependencies",
                     "Build manus XAR",
                     "Deploy manus XAR",
                     "Open manus in Browser"
