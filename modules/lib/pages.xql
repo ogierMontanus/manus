@@ -82,6 +82,23 @@ declare function pages:load-components($node as node(), $model as map(*)) {
                 src="{$config:webcomponents-cdn}@{$config:webcomponents}/dist/{$node/@src}"></script>
 };
 
+declare function pages:load-fore($node as node(), $model as map(*), $type as xs:string?) {
+    switch ($node/local-name())
+        case "link" return
+            switch ($config:fore)
+                case "local" return
+                    <link rel="stylesheet" type="text/css" href="resources/css/{$node/@href}"/>
+                default return
+                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@jinntec/fore@{$config:fore}/resources/{$node/@href}"/>
+        default return
+            switch ($config:fore)
+                case "local" return
+                    <script type="module" src="resources/scripts/fore/{$node/@src}"></script>
+                default return
+                    <script type="module" src="https://cdn.jsdelivr.net/npm/@jinntec/fore@{$config:fore}/dist/{$node/@src}"></script>
+            
+};
+
 declare function pages:load-xml($view as xs:string?, $root as xs:string?, $doc as xs:string) {
     for $data in config:get-document($doc)
     return
@@ -157,12 +174,6 @@ declare function pages:process-content($xml as node()*, $root as node()*, $confi
 	let $html := $pm-config:web-transform($xml, $params, $config?odd)
     let $class := if ($html//*[@class = ('margin-note')]) then "margin-right" else ()
     let $body := pages:clean-footnotes($html)
-    let $layers := for $fn in $html//*[@class = "layer"]
-        return
-            element { node-name($fn) } {
-                $fn/@*,
-                pages:clean-footnotes($fn/node())
-            }
     let $footnotes := 
         for $fn in $html//*[@class = "footnote"]
         return
@@ -172,7 +183,6 @@ declare function pages:process-content($xml as node()*, $root as node()*, $confi
             }
     return
         <div class="{$config:css-content-class} {$class}">
-            <div id="body">
         {
             $body,
             if ($footnotes) then
@@ -182,16 +192,6 @@ declare function pages:process-content($xml as node()*, $root as node()*, $confi
             ,
             $html//paper-tooltip
         }
-            </div>
-            {
-                if ($layers) then 
-                    nav:output-layers($layers)
-                else
-                    ()
-            }
-            <!-- slots for 2nd and 3rd layer content-->
-            <div class="col1"></div>
-            <div class="col2"></div>
         </div>
 };
 
@@ -203,8 +203,6 @@ declare function pages:clean-footnotes($nodes as node()*) {
 		        ()
             case element() return
                 if ($node/@class = "footnote") then
-                    ()
-                else if ($node/@class = "layer") then
                     ()
                 else
                     element { node-name($node) } {

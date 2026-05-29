@@ -8,7 +8,6 @@
     <property name="scripts.dir" value="node_modules/@teipublisher/pb-components/dist"/>
     <target name="clean">
         <delete dir="${build}"/>
-        <delete dir="resources/scripts" includes="*.js *.map"/>
         <delete dir="resources/images/leaflet"/>
         <delete dir="resources/images/openseadragon"/>
         <delete dir="resources/i18n/common"/>

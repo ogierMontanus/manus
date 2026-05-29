@@ -308,7 +308,7 @@
                     </div>
                 </app-drawer>
                 <app-header-layout>
-                     <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall" style="z-index:0;">
+                     <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall" style="z-index:1;">
                     <app-toolbar class="menubar">
                         <a href="${app}/index.html" class="logo" data-template="pages:parse-params"/>
                         <pb-media-query query="(min-width: 1024px)">
@@ -317,7 +317,7 @@
                             <a href="${app}/articles/guide.xml" data-template="pages:parse-params">
                                 <pb-i18n key="browse.guide">Vejledning</pb-i18n>
                             </a>
-                            <a href="${app}/articles/about.xml" data-template="pages:parse-params">
+                             <a href="${app}/articles/about.xml" target="_blank" data-template="pages:parse-params">
                                 <pb-i18n key="browse.about">Om udgaven</pb-i18n>
                             </a>
                              <!--<pb-restricted login="login" group="tei">
@@ -339,7 +339,7 @@
                                 </paper-menu-button>
                             </pb-restricted>-->
                             <!-- Search input -->
-                            <pb-search action="${app}/search.html" data-template="pages:parse-params" value="${query}" redirect="redirect"/>
+                            <!--<pb-search action="${app}/search.html" data-template="pages:parse-params" value="${query}" redirect="redirect"/>-->
 
                             <!-- language selector -->
                             <!--<pb-lang name="lang" data-template="pages:languages"/>-->
@@ -359,18 +359,17 @@
                 <main>
                      
                     <section>
-                        <h1 class="tp-title">H.C. Andersens <i>Eventyr og Historier</i>
-                            </h1>
+                        <h1 class="tp-title">H.C. Andersens <i>Eventyr og Historier</i></h1>
                         <h2>Den digitale manuskriptudgave</h2>
                     </section>
                     <section class="panels">
                         <div>
                         <div class="collection">
     <p>
-        H.C. Andersen Centret ved Syddansk Universitet <!--planlægger at -->udgiver de håndskrevne forarbejder 
-        til H.C. Andersens samling af Eventyr og Historier. Der er bevaret manuskripter til hovedparten af 
+        H.C. Andersen Centret ved Syddansk Universitet udgiver de håndskrevne forarbejder 
+        til H.C. Andersens samling af <i>Eventyr og Historier</i>. Der er bevaret manuskripter til omkring 140 af 
         de 156 klassiske værker, som Andersen udgav i sin levetid. Arbejdet på den digitale manuskriptudgave 
-        blev påbegyndt i november 2020. Denne første fase afsluttes ved udgangen af 2025.
+        blev påbegyndt i november 2020. Udgaven forventes afsluttet i begyndelsen af 2032.
     </p>
     <!--<p>
         Udgaven bygger videre på et pilotprojekt, der udgav forarbejderne til H.C. Andersens fortælling “Iisjomfruen” 
@@ -386,7 +385,7 @@
     <zg-colgroup>
       <zg-column index="name" type="element" header="Værk"/>
          <!--<zg-column index="english" type="element" header="English title"></zg-column>-->
-      <zg-column index="date" header="Førsteudgave fra"/>
+         <zg-column index="date" header="Dansk førsteudgave fra" sort-asc="true" type="number"  type-number-formatting="disabled"/>
          <zg-column type="image" index="image" header=" " search="disabled" sort="disabled" width="300px"/>
          <zg-column index="desc" width="30%" type="element" sort="disabled" search="disabled" header="Profil"/>
     </zg-colgroup>
@@ -425,7 +424,7 @@
 </div>
                          
                     </section>
-                     <img alt="test-banner" src="resources/images/test-banner.svg" style="border-width:0; position: fixed; z-index: 1; left: 0; top: 0; max-width: 7rem; z-index: 1;"/>
+                     <!--<img alt="test-banner" src="resources/images/test-banner.svg" style="border-width:0; position: fixed; z-index: 1; left: 0; top: 0; max-width: 7rem; z-index: 1;"/>-->
                 </main>
                 <footer class="version">
                    
@@ -514,7 +513,8 @@ window.addEventListener('load', () =&gt; {
 
 
 </script>
- 
+<script src="resources/scripts/browse.js"></script>
+
 </body>
          
 

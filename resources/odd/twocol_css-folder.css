@@ -132,7 +132,7 @@ span[slot=alternate] .added {
 
 .deleted {
     border-bottom: 1px solid red;
-    background-image: url('../../resources/images/delSpan.gif');
+    background-image: url('../images/delSpan.gif');
 }
 
 .added {

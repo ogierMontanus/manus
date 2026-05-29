@@ -330,3 +330,8 @@ pb-drawer {
 .version span {
     font-weight: bold;
 }
+
+pb-i18n {
+  max-width: 35rem;
+  display: inline-block;
+}/*added 2025-03-14*/

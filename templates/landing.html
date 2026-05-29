@@ -112,6 +112,7 @@
             
             .dossier {
                 flex: 1;
+max-width: 30rem;
             }
 
             .dossier paper-card {
@@ -209,7 +210,8 @@
                     </div>
                 </app-drawer>
                 <app-header-layout>
-                     <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall" style="z-index:0;">
+                     <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall" style="z-index:1;"><!--z-index: 0 > 1-->
+                          <!--slot="header" reveals="reveals" fixed="fixed" effects="waterfall" style="z-index:0;"-->
                     <app-toolbar class="menubar">
                         <a href="${app}/index.html" class="logo" data-template="pages:parse-params"/>
                         <pb-media-query query="(min-width: 1024px)">
@@ -233,7 +235,7 @@
                                 </paper-menu-button>
                             </pb-restricted>-->
                             <!-- Search input -->
-                            <pb-search action="${app}/search.html" data-template="pages:parse-params" value="${query}" redirect="redirect"/>
+                            <!--<pb-search action="${app}/search.html" data-template="pages:parse-params" value="${query}" redirect="redirect"/>-->
 
                             <!-- language selector -->
                             <!--<pb-lang name="lang" data-template="pages:languages"/>-->
@@ -266,7 +268,7 @@
                             <div data-template="app:visu"/>
                         </aside>          
                     </section>
-                     <img alt="test-banner" src="resources/images/test-banner.svg" style="border-width:0; position: fixed; z-index: 1; left: 0; top: 0; max-width: 4rem; z-index: 1;"/>
+                     <!--<img alt="test-banner" src="resources/images/test-banner.svg" style="border-width:0; position: fixed; z-index: 1; left: 0; top: 0; max-width: 4rem; z-index: 1;"/>-->
                 </main>
                 <footer class="version">
                     App: v<span data-template="pages:version"/> /
@@ -321,6 +323,7 @@
             });
         }
     </script>
+    <script src="resources/scripts/browse.js"></script>
 </body>
 
 </html>

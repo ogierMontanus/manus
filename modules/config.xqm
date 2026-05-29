@@ -4,39 +4,18 @@ xquery version "3.1";
  : A set of helper functions to access the application context from
  : within a module.
  :)
-module namespace config="http://www.tei-c.org/tei-simple/config";
+module namespace config = "http://www.tei-c.org/tei-simple/config";
 
-import module namespace http="http://expath.org/ns/http-client" at "java:org.exist.xquery.modules.httpclient.HTTPClientModule";
-import module namespace nav="http://www.tei-c.org/tei-simple/navigation" at "navigation.xql";
-import module namespace tpu="http://www.tei-c.org/tei-publisher/util" at "lib/util.xql";
+import module namespace http = "http://expath.org/ns/http-client";
+import module namespace nav = "http://www.tei-c.org/tei-simple/navigation" at "navigation.xql";
+import module namespace tpu = "http://www.tei-c.org/tei-publisher/util" at "lib/util.xql";
 
-declare namespace templates="http://exist-db.org/xquery/templates";
+declare namespace templates = "http://exist-db.org/xquery/html-templating";
 
-declare namespace repo="http://exist-db.org/xquery/repo";
-declare namespace expath="http://expath.org/ns/pkg";
-declare namespace jmx="http://exist-db.org/jmx";
-declare namespace tei="http://www.tei-c.org/ns/1.0";
-
-(:~~
- : The version of the pb-components webcomponents library to be used by this app.
- : Should either point to a version published on npm,
- : or be set to 'local'. In the latter case, webcomponents
- : are assumed to be self-hosted in the app (which means you
- : have to npm install it yourself using the existing package.json).
- : If a version is given, the components will be loaded from a public CDN.
- : This is recommended unless you develop your own components.
- :)
-(: declare variable $config:webcomponents :="dev"; :)
-declare variable $config:webcomponents := "2.4.8";
-
-(: declare variable $config:webcomponents-cdn := "http://localhost:8000"; :)
-(:~
- : CDN URL to use for loading webcomponents. Could be changed if you created your
- : own library extending pb-components and published it to a CDN.
- :)
-declare variable $config:webcomponents-cdn := "https://cdn.jsdelivr.net/npm/@teipublisher/pb-components";
-(: declare variable $config:webcomponents-cdn := "https://unpkg.com/@teipublisher/pb-components"; :)
-
+declare namespace repo = "http://exist-db.org/xquery/repo";
+declare namespace expath = "http://expath.org/ns/pkg";
+declare namespace jmx = "http://exist-db.org/jmx";
+declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
 (:~~
  : A list of regular expressions to check which external hosts are
@@ -44,7 +23,12 @@ declare variable $config:webcomponents-cdn := "https://cdn.jsdelivr.net/npm/@tei
  : against the Origin header sent by the browser.
  :)
 declare variable $config:origin-whitelist := (
-    "(?:https?://localhost:.*|https?://127.0.0.1:.*)"
+    "(?:https?://localhost:.*|https?://127.0.0.1:.*)",
+    "https?://jsdelivr.net",
+    "https?://unpkg.com",
+    "https?://cdpn.io",
+    "https://cdn.tei-publisher.com",
+    "https?://teipublisher.onrender.com"
 );
 
 (:~~
@@ -60,6 +44,37 @@ declare variable $config:enable-proxy-caching :=
 ;
 
 (:~
+ : The version of the pb-components webcomponents library to be used by this app.
+ : Should either point to a version published on npm,
+ : or be set to 'local' or 'dev'. 
+ : 
+ : If set to 'local', webcomponents
+ : are assumed to be self-hosted in the app (which means you
+ : have to npm install them yourself using the existing package.json).
+ : 
+ : If a version is given, the components will be loaded from a public CDN.
+ : This is recommended unless you develop your own components.
+ : 
+ : Using 'dev' will try to load the components from a local development
+ : server started from within the pb-components repo clone by using `npm start`.
+ : In this case, change $config:webcomponents-cdn to point to http://localhost:port 
+ : (default: 8000, but check where your server is running).
+ :)
+declare variable $config:webcomponents := "2.19.1";
+
+(:~
+ : CDN URL to use for loading webcomponents. Could be changed if you created your
+ : own library extending pb-components and published it to a CDN.
+ :)
+(: declare variable $config:webcomponents-cdn := "https://unpkg.com/@teipublisher/pb-components"; :)
+declare variable $config:webcomponents-cdn := "https://cdn.jsdelivr.net/npm/@teipublisher/pb-components";
+(: declare variable $config:webcomponents-cdn := "https://cdn.tei-publisher.com/"; :)
+(: declare variable $config:webcomponents-cdn := "http://localhost:8000"; :)
+
+(: Version of fore to use for annotation editor. Set to 'local' for self-hosted version. :)
+declare variable $config:fore := "1.9.0";
+
+(:~
  : Should documents be located by xml:id or filename?
  :)
 declare variable $config:address-by-id := false();
@@ -67,15 +82,18 @@ declare variable $config:address-by-id := false();
 (:~
  : Set default language for publisher app i18n
  :)
-declare variable $config:default-language := "en";
-
+declare variable $config:default-language := "da";
+(:2024-12-13: changed en>da:)
 (:
  : The default to use for determining the amount of content to be shown
  : on a single page. Possible values: 'div' for showing entire divs (see
  : the parameters below for further configuration), or 'page' to browse
  : a document by actual pages determined by TEI pb elements.
  :)
-declare variable $config:default-view :="page";
+declare variable $config:default-view :="single";
+
+(:2024-09-26: page> single
+declare variable $config:default-view :="page";:)
 
 (:
  : The default HTML template used for viewing document content. This can be
@@ -139,6 +157,7 @@ declare variable $config:facets := [
  : The function to be called to determine the next content chunk to display.
  : It takes two parameters:
  :
+ : * $config as map(*): configuration parameters
  : * $elem as element(): the current element displayed
  : * $view as xs:string: the view, either 'div', 'page' or 'body'
  :)
@@ -148,6 +167,7 @@ declare variable $config:next-page := nav:get-next#3;
  : The function to be called to determine the previous content chunk to display.
  : It takes two parameters:
  :
+ : * $config as map(*): configuration parameters
  : * $elem as element(): the current element displayed
  : * $view as xs:string: the view, either 'div', 'page' or 'body'
  :)
@@ -220,8 +240,8 @@ declare variable $config:fop-config :=
  : The command to run when generating PDF via LaTeX. Should be a sequence of
  : arguments.
  :)
-declare variable $config:tex-command := function($file) {
-    ( "/usr/local/bin/pdflatex", "-interaction=nonstopmode", $file )
+declare variable $config:tex-command := function ($file) {
+    ("pdflatex", "-interaction=nonstopmode", $file)
 };
 
 (:
@@ -285,6 +305,16 @@ declare variable $config:app-root :=
  : The context path to use for links within the application, e.g. menus.
  : The default should work when running on top of a standard eXist installation,
  : but may need to be changed if the app is behind a proxy.
+ :
+ : The context path is determined as follows:
+ :
+ : 1. if a system property `teipublisher.context-path` is set:
+ :  a. with value 'auto': determine context path by looking at the incoming request. This will
+ :     usually resolve to e.g. "/exist/apps/tei-publisher/".
+ :  b. otherwise use the value of the property
+ : 2. if an HTTP header X-Forwarded-Host is set, assume that eXist is running behind a proxy
+ :    and the app should be mapped to the root of the website (i.e. without /exist/apps/...)
+ : 3. otherwise determine path from request as in 1a.
  :)
 declare variable $config:context-path :=
     (: let $prop := util:system-property("teipublisher.context-path")
@@ -319,6 +349,35 @@ declare variable $config:data-exclude :=
     doc($config:data-root || "/taxonomy.xml")/tei:TEI
 ;
 
+(:~
+ : The root of the collection hierarchy containing registers data.
+ :)
+declare variable $config:register-root := $config:data-root || "/registers";
+declare variable $config:register-forms := $config:data-root || "/registers/templates";
+
+declare variable $config:register-map := map {
+    "person": map {
+        "id": "pb-persons",
+        "default": "person-default",
+        "prefix": "person-"
+    },
+    "place": map {
+        "id": "pb-places",
+        "default": "place-default",
+        "prefix": "place-"
+    },
+    "organization": map {
+        "id": "pb-organizations",
+        "default": "organization-default",
+        "prefix": "org-"
+    },
+    "term": map {
+        "id": "pb-keywords",
+        "default": "term-default",
+        "prefix": "category-"
+    }
+};
+
 declare variable $config:data-articles :=$config:data-root || '/articles';
 declare variable $config:index := $config:data-root || '/index.xml';
 
@@ -327,12 +386,13 @@ declare variable $config:index := $config:data-root || '/index.xml';
  :)
 declare variable $config:default-odd :="andersen.odd";
 
-(:~
+(:~~
  : Complete list of ODD files used by the app. If you add another ODD to this list,
  : make sure to run modules/generate-pm-config.xql to update the main configuration
  : module for transformations (modules/pm-config.xql).
  :)
-declare variable $config:odd-available :=("teipublisher.odd", "andersen.odd");
+declare variable $config:odd-available := 
+    xmldb:get-child-resources($config:odd-root)[ends-with(., ".odd")][. != "teipublisher_odds.odd"];
 
 (:~
  : List of ODD files which are used internally only, i.e. not for displaying information
@@ -389,7 +449,7 @@ declare variable $config:dts-collections := map {
                 }
             },
             map {
-                "id": "odd",
+            "id": "https://teipublisher.com/dts/odd",
                 "title": "ODD Collection",
                 "path": $config:odd-root,
                 "members": function() {
@@ -408,6 +468,20 @@ declare variable $config:dts-page-size := 10;
 
 declare variable $config:dts-import-collection := $config:data-default || "/playground";
 
+declare function config:dts-metadata($doc as document-node()) {
+    let $properties := tpu:parse-pi($doc, ())
+    return
+        map:merge((
+            map:entry("title", string-join(nav:get-metadata($properties, $doc/*, "title"), ', ')),
+            map {
+                "dts:dublincore": map {
+                    "dc:creator": string-join(nav:get-metadata($properties, $doc/*, "author"), "; "),
+                    "dc:license": nav:get-metadata($properties, $doc/*, "license")
+                }
+            }
+        ))
+};
+
 (:~
  : Returns a default display configuration as a map for the given collection and
  : document path. If an empty value is returned, the default configuration (as configured
@@ -424,25 +498,20 @@ declare variable $config:dts-import-collection := $config:data-default || "/play
  :)
 declare function config:collection-config($collection as xs:string?, $docUri as xs:string?) {
     (: Return empty sequence to use default config :)
-    ()
+    (: () :)
 
     (: 
      : Replace line above with the following code to switch between different view configurations per collection.
      : $collection corresponds to the relative collection path (i.e. after $config:data-root). 
      :)
-    (:
-    switch ($collection)
-        case "playground" return
-            map {
-                "odd": "dodis.odd",
-                "view": "body",
-                "depth": $config:pagination-depth,
-                "fill": $config:pagination-fill,
-                "template": "facsimile.html"
-            }
-        default return
-            ()
-    :)
+    
+    if (matches($collection, 'articles')) then  
+        map {
+            "view": "single",
+            "template": "view.html"
+        }
+    else
+        ()
 };
 
 (:~
@@ -589,7 +658,13 @@ declare function config:get-data-dir() as xs:string? {
         let $response := http:send-request($request)
         return
             if ($response[1]/@status = "200") then
-                $response[2]//jmx:DataDirectory/string()
+                let $dir := $response[2]//jmx:DataDirectory/string()
+                return
+                    if (matches($dir, "^\w:")) then
+                        (: windows path? :)
+                        "/" || translate($dir, "\", "/")
+                    else
+                        $dir
             else
                 ()
     } catch * {

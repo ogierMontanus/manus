@@ -12,20 +12,32 @@ import module namespace templates="http://exist-db.org/xquery/templates";
 import module namespace config="http://www.tei-c.org/tei-simple/config" at "config.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
-
+ 
 declare
     %templates:wrap
+
 function app:info($node as node(), $model as map(*), $collection as xs:string) {
     let $path := $config:data-articles || '/' || substring-after($collection, 'works/') || '/index.xml'
     let $index := doc($path)
     return
-    <p>
+  <p>  
         <pb-i18n key="browse.{$collection}.description">
            {data($index//tei:abstract[@xml:lang='da'])}
         </pb-i18n>
     </p>
 };
-
+(:declare function app:info($node as node(), $model as map(*), $collection as xs:string) {
+    let $path := $config:data-articles || '/' || substring-after($collection, 'works/') || '/index.xml'
+    let $index := doc($path)
+    return
+        <pb-i18n key="browse.{$collection}.description">
+            {
+                for $p in $index//tei:abstract[@xml:lang='da']/tei:p
+                return 
+<p>{ $p/node() }</p>
+            }
+        </pb-i18n>
+};:)
 declare
     %templates:wrap
 function app:visu($node as node(), $model as map(*), $collection as xs:string) {
@@ -38,27 +50,40 @@ function app:visu($node as node(), $model as map(*), $collection as xs:string) {
 
 declare
     %templates:wrap
-    %templates:default("section", "dossier")
-function app:list($node as node(), $model as map(*), $section as xs:string?, $collection as xs:string) {
-    let $section := if ($section) then $section else 'dossier'
-    let $path := $config:data-articles || '/' || substring-after($collection, 'works/') || '/index.xml'
-    let $index := doc($path)
-    let $items := $index//tei:list[tei:head[@n=$section]]/tei:item
+function app:list($node as node(), $model as map(*), $collection as xs:string) {
+    let $section := ('dossier', 'comments')
+    let $work := substring-after($collection, 'works/')
+    let $index := doc($config:data-articles || '/' || $work || '/index.xml')
+    
     return
-    <paper-card class="doclist" data-i18n="[heading]browse.{$section}" heading="{$section}">
+        <paper-card class="doclist" data-i18n="[heading]browse.dossier" heading="dossier">
+        {
+    for $i in $section 
+        let $items := $index//tei:list[tei:head[@n=$i]]/tei:item
+
+    let $heading := switch ($i)
+        case "dossier" return $index//tei:titleStmt/tei:title/string()
+        default return $index//tei:list/tei:head[@n=$i]/string()
+        
+    let $col := switch ($i)
+        case "dossier" return $collection 
+        default return 'articles/' || $work
+        
+    return
+    
         <div>
-            <h2>{$index//tei:titleStmt/tei:title/string()}</h2>   
+            <h2>{$heading}</h2>   
 
             <ul>
             {
                 for $d in $items 
-                    let $path := $collection || '/' || normalize-space($d)
-                    let $title := normalize-space(doc($config:data-root || '/' || $path)//tei:titleStmt/tei:title)
+                    let $title := normalize-space(doc($config:data-root || '/' || $col || '/' || normalize-space($d))//tei:titleStmt/tei:title)
                 return 
-                    <li><a href="{$path}">{$title}</a></li>
+                    <li><a href="{$col || '/' || normalize-space($d)}">{ if ($title) then $title else 'missing title'}</a></li>
             }
             </ul>
         </div>
+        }
     </paper-card>
 };
 

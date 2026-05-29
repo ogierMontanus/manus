@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <app-toolbar class="menubar">
-     <a href="${app}/exist/apps/manus/index.html" class="logo" data-template="pages:parse-params"/>
+     <a href="${app}/index.html" class="logo" data-template="pages:parse-params"/>
     <pb-media-query query="min-width: 1024px">
          <!--<a href="${app}/exist/apps/andersen/index.html" data-template="pages:parse-params">Start</a>-->
         <paper-menu-button>
@@ -40,6 +40,14 @@
                 </paper-item>
             </paper-listbox>
         </paper-menu-button>
+         <!--<paper-menu-button>
+              
+              <paper-listbox slot="dropdown-content">
+                   <paper-item data-template="app:list" data-section="comments">test</paper-item>
+2024-12-13: how can I target a specific element within the list of comments, i.e. intro and msDesc?
+</paper-listbox>
+         </paper-menu-button>-->
+
         <!--<pb-restricted login="login">
             <paper-menu-button>
                 <a href="#" slot="dropdown-trigger">
@@ -66,8 +74,8 @@
        <!-- language selector -->
        <pb-lang name="lang" data-template="pages:languages"/>
     </pb-media-query>
-    <pb-login id="login" group="tei">
-    </pb-login>
+    <!--<pb-login id="login" group="tei">
+    </pb-login>-->
     <paper-dialog id="downloadDialog">
         <h2>
             <pb-i18n key="dialogs.generatingFile">Generating file ...</pb-i18n>

@@ -23,5 +23,6 @@
     </output>
     <output mode="print" odd="documentation">
         <module uri="http://www.tei-c.org/tei-simple/xquery/ext-html" prefix="ext-html" at="xmldb:exist:///db/apps/manus/modules/ext-html.xql"/>
-      </output>
+    </output>
+    <module uri="http://e-editiones.org/tei-publisher/odd-global" prefix="global" at="odd-global.xqm"/>
 </modules>
