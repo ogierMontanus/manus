@@ -69,9 +69,9 @@
             {
                 "label": "Deploy manus XAR",
                 "type": "shell",
-                "command": "ok=0; for i in 1 2 3 4 5; do xst package install build/manus-0.3.1.xar --uri http://localhost:8080 --user admin --password \"\" --force && ok=1 && break || ([ $i -lt 5 ] && echo \"Retry $i/5...\" && sleep 5 || true); done; [ $ok -eq 1 ] || exit 1",
+                "command": "ok=0; for i in 1 2 3 4 5; do xst package install build/manus-0.3.xar --uri http://localhost:8080 --user admin --password \"\" --force && ok=1 && break || ([ $i -lt 5 ] && echo \"Retry $i/5...\" && sleep 5 || true); done; [ $ok -eq 1 ] || exit 1",
                 "windows": {
-                    "command": "$p = ''; $ok = $false; for ($i=1; $i -le 5; $i++) { xst package install build/manus-0.3.1.xar --uri http://localhost:8080 --user admin --password $p --force; if ($LASTEXITCODE -eq 0) { $ok = $true; break }; if ($i -lt 5) { Write-Host \"Retry $i/5...\"; Start-Sleep 5 } }; if (-not $ok) { exit 1 }"
+                    "command": "$p = ''; $ok = $false; for ($i=1; $i -le 5; $i++) { xst package install build/manus-0.3.xar --uri http://localhost:8080 --user admin --password $p --force; if ($LASTEXITCODE -eq 0) { $ok = $true; break }; if ($i -lt 5) { Write-Host \"Retry $i/5...\"; Start-Sleep 5 } }; if (-not $ok) { exit 1 }"
                 },
                 "options": { "cwd": "${workspaceFolder:manus}" },
                 "problemMatcher": [],
