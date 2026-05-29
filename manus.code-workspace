@@ -1,18 +1,10 @@
 {
     "folders": [
-        {
-            "name": "manus",
-            "path": "."
-        },
-        {
-            "name": "manus-data",
-            "path": "../manus-data"
-        }
+        { "name": "manus", "path": "." },
+        { "name": "manus-data", "path": "../manus-data" }
     ],
     "extensions": {
-        "recommendations": [
-            "eXist-db.existdb-vscode"
-        ]
+        "recommendations": [ "eXist-db.existdb-vscode" ]
     },
     "tasks": {
         "version": "2.0.0",
@@ -25,11 +17,7 @@
                     "command": "docker info 2>&1 | Out-Null; if ($LASTEXITCODE -eq 0) { Write-Host 'Docker Desktop is running.' } else { Write-Error '[ERROR] Docker Desktop is not running. Please start Docker Desktop.'; exit 1 }"
                 },
                 "problemMatcher": [],
-                "presentation": {
-                    "reveal": "silent",
-                    "panel": "shared",
-                    "showReuseMessage": false
-                }
+                "presentation": { "reveal": "silent", "panel": "shared", "showReuseMessage": false }
             },
             {
                 "label": "Start eXist-db on localhost:8080",
@@ -39,63 +27,45 @@
                     "command": "$r = docker ps --format '{{.Ports}}' | Select-String ':8080'; if ($r) { Write-Host 'eXist-db already running.' } else { Write-Host 'Starting eXist-db...'; docker start existdb 2>&1 | Out-Null; if ($LASTEXITCODE -ne 0) { docker run -dit -p 8080:8080 -p 8443:8443 --name existdb existdb/existdb:latest }; Write-Host 'eXist-db started - allow ~30 s' }"
                 },
                 "problemMatcher": [],
-                "presentation": {
-                    "reveal": "always",
-                    "panel": "shared",
-                    "showReuseMessage": false
-                }
+                "presentation": { "reveal": "always", "panel": "shared", "showReuseMessage": false }
             },
             {
                 "label": "Build manus-data XAR",
                 "type": "shell",
                 "command": "ant",
-                "options": {
-                    "cwd": "${workspaceFolder:manus-data}"
-                },
+                "options": { "cwd": "${workspaceFolder:manus-data}" },
                 "problemMatcher": [],
-                "presentation": {
-                    "reveal": "always",
-                    "panel": "shared"
-                }
+                "presentation": { "reveal": "always", "panel": "shared" }
             },
             {
                 "label": "Deploy manus-data XAR",
                 "type": "shell",
                 "command": "xst package install build/manus-data-0.1.xar --uri http://localhost:8080 --user admin --password \"\" --force",
-                "options": {
-                    "cwd": "${workspaceFolder:manus-data}"
+                "windows": {
+                    "command": "$p = ''; xst package install build/manus-data-0.1.xar --uri http://localhost:8080 --user admin --password $p --force"
                 },
+                "options": { "cwd": "${workspaceFolder:manus-data}" },
                 "problemMatcher": [],
-                "presentation": {
-                    "reveal": "always",
-                    "panel": "shared"
-                }
+                "presentation": { "reveal": "always", "panel": "shared" }
             },
             {
                 "label": "Build manus XAR",
                 "type": "shell",
                 "command": "ant xar",
-                "options": {
-                    "cwd": "${workspaceFolder:manus}"
-                },
+                "options": { "cwd": "${workspaceFolder:manus}" },
                 "problemMatcher": [],
-                "presentation": {
-                    "reveal": "always",
-                    "panel": "shared"
-                }
+                "presentation": { "reveal": "always", "panel": "shared" }
             },
             {
                 "label": "Deploy manus XAR",
                 "type": "shell",
                 "command": "xst package install build/manus-0.3.1.xar --uri http://localhost:8080 --user admin --password \"\" --force",
-                "options": {
-                    "cwd": "${workspaceFolder:manus}"
+                "windows": {
+                    "command": "$p = ''; xst package install build/manus-0.3.1.xar --uri http://localhost:8080 --user admin --password $p --force"
                 },
+                "options": { "cwd": "${workspaceFolder:manus}" },
                 "problemMatcher": [],
-                "presentation": {
-                    "reveal": "always",
-                    "panel": "shared"
-                }
+                "presentation": { "reveal": "always", "panel": "shared" }
             },
             {
                 "label": "Open manus in Browser",
@@ -105,10 +75,7 @@
                     "command": "Start-Process 'http://localhost:8080/exist/apps/manus'"
                 },
                 "problemMatcher": [],
-                "presentation": {
-                    "reveal": "silent",
-                    "panel": "shared"
-                }
+                "presentation": { "reveal": "silent", "panel": "shared" }
             },
             {
                 "label": "Full Deploy: manus-data + manus",
@@ -122,9 +89,7 @@
                     "Open manus in Browser"
                 ],
                 "dependsOrder": "sequence",
-                "runOptions": {
-                    "runOn": "folderOpen"
-                },
+                "runOptions": { "runOn": "folderOpen" },
                 "problemMatcher": []
             }
         ]
