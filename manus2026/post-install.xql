@@ -71,8 +71,8 @@ declare function local:generate-code($collection as xs:string) {
     for $file in pmu:process-odd (
         (:    $odd as document-node():)
         odd:get-compiled($collection || "/resources/odd" , $source),
-        (:    $output-root as xs:string    :)
-        $collection || "/transform",
+        (:    $output-root as xs:anyURI    :)
+        xs:anyURI($collection || "/transform"),
         (:    $mode as xs:string    :)
         $module,
         (:    $relPath as xs:string    :)
