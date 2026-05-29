@@ -1,0 +1,60 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Check Docker Desktop",
+            "type": "shell",
+            "command": "docker info > /dev/null 2>&1 && echo 'Docker Desktop is running.' || (echo '' && echo '[ERROR] Docker Desktop is not running. Please start Docker Desktop, then re-run this task.' && echo '' && exit 1)",
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared",
+                "focus": false,
+                "showReuseMessage": false
+            }
+        },
+        {
+            "label": "Start eXist-db on localhost:8080",
+            "type": "shell",
+            "command": "sh",
+            "args": [
+                "-c",
+                "docker ps --format '{{.Ports}}' | grep -q ':8080' && echo 'eXist-db already running on localhost:8080.' || (echo 'Starting eXist-db...' && (docker start existdb 2>/dev/null || docker run -dit -p 8080:8080 -p 8443:8443 --name existdb existdb/existdb:latest) && echo 'eXist-db started — allow ~30 s for initialisation at http://localhost:8080/exist')"
+            ],
+            "dependsOn": "Check Docker Desktop",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "focus": true
+            }
+        },
+        {
+            "label": "Ant: Build XAR",
+            "type": "shell",
+            "command": "ant",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Open manus in Browser",
+            "type": "shell",
+            "command": "open 'http://localhost:8080/exist/apps/manus' 2>/dev/null || xdg-open 'http://localhost:8080/exist/apps/manus' 2>/dev/null || true",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared"
+            }
+        }
+    ]
+}
