@@ -61,7 +61,7 @@
             {
                 "label": "Deploy manus-data XAR",
                 "type": "shell",
-                "command": "xst package install build/manus-data-0.1.xar --uri http://localhost:8080 --user admin --password --force",
+                "command": "xst package install build/manus-data-0.1.xar --uri http://localhost:8080 --user admin --password \"\" --force",
                 "options": {
                     "cwd": "${workspaceFolder:manus-data}"
                 },
@@ -87,7 +87,7 @@
             {
                 "label": "Deploy manus XAR",
                 "type": "shell",
-                "command": "xst package install build/manus-0.3.1.xar --uri http://localhost:8080 --user admin --password --force",
+                "command": "xst package install build/manus-0.3.1.xar --uri http://localhost:8080 --user admin --password \"\" --force",
                 "options": {
                     "cwd": "${workspaceFolder:manus}"
                 },
