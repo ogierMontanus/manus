@@ -1,0 +1,34 @@
+/*customizations specific for the SV-app*/
+
+p[class^="tei-p"]{
+margin-top:auto;
+margin-bottom:auto;
+}
+
+
+p[class^="tei-lg"]{
+     
+margin-bottom:1rem;
+}
+
+
+div[class="tei-epigraph"] *{
+     max-width: 40vw;
+}
+
+*[class~="right"]{
+text-align: right;
+}
+
+div[class^="tei-floatingText"]{
+     margin-top: 2rem;
+ margin-bottom: 2rem;
+ }
+
+.firstIndentRight {margin-right:1rem;
+text-align:right;}
+
+/* 
+ * 
+ * 
+ */
