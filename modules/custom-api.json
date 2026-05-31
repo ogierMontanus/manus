@@ -43,6 +43,35 @@
                     }
                 }
             }
+        },
+        "/document/{id}/collation": {
+            "get": {
+                "summary": "Render a .col.xml parallel-segmentation document as a juxta-collation HTML fragment",
+                "operationId": "collate:render",
+                "tags": [ "collation" ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Work slug (matches data/works/{id}/{id}.col.xml)",
+                        "schema": { "type": "string" }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "HTML fragment containing the per-witness juxta table",
+                        "content": {
+                            "text/html": {
+                                "schema": { "type": "string" }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No collation document found for the given id"
+                    }
+                }
+            }
         }
     },
     "security": [

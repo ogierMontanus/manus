@@ -12,6 +12,7 @@ module namespace api="http://teipublisher.com/api/custom";
 import module namespace rutil="http://e-editiones.org/roaster/util";
 import module namespace errors = "http://e-editiones.org/roaster/errors";
 import module namespace app="teipublisher.com/app" at "app.xql";
+import module namespace collate="http://teipublisher.com/api/collate" at "collate.xql";
 
 (:~
  : Keep this. This function does the actual lookup in the imported modules.
