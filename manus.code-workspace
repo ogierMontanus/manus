@@ -24,7 +24,7 @@
                 "type": "shell",
                 "command": "docker ps --format '{{.Ports}}' | grep -q ':8080' || (echo 'Starting eXist-db...' && (docker start existdb 2>/dev/null || docker run -dit -p 8080:8080 -p 8443:8443 --name existdb existdb/existdb:latest)); echo 'Waiting for eXist-db...'; until curl -sf http://localhost:8080/exist/rest/ > /dev/null 2>&1; do sleep 2; done; echo 'eXist-db is ready.'",
                 "windows": {
-                    "command": "$r = docker ps --format '{{.Ports}}' | Select-String ':8080'; if (-not $r) { Write-Host 'Starting eXist-db...'; docker start existdb 2>&1 | Out-Null; if ($LASTEXITCODE -ne 0) { docker run -dit -p 8080:8080 -p 8443:8443 --name existdb existdb/existdb:latest } }; Write-Host 'Waiting for eXist-db...'; $ok = $false; for ($i=0; $i -lt 60; $i++) { try { Invoke-WebRequest -Uri 'http://localhost:8080/exist/rest/' -UseBasicParsing -TimeoutSec 2 -EA Stop | Out-Null; $ok = $true; break } catch { Start-Sleep 2 } }; if ($ok) { Write-Host 'eXist-db is ready.' } else { Write-Error 'eXist-db did not respond after 120 s'; exit 1 }"
+                    "command": "$r = docker ps --format '{{.Ports}}' | Select-String ':8080'; if (-not $r) { Write-Host 'Starting eXist-db...'; docker start existdb 2>&1 | Out-Null; if ($LASTEXITCODE -ne 0) { docker run -dit -p 8080:8080 -p 8443:8443 --name existdb -e EXIST_PASSWORD=123 existdb/existdb:latest } }; Write-Host 'Waiting for eXist-db...'; $ok = $false; for ($i=0; $i -lt 60; $i++) { try { Invoke-WebRequest -Uri 'http://localhost:8080/exist/rest/' -UseBasicParsing -TimeoutSec 2 -EA Stop | Out-Null; $ok = $true; break } catch { Start-Sleep 2 } }; if ($ok) { Write-Host 'eXist-db is ready.' } else { Write-Error 'eXist-db did not respond after 120 s'; exit 1 }"
                 },
                 "problemMatcher": [],
                 "presentation": { "reveal": "always", "panel": "shared", "showReuseMessage": false }
@@ -42,7 +42,7 @@
                 "type": "shell",
                 "command": "VERSION=$(grep -o 'version=\"[^\"]*\"' expath-pkg.xml | head -1 | cut -d'\"' -f2); ABBREV=$(grep -o 'abbrev=\"[^\"]*\"' expath-pkg.xml | head -1 | cut -d'\"' -f2); XAR=\"build/${ABBREV}-${VERSION}.xar\"; echo \"Deploying ${XAR}...\"; ok=0; for i in 1 2 3 4 5; do xst package install \"${XAR}\" --uri http://localhost:8080 --user admin --password \"\" --force && ok=1 && break || ([ $i -lt 5 ] && echo \"Retry $i/5...\" && sleep 5 || true); done; [ $ok -eq 1 ] || exit 1",
                 "windows": {
-                    "command": "$xml = [xml](Get-Content expath-pkg.xml); $xar = 'build\\' + $xml.package.abbrev + '-' + $xml.package.version + '.xar'; Write-Host ('Deploying ' + $xar + '...'); $ok = $false; for ($i=1; $i -le 5; $i++) { xst package install $xar --uri http://localhost:8080 --user admin --password '' --force; if ($LASTEXITCODE -eq 0) { $ok = $true; break }; if ($i -lt 5) { Write-Host ('Retry ' + $i + '/5...'); Start-Sleep 5 } }; if (-not $ok) { exit 1 }"
+                    "command": "$xml = [xml](Get-Content expath-pkg.xml); $xar = 'build\\' + $xml.package.abbrev + '-' + $xml.package.version + '.xar'; Write-Host ('Deploying ' + $xar + '...'); $ok = $false; for ($i=1; $i -le 5; $i++) { xst package install $xar --uri http://localhost:8080 --user admin --password 123 --force; if ($LASTEXITCODE -eq 0) { $ok = $true; break }; if ($i -lt 5) { Write-Host ('Retry ' + $i + '/5...'); Start-Sleep 5 } }; if (-not $ok) { exit 1 }"
                 },
                 "options": { "cwd": "${workspaceFolder:manus-data}" },
                 "problemMatcher": [],
@@ -53,7 +53,7 @@
                 "type": "shell",
                 "command": "for dep in html-templating tei-publisher-lib roaster; do echo \"Installing $dep...\"; xst package install \"$dep\" --uri http://localhost:8080 --user admin --password \"\" || echo \"$dep may already be installed\"; done",
                 "windows": {
-                    "command": "foreach ($dep in @('html-templating', 'tei-publisher-lib', 'roaster')) { Write-Host ('Installing ' + $dep + '...'); xst package install $dep --uri http://localhost:8080 --user admin --password ''; if ($LASTEXITCODE -ne 0) { Write-Host ($dep + ' may already be installed or unavailable') } }"
+                    "command": "foreach ($dep in @('html-templating', 'tei-publisher-lib', 'roaster')) { Write-Host ('Installing ' + $dep + '...'); xst package install $dep --uri http://localhost:8080 --user admin --password 123; if ($LASTEXITCODE -ne 0) { Write-Host ($dep + ' may already be installed or unavailable') } }"
                 },
                 "problemMatcher": [],
                 "presentation": { "reveal": "always", "panel": "shared" }
@@ -71,7 +71,7 @@
                 "type": "shell",
                 "command": "VERSION=$(grep -o 'version=\"[^\"]*\"' expath-pkg.xml | head -1 | cut -d'\"' -f2); ABBREV=$(grep -o 'abbrev=\"[^\"]*\"' expath-pkg.xml | head -1 | cut -d'\"' -f2); XAR=\"build/${ABBREV}-${VERSION}.xar\"; echo \"Deploying ${XAR}...\"; ok=0; for i in 1 2 3 4 5; do xst package install \"${XAR}\" --uri http://localhost:8080 --user admin --password \"\" --force && ok=1 && break || ([ $i -lt 5 ] && echo \"Retry $i/5...\" && sleep 5 || true); done; [ $ok -eq 1 ] || exit 1",
                 "windows": {
-                    "command": "$xml = [xml](Get-Content expath-pkg.xml); $xar = 'build\\' + $xml.package.abbrev + '-' + $xml.package.version + '.xar'; Write-Host ('Deploying ' + $xar + '...'); $ok = $false; for ($i=1; $i -le 5; $i++) { xst package install $xar --uri http://localhost:8080 --user admin --password '' --force; if ($LASTEXITCODE -eq 0) { $ok = $true; break }; if ($i -lt 5) { Write-Host ('Retry ' + $i + '/5...'); Start-Sleep 5 } }; if (-not $ok) { exit 1 }"
+                    "command": "$xml = [xml](Get-Content expath-pkg.xml); $xar = 'build\\' + $xml.package.abbrev + '-' + $xml.package.version + '.xar'; Write-Host ('Deploying ' + $xar + '...'); $ok = $false; for ($i=1; $i -le 5; $i++) { xst package install $xar --uri http://localhost:8080 --user admin --password 123 --force; if ($LASTEXITCODE -eq 0) { $ok = $true; break }; if ($i -lt 5) { Write-Host ('Retry ' + $i + '/5...'); Start-Sleep 5 } }; if (-not $ok) { exit 1 }"
                 },
                 "options": { "cwd": "${workspaceFolder:manus}" },
                 "problemMatcher": [],
