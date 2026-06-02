@@ -9,8 +9,12 @@ ARG EDITOR_VERSION=1.0.1
 ARG HTTP_PORT=8080
 ARG HTTPS_PORT=8443
 
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends bzip2
+# Install OS packages needed for the build. Retry apt-get update so a flaky
+# Debian mirror (intermittent "exit code 100") does not fail the whole build.
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && (apt-get update || apt-get update || apt-get update --fix-missing) \
+    && apt-get -y install --no-install-recommends bzip2 python3-pip \
+    && pip3 install --upgrade pip
 
 # Install Ant for building TEI Publisher libraries
 RUN su vscode -c "source /usr/local/sdkman/bin/sdkman-init.sh && sdk install ant"
@@ -21,12 +25,6 @@ ENV PATH=${PATH}:${ANT_HOME}/bin
 ARG INSTALL_NODE="true"
 ARG NODE_VERSION="lts/*"
 RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "source /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
-
-# Install python pip and upgrade it to latest version
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends bzip2 \
-    && apt-get -y install --no-install-recommends python3-pip \
-    && pip3 install --upgrade pip
 
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
@@ -69,7 +67,7 @@ ENV JAVA_OPTS \
     -XX:+UseG1GC \
     -XX:+UseStringDeduplication \
     -XX:+UseContainerSupport \
-    -XX:MaxRAMPercentage=${JVM_MAX_RAM_PERCENTAGE:-75.0} \ 
+    -XX:MaxRAMPercentage=${JVM_MAX_RAM_PERCENTAGE:-75.0} \
     -XX:+ExitOnOutOfMemoryError
 
 ENTRYPOINT [ "/usr/local/exist/bin/startup.sh" ]
