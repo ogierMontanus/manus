@@ -9,6 +9,9 @@
     },
     "runArgs": ["--name=andersen"],
     "forwardPorts": [ 8080, 8001 ],
+    "mounts": [
+        "source=${localWorkspaceFolder}/../manus-data,target=/workspaces/manus-data,type=bind,consistency=cached"
+    ],
     "customizations": {
         "vscode": {
             "extensions": [ "exist-db.existdb-vscode", "42crunch.vscode-openapi", "redhat.vscode-xml" ]
