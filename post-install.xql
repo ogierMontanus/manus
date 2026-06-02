@@ -98,7 +98,4 @@ sm:chmod(xs:anyURI($target || "/modules/lib/api.xql"), "rwxr-Sr-x"),
 
 local:mkcol($target, "transform"),
 local:generate-code($target),
-local:create-data-collection(),
-let $pmuConfig := pmc:generate-pm-config(($config:odd-available, $config:odd-internal), $config:default-odd, $config:odd-root)
-return
-    xmldb:store($config:app-root || "/modules", "pm-config.xql", $pmuConfig, "application/xquery")
+local:create-data-collection()
