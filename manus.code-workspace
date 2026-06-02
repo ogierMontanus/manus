@@ -88,6 +88,16 @@
                 "presentation": { "reveal": "always", "panel": "shared" }
             },
             {
+                "label": "Open eXist-db Dashboard",
+                "type": "shell",
+                "command": "open 'http://localhost:8080/exist/apps/dashboard/' 2>/dev/null || xdg-open 'http://localhost:8080/exist/apps/dashboard/' 2>/dev/null",
+                "windows": {
+                    "command": "Start-Process 'http://localhost:8080/exist/apps/dashboard/'"
+                },
+                "problemMatcher": [],
+                "presentation": { "reveal": "silent", "panel": "shared", "showReuseMessage": false }
+            },
+            {
                 "label": "Open manus in Browser",
                 "type": "shell",
                 "command": "if curl -sf http://localhost:8080/exist/apps/manus > /dev/null 2>&1; then open 'http://localhost:8080/exist/apps/manus' 2>/dev/null || xdg-open 'http://localhost:8080/exist/apps/manus' 2>/dev/null; else echo '[WARNING] manus did not respond after deploy — check eXist-db logs.'; fi",
@@ -103,6 +113,7 @@
                     "Check Docker Desktop",
                     "Start eXist-db on localhost:8080",
                     "Configure eXist-db (local dev)",
+                    "Open eXist-db Dashboard",
                     "Build manus-data XAR",
                     "Deploy manus-data XAR",
                     "Install manus dependencies",
