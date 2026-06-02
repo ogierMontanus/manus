@@ -59,6 +59,16 @@
                 "presentation": { "reveal": "always", "panel": "shared" }
             },
             {
+                "label": "Install tei-publisher-lib 4.0.4",
+                "type": "shell",
+                "command": "if [ -f ../tei-publisher-lib-4.0.4/build/tei-publisher-lib-4.0.4.xar ]; then XAR='../tei-publisher-lib-4.0.4/build/tei-publisher-lib-4.0.4.xar'; echo \"Using local XAR: $XAR\"; else echo \"Local XAR not found, downloading from GitHub...\"; mkdir -p /tmp && curl -sL -o /tmp/tei-publisher-lib.xar 'https://github.com/eeditiones/tei-publisher-lib/releases/download/v4.0.4/tei-publisher-lib.xar' && XAR='/tmp/tei-publisher-lib.xar'; fi; echo \"Installing tei-publisher-lib 4.0.4...\"; xst package install \"$XAR\" --uri http://localhost:8080 --user admin --password \"\" --force || exit 1",
+                "windows": {
+                    "command": "if (Test-Path '..\\tei-publisher-lib-4.0.4\\build\\tei-publisher-lib-4.0.4.xar') { $xar = '..\\tei-publisher-lib-4.0.4\\build\\tei-publisher-lib-4.0.4.xar'; Write-Host ('Using local XAR: ' + $xar) } else { Write-Host 'Local XAR not found, downloading from GitHub...'; New-Item -ItemType Directory -Path $env:TEMP -Force | Out-Null; $xar = Join-Path $env:TEMP 'tei-publisher-lib.xar'; Invoke-WebRequest -Uri 'https://github.com/eeditiones/tei-publisher-lib/releases/download/v4.0.4/tei-publisher-lib.xar' -OutFile $xar -UseBasicParsing }; Write-Host 'Installing tei-publisher-lib 4.0.4...'; $p = ''; xst package install $xar --uri http://localhost:8080 --user admin --password $p --force; if ($LASTEXITCODE -ne 0) { exit 1 }"
+                },
+                "problemMatcher": [],
+                "presentation": { "reveal": "always", "panel": "shared" }
+            },
+            {
                 "label": "Install manus dependencies",
                 "type": "shell",
                 "command": "for dep in html-templating tei-publisher-lib roaster; do echo \"Installing $dep...\"; xst package install \"$dep\" --uri http://localhost:8080 --user admin --password \"\" || echo \"$dep may already be installed\"; done",
@@ -116,6 +126,7 @@
                     "Open eXist-db Dashboard",
                     "Build manus-data XAR",
                     "Deploy manus-data XAR",
+                    "Install tei-publisher-lib 4.0.4",
                     "Install manus dependencies",
                     "Build manus XAR",
                     "Deploy manus XAR",
