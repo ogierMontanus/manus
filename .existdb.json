@@ -3,7 +3,7 @@
         "localhost": {
             "server": "http://localhost:8080/exist",
             "user": "admin",
-            "password": "123",
+            "password": "",
             "root": "/db/apps/manus"
         }
     },
