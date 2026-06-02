@@ -30,6 +30,16 @@
                 "presentation": { "reveal": "always", "panel": "shared", "showReuseMessage": false }
             },
             {
+                "label": "Configure eXist-db (local dev)",
+                "type": "shell",
+                "command": "curl -sf -u admin: -X POST 'http://localhost:8080/exist/rest/db' --data-urlencode 'query=sm:add-group-member(\"dba\",\"guest\")' -d '_wrap=no' && echo 'guest added to dba group' || echo 'Note: guest may already be in dba group'",
+                "windows": {
+                    "command": "$creds = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes('admin:123')); try { Invoke-WebRequest -Uri 'http://localhost:8080/exist/rest/db' -Method POST -Headers @{Authorization='Basic ' + $creds} -Body '_query=sm:add-group-member(''dba'',''guest'')&_wrap=no' -ContentType 'application/x-www-form-urlencoded' -UseBasicParsing | Out-Null; Write-Host 'guest added to dba group (local dev only)' } catch { Write-Host 'Note: guest may already be in dba group' }"
+                },
+                "problemMatcher": [],
+                "presentation": { "reveal": "always", "panel": "shared", "showReuseMessage": false }
+            },
+            {
                 "label": "Build manus-data XAR",
                 "type": "shell",
                 "command": "ant",
@@ -92,6 +102,7 @@
                 "dependsOn": [
                     "Check Docker Desktop",
                     "Start eXist-db on localhost:8080",
+                    "Configure eXist-db (local dev)",
                     "Build manus-data XAR",
                     "Deploy manus-data XAR",
                     "Install manus dependencies",
